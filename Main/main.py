@@ -52,6 +52,7 @@ class MainProgram:
 
 
     def tShape(self):
+        global TopEntry, RightEntry, LeftEntry, BottomEntry
 
         self.ClearMainSpace()
         
@@ -89,16 +90,29 @@ class MainProgram:
         ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
         ButtonsFrame.pack()
 
-        SaveImage = self.CreateImage('Images/Buttons/save.png')
-        SaveButton = tk.Button(ButtonsFrame, image=SaveImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0)
-        SaveButton.image = SaveImage
-        SaveButton.grid(row=0, column=0, padx=5)
+        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
+        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=self.Calculate)
+        CalculateButton.image = CalculateImage
+        CalculateButton.grid(row=0, column=0, padx=5)
 
         DiscartImage = self.CreateImage('Images/Buttons/discart.png')
-        DiscartButton = tk.Button(ButtonsFrame, image=DiscartImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0)
+        DiscartButton = tk.Button(ButtonsFrame, image=DiscartImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=self.Discart)
         DiscartButton.image = DiscartImage
         DiscartButton.grid(row=0, column=1, padx=5)
 
+
+    def Calculate(self):
+        self.ClearMainSpace()
+
+  
+    def Discart(self):
+
+        TopEntry.delete(0, tk.END)
+        RightEntry.delete(0, tk.END)
+        LeftEntry.delete(0, tk.END)
+        BottomEntry.delete(0, tk.END)
+
+        
 
 def main():
     root = tk.Tk()
