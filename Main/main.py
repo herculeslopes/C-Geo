@@ -79,7 +79,76 @@ class MainProgram:
 
 
     def tShape(self):
-        global TopEntry, RightEntry, LeftEntry, BottomEntry
+
+        def Calculate(event=None):
+            x = float(TopEntry.get())
+            b = float(LeftEntry.get())
+            y = float(RightEntry.get())
+            z = float(BottomEntry.get())
+
+            print(f'x: {x}\ny: {y}\nb: {b}\nz: {z}')
+
+            self.ClearMainSpace()
+
+            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            LeftFrame.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+
+            Ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
+
+            YcgLabel = tk.Label(LeftFrame, text='Ycg', font=self.EntryFont, bg='#dbdbdb', fg='#303030')
+            YcgLabel.grid(row=0, column=0, padx=25, pady=10, sticky='w')
+
+            YcgLabelContent = tk.Label(LeftFrame, text=str(f'{Ycg:.2f}'), font=self.EntryFont, bg='#dbdbdb', fg='#303030')
+            YcgLabelContent.grid(row=1, column=0, padx=25, pady=10, sticky='w')
+
+            width = 473
+            height = 596
+
+            tShapeCanvas = tk.Canvas(RightFrame, width=width, height=height, bg='#dbdbdb', bd=0, highlightthickness=0)
+            tShapeCanvas.pack()
+
+            '''width = tShapeCanvas.winfo_width()
+            height = tShapeCanvas.winfo_height() '''
+
+            print(width)
+            print(height)   
+
+            self.ImageList = []
+
+            justTImage = self.CreateImage('Images/Shapes/justT.png')
+            tShapeCanvas.create_image(width/2, height/2, anchor=tk.CENTER, image=justTImage)
+            self.ImageList.append(justTImage)
+
+            # DotHeight = ((height-100) / y - 1) * 100
+            DotHeight = Ycg * height  / (y + b)
+            print(DotHeight)
+
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
+
+            if Ycg < y:
+                tShapeCanvas.create_image(width/2, height - 400, anchor=tk.CENTER, image=DotImage)
+
+            elif Ycg > y:
+                tShapeCanvas.create_image(width/2, height - 550, anchor=tk.CENTER, image=DotImage)
+
+            elif Ycg == y:
+                tShapeCanvas.create_image(width/2, height - 496, anchor=tk.CENTER, image=DotImage)
+
+
+
+            tShapeCanvas.image = DotImage
+            self.ImageList.append(DotImage)
+
+
+        def Discart():
+            TopEntry.delete(0, tk.END)
+            RightEntry.delete(0, tk.END)
+            LeftEntry.delete(0, tk.END)
+            BottomEntry.delete(0, tk.END)
+
 
         self.ClearMainSpace()
         
@@ -102,9 +171,9 @@ class MainProgram:
         LeftEntry['validatecommand'] = (Register, '%P', '%d')
         LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)
 
-        tShapeImage = self.CreateImage('Images/Shapes/tShape.png')
-        tShapeLabel = tk.Label(DataFrame, image=tShapeImage, bd=0)
-        tShapeLabel.image = tShapeImage
+        self.tShapeImage = self.CreateImage('Images/Shapes/tShape.png')
+        tShapeLabel = tk.Label(DataFrame, image=self.tShapeImage, bd=0)
+        tShapeLabel.image = self.tShapeImage
         tShapeLabel.pack()
 
         BottomEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
@@ -118,14 +187,16 @@ class MainProgram:
         ButtonsFrame.pack()
 
         CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
-        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=self.Calculate)
+        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
         CalculateButton.image = CalculateImage
         CalculateButton.grid(row=0, column=0, padx=5)
 
         DiscartImage = self.CreateImage('Images/Buttons/discart.png')
-        DiscartButton = tk.Button(ButtonsFrame, image=DiscartImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=self.Discart)
+        DiscartButton = tk.Button(ButtonsFrame, image=DiscartImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discart)
         DiscartButton.image = DiscartImage
         DiscartButton.grid(row=0, column=1, padx=5)
+
+        self.root.bind('<Return>', Calculate)
 
 
     def LShape(self):
@@ -142,43 +213,6 @@ class MainProgram:
 
     def iShape(self):
         pass
-
-
-    def Discart(self):
-        TopEntry.delete(0, tk.END)
-        RightEntry.delete(0, tk.END)
-        LeftEntry.delete(0, tk.END)
-        BottomEntry.delete(0, tk.END)
-
-
-    def Calculate(self):
-        x = float(TopEntry.get())
-        b = float(LeftEntry.get())
-        y = float(RightEntry.get())
-        z = float(BottomEntry.get())
-
-        print(f'x: {x}\ny: {y}\nb: {b}\nz: {z}')
-
-        self.ClearMainSpace()
-
-        LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-        LeftFrame.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-
-        RightFrame = tk.Frame(self.MainSpace, bg='green', bd=0)
-        RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
-
-        Ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
-
-        YcgLabel = tk.Label(LeftFrame, text='Ycg', font=self.EntryFont, bg='#dbdbdb', fg='#303030')
-        YcgLabel.grid(row=0, column=0, padx=25, pady=10, sticky='w')
-
-        YcgLabelContent = tk.Label(LeftFrame, text=str(f'{Ycg:.2f}'), font=self.EntryFont, bg='#dbdbdb', fg='#303030')
-        YcgLabelContent.grid(row=1, column=0, padx=25, pady=10, sticky='w')
-        
-    
-    def Teste(self):
-
-        print(float(LeftEntry.get()))
 
 
 def main():
