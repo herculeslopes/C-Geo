@@ -16,6 +16,7 @@ class MainProgram:
 
         self.SideFramePacking()     
 
+
     def SideFramePacking(self):
         tButtonImage = self.CreateImage(r'Images\Buttons\tButton.png')
         self.tButton = tk.Button(self.SideFrame, image=tButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.tShape)
@@ -47,11 +48,13 @@ class MainProgram:
         for widget in self.MainSpace.winfo_children():
             widget.destroy()
 
+
     def CreateImage(self, path):
         ImageFile = Image.open(path)
         TkImage = ImageTk.PhotoImage(ImageFile)
         
         return TkImage
+
 
     def validate(self, value, action):
         '''if value.isdigit() or value == '':
@@ -124,17 +127,22 @@ class MainProgram:
         DiscartButton.image = DiscartImage
         DiscartButton.grid(row=0, column=1, padx=5)
 
+
     def LShape(self):
         pass
+
 
     def uShape(self):
         pass
 
+
     def cShape(self):
         pass
 
+
     def iShape(self):
         pass
+
 
     def Discart(self):
         TopEntry.delete(0, tk.END)
@@ -167,16 +175,17 @@ class MainProgram:
         YcgLabelContent = tk.Label(LeftFrame, text=str(f'{Ycg:.2f}'), font=self.EntryFont, bg='#dbdbdb', fg='#303030')
         YcgLabelContent.grid(row=1, column=0, padx=25, pady=10, sticky='w')
         
-
     
     def Teste(self):
 
         print(float(LeftEntry.get()))
 
+
 def main():
     root = tk.Tk()
     MainProgram(root)
     root.mainloop()
+
 
 if __name__ == '__main__':
     main()
