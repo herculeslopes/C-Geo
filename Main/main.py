@@ -90,6 +90,7 @@ class MainProgram:
 
             self.ClearMainSpace()
 
+
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
             LeftFrame.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
@@ -98,28 +99,59 @@ class MainProgram:
 
             Ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
 
+            Iz = (((x * (b ** 3)) / (12) ) + (b * x * ((y + (b / 2) - Ycg)) ** 2)) + (((z * (y ** 3)) / (12)) + (y * z * ((Ycg - (y / 2)) ** 2)))
+
+            '''Yz = 
+            (((x * (b ** 3)) / (12)) + (x * b * ((y + (b / 2)) - Ycg))) 
+            + 
+            (((z * (y ** 3)) / (12)) + ((y * z) * (Ycg - (y / 2))))'''
+
+            print(f'Ycg = {Ycg}')
+            print(f'Yz = {Iz}')
+
             YcgLabel = tk.Label(LeftFrame, text='Ycg', font=self.EntryFont, bg='#dbdbdb', fg='#303030')
             YcgLabel.grid(row=0, column=0, padx=25, pady=10, sticky='w')
 
             YcgLabelContent = tk.Label(LeftFrame, text=str(f'{Ycg:.2f}'), font=self.EntryFont, bg='#dbdbdb', fg='#303030')
             YcgLabelContent.grid(row=1, column=0, padx=25, pady=10, sticky='w')
 
-            width = 473
-            height = 596
+            IzLabel = tk.Label(LeftFrame, text='Iz', font=self.EntryFont, bg='#dbdbdb', fg='#303030')
+            IzLabel.grid(row=2, column=0, padx=25, pady=10, sticky='w')
 
-            tShapeCanvas = tk.Canvas(RightFrame, width=width, height=height, bg='#dbdbdb', bd=0, highlightthickness=0)
-            tShapeCanvas.pack()
+            IzLabelContent = tk.Label(LeftFrame, text=str(f'{Iz:.2f}'), font=self.EntryFont, bg='#dbdbdb', fg='#303030')
+            IzLabelContent.grid(row=3, column=0, padx=25, pady=10, sticky='w')
+
+            width = 601
+            height = 601
+
+            ShapeCanvas = tk.Canvas(RightFrame, width=width, height=height, bg='lightgreen', bd=0, highlightthickness=0)
+            ShapeCanvas.pack(expand=True)
+
+            '''
+
+            ShapeCanvas.create_rectangle(0, 0, width, 100, fill='#707070', width=0)
+            ShapeCanvas.create_rectangle(176, 5, 294, height, fill='#707070', width=0)
+
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
+
+            # xPosition
+
+
+            ShapeCanvas.create_image(25, 25, image=DotImage)
+
+
+
+
+            ShapeCanvas.image = DotImage'''
+
 
             '''width = tShapeCanvas.winfo_width()
             height = tShapeCanvas.winfo_height() '''
 
-            print(width)
-            print(height)   
-
             self.ImageList = []
 
             justTImage = self.CreateImage('Images/Shapes/justT.png')
-            tShapeCanvas.create_image(width/2, height/2, anchor=tk.CENTER, image=justTImage)
+            ShapeCanvas.create_image(width/2, height/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
             # DotHeight = ((height-100) / y - 1) * 100
@@ -129,17 +161,15 @@ class MainProgram:
             DotImage = self.CreateImage('Images/Shapes/dot.png')
 
             if Ycg < y:
-                tShapeCanvas.create_image(width/2, height - 400, anchor=tk.CENTER, image=DotImage)
+                ShapeCanvas.create_image(width/2, height - 400, anchor=tk.CENTER, image=DotImage)
 
             elif Ycg > y:
-                tShapeCanvas.create_image(width/2, height - 550, anchor=tk.CENTER, image=DotImage)
+                ShapeCanvas.create_image(width/2, height - 550, anchor=tk.CENTER, image=DotImage)
 
             elif Ycg == y:
-                tShapeCanvas.create_image(width/2, height - 496, anchor=tk.CENTER, image=DotImage)
+                ShapeCanvas.create_image(width/2, height - 496, anchor=tk.CENTER, image=DotImage)
 
-
-
-            tShapeCanvas.image = DotImage
+            ShapeCanvas.image = DotImage
             self.ImageList.append(DotImage)
 
 
