@@ -14,6 +14,9 @@ class MainProgram:
         self.MainSpace = tk.Frame(master, bg='#dbdbdb', bd=0)
         self.MainSpace.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
+        self.EntryFont = Font(family='Arial', size=20)
+        self.ResultFont = Font(family='Arial', size=45)
+
         self.SideFramePacking()     
 
 
@@ -44,7 +47,7 @@ class MainProgram:
         self.iButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
 
         RomanIButtonImage = self.CreateImage(r'Images\Buttons\RomanIButton.png')
-        self.RomanIButton = tk.Button(self.SideFrame, image=iButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.RomanIShape)
+        self.RomanIButton = tk.Button(self.SideFrame, image=RomanIButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.RomanIShape)
         self.RomanIButton.image = RomanIButtonImage
         self.RomanIButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
 
@@ -197,9 +200,6 @@ class MainProgram:
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        self.EntryFont = Font(family='Arial', size=20)
-        self.ResultFont = Font(family='Arial', size=45)
-
         Register = DataFrame.register(self.validate)
 
         TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
@@ -254,15 +254,17 @@ class MainProgram:
             h = float(hEntry.get())
 
             Ycg = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
-            Yz = (2 * ((a * y ** 3) / (12)) + ((((x / 2) + (y - x)) - (y - Ycg)) ** 2)) + (((a + h + a) * (x ** 3)) / (12)) + ((a + h + a) * x * ((Ycg - (x / 2)) ** 2))
-            Scg = (((y - Ycg) * (a * + h + a)) - ((y - Ycg) * (h))) * ((y - Ycg) / 2)
+            Iz = (2 * ((a * y ** 3) / (12)) + ((((x / 2) + (y - x)) - (y - Ycg)) ** 2)) + ((((a + h + a) * (x ** 3)) / (12)) + ((a + h + a) * x * ((Ycg - (x / 2)) ** 2)))
+            Iz1 = (2 * ((a * y ** 3) / (12)) + ((((x / 2) + (y - x)) - (y - Ycg)) ** 2))
+            Scg = (((y - Ycg) * (a + h + a)) - ((y - Ycg) * (h))) * ((y - Ycg) / 2)
 
             print(f'x: {x}')
             print(f'y: {y}')
             print(f'a: {a}')
             print(f'h: {h}')
             print(f'Ycg: {Ycg}')
-            print(f'Yz: {Yz}')
+            print(f'Iz: {Iz}')
+            print(f'Iz1: {Iz1}')
             print(f'Scg: {Scg}')
 
         self.ClearMainSpace()
@@ -270,17 +272,26 @@ class MainProgram:
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        xEntry = tk.Entry(DataFrame)
-        xEntry.pack()
+        TopEntryFrame = tk.Frame(DataFrame, bg='#dbdbdb')
+        TopEntryFrame.pack(side=tk.TOP, pady=(50, 25))
 
-        yEntry = tk.Entry(DataFrame)
-        yEntry.pack()
+        aEntry = tk.Entry(TopEntryFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        aEntry.pack(side=tk.LEFT, padx=(0, 25))
 
-        aEntry = tk.Entry(DataFrame)
-        aEntry.pack()
+        hEntry = tk.Entry(TopEntryFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        hEntry.pack(side=tk.LEFT, padx=(0, 230))
 
-        hEntry = tk.Entry(DataFrame)
-        hEntry.pack()
+        xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        xEntry.pack(side=tk.LEFT, anchor='s', pady=50, padx=30)
+
+        yEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        yEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
+
+
+        self.uShapeImage = self.CreateImage('Images/Shapes/uShape.png')
+        uShapeLabel = tk.Label(DataFrame, image=self.uShapeImage, bd=0)
+        uShapeLabel.image = self.uShapeImage
+        uShapeLabel.pack()
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
         MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
@@ -339,9 +350,36 @@ class MainProgram:
 
     def RomanIShape(self):
         def Calculate():
-            pass
-    
-        xEntry = tk.Entry()
+            x = float(xEntry.get())
+            y = float(yEntry.get())
+            a = float(aEntry.get())
+            d = float(dEntry.get())
+            h = float(hEntry.get())
+            x = float(xEntry.get())
+
+        
+        self.ClearMainSpace()
+
+        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+        DataFrame.pack(expand=True)
+
+        xEntry = tk.Entry(DataFrame)
+        xEntry.pack()
+
+        yEntry = tk.Entry(DataFrame)
+        yEntry.pack()
+
+        aEntry = tk.Entry(DataFrame)
+        aEntry.pack()
+
+        dEntry = tk.Entry(DataFrame)
+        dEntry.pack()
+
+        hEntry = tk.Entry(DataFrame)
+        hEntry.pack()
+
+        rEntry = tk.Entry(DataFrame)
+        rEntry.pack()
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
         MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
