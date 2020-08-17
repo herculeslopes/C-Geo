@@ -43,6 +43,11 @@ class MainProgram:
         self.iButton.image = iButtonImage
         self.iButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
 
+        RomanIButtonImage = self.CreateImage(r'Images\Buttons\RomanIButton.png')
+        self.RomanIButton = tk.Button(self.SideFrame, image=iButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.RomanIShape)
+        self.RomanIButton.image = RomanIButtonImage
+        self.RomanIButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
+
 
     def ClearMainSpace(self):
         for widget in self.MainSpace.winfo_children():
@@ -90,9 +95,8 @@ class MainProgram:
 
             self.ClearMainSpace()
 
-
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            LeftFrame.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
 
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
@@ -101,34 +105,47 @@ class MainProgram:
 
             Iz = (((x * (b ** 3)) / (12) ) + (b * x * ((y + (b / 2) - Ycg)) ** 2)) + (((z * (y ** 3)) / (12)) + (y * z * ((Ycg - (y / 2)) ** 2)))
 
+            if Ycg < y or Ycg == y:
+                Scg = (Ycg * z * (Ycg / 2))
+            
+            else:
+                Scg = x * (y + b - Ycg) * ((y + b - Ycg) / 2)
+
+            print(f'Scg: {Scg}')
+
             '''Yz = 
             (((x * (b ** 3)) / (12)) + (x * b * ((y + (b / 2)) - Ycg))) 
             + 
             (((z * (y ** 3)) / (12)) + ((y * z) * (Ycg - (y / 2))))'''
 
             print(f'Ycg = {Ycg}')
-            print(f'Yz = {Iz}')
+            print(f'Iz = {Iz}')
 
-            YcgLabel = tk.Label(LeftFrame, text='Ycg', font=self.EntryFont, bg='#dbdbdb', fg='#303030')
-            YcgLabel.grid(row=0, column=0, padx=25, pady=10, sticky='w')
+            YcgLabel = tk.Label(LeftFrame, text='Ycg =', anchor='e', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=50, sticky='w')
 
-            YcgLabelContent = tk.Label(LeftFrame, text=str(f'{Ycg:.2f}'), font=self.EntryFont, bg='#dbdbdb', fg='#303030')
-            YcgLabelContent.grid(row=1, column=0, padx=25, pady=10, sticky='w')
+            YcgLabelContent = tk.Label(LeftFrame, text=str(f'{Ycg:.2f}'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=50, sticky='w')
 
-            IzLabel = tk.Label(LeftFrame, text='Iz', font=self.EntryFont, bg='#dbdbdb', fg='#303030')
-            IzLabel.grid(row=2, column=0, padx=25, pady=10, sticky='w')
+            IzLabel = tk.Label(LeftFrame, text='Iz =', anchor='e', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=50, sticky='w')
 
-            IzLabelContent = tk.Label(LeftFrame, text=str(f'{Iz:.2f}'), font=self.EntryFont, bg='#dbdbdb', fg='#303030')
-            IzLabelContent.grid(row=3, column=0, padx=25, pady=10, sticky='w')
+            IzLabelContent = tk.Label(LeftFrame, text=str(f'{Iz:.2f}'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=50, sticky='w')
 
-            width = 601
-            height = 601
+            ScgLabel = tk.Label(LeftFrame, text='Scg =', anchor='e', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabel.grid(row=2, column=0, padx=10, pady=50, sticky='w')
 
-            ShapeCanvas = tk.Canvas(RightFrame, width=width, height=height, bg='lightgreen', bd=0, highlightthickness=0)
+            ScgLabelContent = tk.Label(LeftFrame, text=str(f'{Scg:.2f}'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=50, sticky='w')
+
+            width = 900
+            height = 900
+
+            ShapeCanvas = tk.Canvas(RightFrame, width=width, height=height, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack(expand=True)
 
             '''
-
             ShapeCanvas.create_rectangle(0, 0, width, 100, fill='#707070', width=0)
             ShapeCanvas.create_rectangle(176, 5, 294, height, fill='#707070', width=0)
 
@@ -136,32 +153,27 @@ class MainProgram:
 
             # xPosition
 
-
             ShapeCanvas.create_image(25, 25, image=DotImage)
 
-
-
-
             ShapeCanvas.image = DotImage'''
-
 
             '''width = tShapeCanvas.winfo_width()
             height = tShapeCanvas.winfo_height() '''
 
             self.ImageList = []
 
-            justTImage = self.CreateImage('Images/Shapes/justT.png')
+            justTImage = self.CreateImage('Images/Shapes/justT2.png')
             ShapeCanvas.create_image(width/2, height/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
             # DotHeight = ((height-100) / y - 1) * 100
             DotHeight = Ycg * height  / (y + b)
-            print(DotHeight)
+            print(f'DotHeight: {DotHeight}')
 
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            DotImage = self.CreateImage('Images/Shapes/dot2.png')
 
             if Ycg < y:
-                ShapeCanvas.create_image(width/2, height - 400, anchor=tk.CENTER, image=DotImage)
+                ShapeCanvas.create_image(width/2, height - 650, anchor=tk.CENTER, image=DotImage)
 
             elif Ycg > y:
                 ShapeCanvas.create_image(width/2, height - 550, anchor=tk.CENTER, image=DotImage)
@@ -186,6 +198,7 @@ class MainProgram:
         DataFrame.pack(expand=True)
 
         self.EntryFont = Font(family='Arial', size=20)
+        self.ResultFont = Font(family='Arial', size=45)
 
         Register = DataFrame.register(self.validate)
 
@@ -234,7 +247,51 @@ class MainProgram:
 
 
     def uShape(self):
-        pass
+        def Calculate():
+            x = float(xEntry.get())  
+            y = float(yEntry.get())
+            a = float(aEntry.get())
+            h = float(hEntry.get())
+
+            Ycg = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
+            Yz = (2 * ((a * y ** 3) / (12)) + ((((x / 2) + (y - x)) - (y - Ycg)) ** 2)) + (((a + h + a) * (x ** 3)) / (12)) + ((a + h + a) * x * ((Ycg - (x / 2)) ** 2))
+            Scg = (((y - Ycg) * (a * + h + a)) - ((y - Ycg) * (h))) * ((y - Ycg) / 2)
+
+            print(f'x: {x}')
+            print(f'y: {y}')
+            print(f'a: {a}')
+            print(f'h: {h}')
+            print(f'Ycg: {Ycg}')
+            print(f'Yz: {Yz}')
+            print(f'Scg: {Scg}')
+
+        self.ClearMainSpace()
+
+        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+        DataFrame.pack(expand=True)
+
+        xEntry = tk.Entry(DataFrame)
+        xEntry.pack()
+
+        yEntry = tk.Entry(DataFrame)
+        yEntry.pack()
+
+        aEntry = tk.Entry(DataFrame)
+        aEntry.pack()
+
+        hEntry = tk.Entry(DataFrame)
+        hEntry.pack()
+
+        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+
+        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+        ButtonsFrame.pack()
+
+        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
+        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
+        CalculateButton.image = CalculateImage
+        CalculateButton.grid(row=0, column=0, padx=5)
 
 
     def cShape(self):
@@ -242,8 +299,60 @@ class MainProgram:
 
 
     def iShape(self):
-        pass
+        def Calculate():
+            h = float(HeightEntry.get())
+            w = float(WidthEntry.get())
 
+            Ycg = h / 2
+            Iz = (w * (h ** 3)) / 12
+            Scg = (w * Ycg * (Ycg / 2))
+
+            print(f'Height {str(h)}')
+            print(f'Width {str(w)}')
+            print(f'Ycg {str(Ycg)}')
+            print(f'Iz {str(Iz)}')
+            print(f'Scg {str(Scg)}')
+            
+
+        self.ClearMainSpace()
+
+        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+        DataFrame.pack(expand=True)
+
+        HeightEntry = tk.Entry(DataFrame)
+        HeightEntry.pack()
+
+        WidthEntry = tk.Entry(DataFrame)
+        WidthEntry.pack()
+
+        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+
+        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+        ButtonsFrame.pack()
+
+        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
+        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
+        CalculateButton.image = CalculateImage
+        CalculateButton.grid(row=0, column=0, padx=5)
+
+
+    def RomanIShape(self):
+        def Calculate():
+            pass
+    
+        xEntry = tk.Entry()
+
+        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+
+        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+        ButtonsFrame.pack()
+
+        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
+        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
+        CalculateButton.image = CalculateImage
+        CalculateButton.grid(row=0, column=0, padx=5)
 
 def main():
     root = tk.Tk()
