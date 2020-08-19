@@ -188,7 +188,7 @@ class MainProgram:
             self.ImageList.append(DotImage)
 
 
-        def Discart():
+        def Discard():
             TopEntry.delete(0, tk.END)
             RightEntry.delete(0, tk.END)
             LeftEntry.delete(0, tk.END)
@@ -234,10 +234,10 @@ class MainProgram:
         CalculateButton.image = CalculateImage
         CalculateButton.grid(row=0, column=0, padx=5)
 
-        DiscartImage = self.CreateImage('Images/Buttons/discart.png')
-        DiscartButton = tk.Button(ButtonsFrame, image=DiscartImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discart)
-        DiscartButton.image = DiscartImage
-        DiscartButton.grid(row=0, column=1, padx=5)
+        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
+        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
+        DiscardButton.image = DiscardImage
+        DiscardButton.grid(row=0, column=1, padx=5)
 
         self.root.bind('<Return>', Calculate)
 
@@ -266,6 +266,13 @@ class MainProgram:
             print(f'Iz: {Iz}')
             print(f'Iz1: {Iz1}')
             print(f'Scg: {Scg}')
+
+        def Discard():
+            aEntry.delete(0, tk.END)
+            hEntry.delete(0, tk.END)
+            xEntry.delete(0, tk.END)
+            yEntry.delete(0, tk.END)
+
 
         self.ClearMainSpace()
 
@@ -304,6 +311,11 @@ class MainProgram:
         CalculateButton.image = CalculateImage
         CalculateButton.grid(row=0, column=0, padx=5)
 
+        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
+        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
+        DiscardButton.image = DiscardImage
+        DiscardButton.grid(row=0, column=1, padx=5)
+
 
     def cShape(self):
         pass
@@ -324,17 +336,27 @@ class MainProgram:
             print(f'Iz {str(Iz)}')
             print(f'Scg {str(Scg)}')
             
+        
+        def Discard():
+            WidthEntry.delete(0, tk.END)
+            HeightEntry.delete(0, tk.END)
+
 
         self.ClearMainSpace()
 
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        HeightEntry = tk.Entry(DataFrame)
-        HeightEntry.pack()
+        WidthEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        WidthEntry.pack(side=tk.TOP, pady=(50, 25))
 
-        WidthEntry = tk.Entry(DataFrame)
-        WidthEntry.pack()
+        HeightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
+
+        self.iShapeImage = self.CreateImage('Images/Shapes/iShape.png')
+        iShapeLabel = tk.Label(DataFrame, image=self.iShapeImage, bd=0)
+        iShapeLabel.image = self.iShapeImage
+        iShapeLabel.pack(padx=(360, 0))
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
         MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
@@ -346,6 +368,11 @@ class MainProgram:
         CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
         CalculateButton.image = CalculateImage
         CalculateButton.grid(row=0, column=0, padx=5)
+
+        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
+        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
+        DiscardButton.image = DiscardImage
+        DiscardButton.grid(row=0, column=1, padx=5)
 
 
     def RomanIShape(self):
@@ -358,28 +385,44 @@ class MainProgram:
             x = float(xEntry.get())
 
         
+        def Discard():
+            xEntry.delete(0, tk.END)
+            yEntry.delete(0, tk.END)
+            aEntry.delete(0, tk.END)
+            dEntry.delete(0, tk.END)
+            hEntry.delete(0, tk.END)
+            rEntry.delete(0, tk.END)
+
         self.ClearMainSpace()
 
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        xEntry = tk.Entry(DataFrame)
-        xEntry.pack()
+        xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        xEntry.pack(side=tk.TOP, pady=(50, 25))
 
-        yEntry = tk.Entry(DataFrame)
-        yEntry.pack()
+        LeftFrame = tk.Frame(DataFrame, bg='#dbdbdb')
+        LeftFrame.pack(side=tk.LEFT, anchor='s', pady=50, padx=30)
 
-        aEntry = tk.Entry(DataFrame)
-        aEntry.pack()
+        yEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        yEntry.pack(side=tk.TOP, pady=(0, 245))
 
-        dEntry = tk.Entry(DataFrame)
-        dEntry.pack()
+        aEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        aEntry.pack(pady=(0, 160))
 
-        hEntry = tk.Entry(DataFrame)
-        hEntry.pack()
+        dEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        dEntry.pack(side=tk.BOTTOM, pady=(0, 100))
 
-        rEntry = tk.Entry(DataFrame)
-        rEntry.pack()
+        hEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        hEntry.pack(side=tk.RIGHT, anchor='n', pady=325, padx=30)
+
+        self.RomanIShapeImage = self.CreateImage('Images/Shapes/RomanIShape.png')
+        RomanIShapeLabel = tk.Label(DataFrame, image=self.RomanIShapeImage, bd=0)
+        RomanIShapeLabel.image = self.RomanIShapeImage
+        RomanIShapeLabel.pack()
+
+        rEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        rEntry.pack(pady=(20, 0))
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
         MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
@@ -391,6 +434,12 @@ class MainProgram:
         CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
         CalculateButton.image = CalculateImage
         CalculateButton.grid(row=0, column=0, padx=5)
+
+        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
+        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
+        DiscardButton.image = DiscardImage
+        DiscardButton.grid(row=0, column=1, padx=5)
+
 
 def main():
     root = tk.Tk()
