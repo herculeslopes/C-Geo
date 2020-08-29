@@ -15,7 +15,9 @@ class MainProgram:
         self.MainSpace.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
         self.EntryFont = Font(family='Arial', size=20)
-        self.ResultFont = Font(family='Arial', size=45)
+        self.ResultFont = Font(family='Arial', size=16)
+
+        self.Register = self.MainSpace.register(self.validate)
 
         self.SideFramePacking()     
 
@@ -124,29 +126,49 @@ class MainProgram:
             print(f'Ycg = {Ycg}')
             print(f'Iz = {Iz}')
 
-            YcgLabel = tk.Label(LeftFrame, text='Ycg =', anchor='e', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=50, sticky='w')
+            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
+            ResultFrame.pack(side=tk.TOP)
 
-            YcgLabelContent = tk.Label(LeftFrame, text=str(f'{Ycg:.2f}'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=50, sticky='w')
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
 
-            IzLabel = tk.Label(LeftFrame, text='Iz =', anchor='e', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=50, sticky='w')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
 
-            IzLabelContent = tk.Label(LeftFrame, text=str(f'{Iz:.2f}'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=50, sticky='w')
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
 
-            ScgLabel = tk.Label(LeftFrame, text='Scg =', anchor='e', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabel.grid(row=2, column=0, padx=10, pady=50, sticky='w')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
 
-            ScgLabelContent = tk.Label(LeftFrame, text=str(f'{Scg:.2f}'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=50, sticky='w')
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
 
-            width = 900
-            height = 900
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
-            ShapeCanvas = tk.Canvas(RightFrame, width=width, height=height, bg='#dbdbdb', bd=0, highlightthickness=0)
-            ShapeCanvas.pack(expand=True)
+            width = 694
+            height = 844
+
+            # TODO: Show Leght Values On T Shape
+
+            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+            ValueFrame.pack(padx=(0, 400))
+
+            xLabel = tk.Label(ValueFrame, text=f'X = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            xLabel.pack(side=tk.TOP, pady=(50, 5))
+            
+            bLabel = tk.Label(ValueFrame, text=f'b = {b} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            bLabel.pack(side=tk.LEFT, anchor='ne', pady=100)
+
+            yLabel = tk.Label(ValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            yLabel.pack(side=tk.RIGHT, anchor='w', pady=100)
+
+            ShapeCanvas = tk.Canvas(ValueFrame, width=width, height=height, bg='#dbdbdb', bd=0, highlightthickness=0)
+            ShapeCanvas.pack()
+            
+            zLabel = tk.Label(ValueFrame, text=f'z = {z} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            zLabel.pack(side=tk.BOTTOM)
 
             '''
             ShapeCanvas.create_rectangle(0, 0, width, 100, fill='#707070', width=0)
@@ -165,27 +187,35 @@ class MainProgram:
 
             self.ImageList = []
 
-            justTImage = self.CreateImage('Images/Shapes/justT2.png')
+            justTImage = self.CreateImage('Images/Shapes/tValues.png')
             ShapeCanvas.create_image(width/2, height/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
             # DotHeight = ((height-100) / y - 1) * 100
+
             DotHeight = Ycg * height  / (y + b)
             print(f'DotHeight: {DotHeight}')
 
-            DotImage = self.CreateImage('Images/Shapes/dot2.png')
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
 
             if Ycg < y:
                 ShapeCanvas.create_image(width/2, height - 650, anchor=tk.CENTER, image=DotImage)
+                DotHeight = height - 650
 
             elif Ycg > y:
+                DotHeight = height - 550
                 ShapeCanvas.create_image(width/2, height - 550, anchor=tk.CENTER, image=DotImage)
 
             elif Ycg == y:
+                DotHeight = height - 496
                 ShapeCanvas.create_image(width/2, height - 496, anchor=tk.CENTER, image=DotImage)
 
             ShapeCanvas.image = DotImage
             self.ImageList.append(DotImage)
+
+            ShapeCanvas.create_rectangle(158, DotHeight, 158 + 9, 844-50, fill='#121212', width=0)
+
+            ShapeCanvas.create_text(153, 844 - 50, text=f'Ycg = {Ycg} cm', font=self.ResultFont, fill='#303030', anchor='se')
 
 
         def Discard():
@@ -200,18 +230,16 @@ class MainProgram:
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        Register = DataFrame.register(self.validate)
-
         TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        TopEntry['validatecommand'] = (Register, '%P', '%d')
+        TopEntry['validatecommand'] = (self.Register, '%P', '%d')
         TopEntry.pack(side=tk.TOP, pady=(50, 25)) 
 
         RightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-        RightEntry['validatecommand'] = (Register, '%P', '%d')
+        RightEntry['validatecommand'] = (self.Register, '%P', '%d')
         RightEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
 
         LeftEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-        LeftEntry['validatecommand'] = (Register, '%P', '%d')
+        LeftEntry['validatecommand'] = (self.Register, '%P', '%d')
         LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)
 
         self.tShapeImage = self.CreateImage('Images/Shapes/tShape.png')
@@ -220,7 +248,7 @@ class MainProgram:
         tShapeLabel.pack()
 
         BottomEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        BottomEntry['validatecommand'] = (Register, '%P', '%d')
+        BottomEntry['validatecommand'] = (self.Register, '%P', '%d')
         BottomEntry.pack(side=tk.BOTTOM, pady=(25, 50))
         
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
@@ -269,6 +297,7 @@ class MainProgram:
 
         def Discard():
             a1Entry.delete(0, tk.END)
+            a2Entry.delete(0, tk.END)
             hEntry.delete(0, tk.END)
             xEntry.delete(0, tk.END)
             yEntry.delete(0, tk.END)
@@ -283,15 +312,19 @@ class MainProgram:
         TopEntryFrame.pack(side=tk.TOP, pady=(50, 25))
 
         a1Entry = tk.Entry(TopEntryFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        a1Entry['validatecommand'] = (self.Register, '%P', '%d')
         a1Entry.pack(side=tk.LEFT, padx=30)
 
         a2Entry = tk.Entry(TopEntryFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        a2Entry['validatecommand'] = (self.Register, '%P', '%d')
         a2Entry.pack(side=tk.RIGHT, padx=30)        
 
         xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
+        xEntry['validatecommand'] = (self.Register, '%P', '%d')
         xEntry.pack(side=tk.LEFT, anchor='s', pady=(0, 140), padx=30)
 
         yEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        yEntry['validatecommand'] = (self.Register, '%P', '%d')
         yEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
 
         self.uShapeImage = self.CreateImage('Images/Shapes/uShape.png')
@@ -300,6 +333,7 @@ class MainProgram:
         uShapeLabel.pack()
 
         hEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        hEntry['validatecommand'] = (self.Register, '%P', '%d')
         hEntry.pack(pady=(30, 0))
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
@@ -350,9 +384,11 @@ class MainProgram:
         DataFrame.pack(expand=True)
 
         WidthEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        WidthEntry['validatecommand'] = (self.Register, '%P', '%d')
         WidthEntry.pack(side=tk.TOP, pady=(50, 25))
 
         HeightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        HeightEntry['validatecommand'] = (self.Register, '%P', '%d')
         HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
 
         self.iShapeImage = self.CreateImage('Images/Shapes/iShape.png')
@@ -390,6 +426,19 @@ class MainProgram:
             Ycg = ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2)))) / ((a * r) + (d * h) + (y * x))
             Iz = (((r * (a ** 3)) / (12)) + ((a * r * (((Ycg - (a / 2)) ** 2))))) + (((d * (h ** 3)) / 12) + (h * d * ((((h / 2) + a) - (Ycg)) ** 2))) + (((x * (y ** 3)) / 12) + (y * x * (((a + h + (y / 2)) - Ycg) ** 2)))
             
+            if Ycg == a:
+                print('Primeira Fórmula')
+                Scg = a * r * (a / 2)
+
+            elif Ycg == (a + h):
+                print('Segunda Fórmula')
+                Scg = y * x * (y / 2)
+
+            elif Ycg < (a + h) and Ycg > a:
+                print('Terceira Fórmula')
+                Scg = (a * r * (Ycg - (a / 2))) + (d * (Ycg - a) * ((Ycg - a) / 2))
+ 
+
             '''
             Iz1 = ((r * (a ** 3)) / (12)) + ((a * r * (((Ycg - (a / 2)) ** 2))))
             Iz2 = ((d * (h ** 3)) / 12) + (h * d * ((((h / 2) + a) - (Ycg)) ** 2))
@@ -398,6 +447,7 @@ class MainProgram:
 
             print(f'Ycg = {Ycg}')
             print(f'Iz = {Iz}')
+            print(f'Scg = {Scg}')
 
         def Discard():
             xEntry.delete(0, tk.END)
@@ -413,21 +463,26 @@ class MainProgram:
         DataFrame.pack(expand=True)
 
         xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        xEntry['validatecommand'] = (self.Register, '%P', '%d')
         xEntry.pack(side=tk.TOP, pady=(50, 25))
 
         LeftFrame = tk.Frame(DataFrame, bg='#dbdbdb')
         LeftFrame.pack(side=tk.LEFT, anchor='s', pady=50, padx=30)
 
         yEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
+        yEntry['validatecommand'] = (self.Register, '%P', '%d')
         yEntry.pack(side=tk.TOP, pady=(0, 245))
 
         aEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
+        aEntry['validatecommand'] = (self.Register, '%P', '%d')
         aEntry.pack(pady=(0, 160))
 
         dEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
+        dEntry['validatecommand'] = (self.Register, '%P', '%d')
         dEntry.pack(side=tk.BOTTOM, pady=(0, 100))
 
         hEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        hEntry['validatecommand'] = (self.Register, '%P', '%d')
         hEntry.pack(side=tk.RIGHT, anchor='n', pady=325, padx=30)
 
         self.RomanIShapeImage = self.CreateImage('Images/Shapes/RomanIShape.png')
@@ -436,6 +491,7 @@ class MainProgram:
         RomanIShapeLabel.pack()
 
         rEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        rEntry['validatecommand'] = (self.Register, '%P', '%d')
         rEntry.pack(pady=(20, 0))
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
