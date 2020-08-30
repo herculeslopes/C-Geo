@@ -100,12 +100,6 @@ class MainProgram:
 
             self.ClearMainSpace()
 
-            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
-
-            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
-
             Ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
 
             Iz = (((x * (b ** 3)) / (12) ) + (b * x * ((y + (b / 2) - Ycg)) ** 2)) + (((z * (y ** 3)) / (12)) + (y * z * ((Ycg - (y / 2)) ** 2)))
@@ -125,6 +119,12 @@ class MainProgram:
 
             print(f'Ycg = {Ycg}')
             print(f'Iz = {Iz}')
+
+            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
+
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
             ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
             ResultFrame.pack(side=tk.TOP)
@@ -147,15 +147,15 @@ class MainProgram:
             ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
-            width = 694
-            height = 844
+            CanvasWidth = 694
+            CanvasHeight = 844
 
             # TODO: Show Leght Values On T Shape
 
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
             ValueFrame.pack(padx=(0, 400))
 
-            xLabel = tk.Label(ValueFrame, text=f'X = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             xLabel.pack(side=tk.TOP, pady=(50, 5))
             
             bLabel = tk.Label(ValueFrame, text=f'b = {b} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
@@ -164,7 +164,7 @@ class MainProgram:
             yLabel = tk.Label(ValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             yLabel.pack(side=tk.RIGHT, anchor='w', pady=100)
 
-            ShapeCanvas = tk.Canvas(ValueFrame, width=width, height=height, bg='#dbdbdb', bd=0, highlightthickness=0)
+            ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()
             
             zLabel = tk.Label(ValueFrame, text=f'z = {z} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
@@ -188,34 +188,33 @@ class MainProgram:
             self.ImageList = []
 
             justTImage = self.CreateImage('Images/Shapes/tValues.png')
-            ShapeCanvas.create_image(width/2, height/2, anchor=tk.CENTER, image=justTImage)
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
             # DotHeight = ((height-100) / y - 1) * 100
 
-            DotHeight = Ycg * height  / (y + b)
+            DotHeight = Ycg * CanvasHeight  / (y + b)
             print(f'DotHeight: {DotHeight}')
 
             DotImage = self.CreateImage('Images/Shapes/dot.png')
 
             if Ycg < y:
-                ShapeCanvas.create_image(width/2, height - 650, anchor=tk.CENTER, image=DotImage)
-                DotHeight = height - 650
-
+                DotHeight = CanvasHeight - 650
+                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
+                
             elif Ycg > y:
-                DotHeight = height - 550
-                ShapeCanvas.create_image(width/2, height - 550, anchor=tk.CENTER, image=DotImage)
+                DotHeight = CanvasHeight - 720
+                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
             elif Ycg == y:
-                DotHeight = height - 496
-                ShapeCanvas.create_image(width/2, height - 496, anchor=tk.CENTER, image=DotImage)
+                DotHeight = CanvasHeight - 496
+                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
-            ShapeCanvas.image = DotImage
             self.ImageList.append(DotImage)
 
             ShapeCanvas.create_rectangle(158, DotHeight, 158 + 9, 844-50, fill='#121212', width=0)
 
-            ShapeCanvas.create_text(153, 844 - 50, text=f'Ycg = {Ycg} cm', font=self.ResultFont, fill='#303030', anchor='se')
+            ShapeCanvas.create_text(153, 844 - 50, text='Ycg', font=self.ResultFont, fill='#303030', anchor='se')
 
 
         def Discard():
@@ -275,7 +274,7 @@ class MainProgram:
 
 
     def uShape(self):
-        def Calculate():
+        def Calculate(event=None):
             x = float(xEntry.get())  
             y = float(yEntry.get())
             a = float(a1Entry.get())
@@ -294,6 +293,88 @@ class MainProgram:
             print(f'Ycg: {Ycg}')
             print(f'Iz: {Iz}')
             print(f'Scg: {Scg}')
+
+            self.ClearMainSpace()
+
+            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
+
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+
+            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
+            ResultFrame.pack(side=tk.TOP)
+
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
+
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
+
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
+
+            CanvasWidth = 702
+            CanvasHeight = 840
+
+            ValueFrame = tk.Frame(RightFrame, bg='lightblue')
+            ValueFrame.pack()
+
+            TopLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
+            TopLabelFrame.pack(side=tk.TOP)
+
+            a1Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            a1Label.pack(side=tk.LEFT, padx=170)
+
+            a2Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            a2Label.pack(side=tk.RIGHT, padx=170)
+            
+            RightLabelFrame = tk.Frame(ValueFrame, bg='lightgreen')
+            RightLabelFrame.pack(side=tk.RIGHT, anchor='w')
+
+            yLabel = tk.Label(RightLabelFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            yLabel.pack(side=tk.TOP, anchor='w')
+
+            xLabel = tk.Label(RightLabelFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            xLabel.pack(side=tk.BOTTOM, anchor='w')
+
+            ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
+            ShapeCanvas.pack()
+
+            hLabel = tk.Label(ValueFrame, text=f'h = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            hLabel.pack(side=tk.BOTTOM)
+
+            self.ImageList = []
+
+            uValuesImage = self.CreateImage('Images/Shapes/uValues.png')
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=uValuesImage)
+            self.ImageList.append(uValuesImage)
+
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
+
+            if Ycg < x:
+                DotHeight = CanvasHeight - 145
+                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
+
+            elif Ycg > x:
+                DotHeight = CanvasHeight - 350
+                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
+
+            elif Ycg == x:
+                DotHeight = CanvasHeight - 190
+                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
+
+            self.ImageList.append(DotImage)
+
 
         def Discard():
             a1Entry.delete(0, tk.END)
@@ -351,6 +432,8 @@ class MainProgram:
         DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
         DiscardButton.image = DiscardImage
         DiscardButton.grid(row=0, column=1, padx=5)
+
+        self.root.bind('<Return>', Calculate)
 
 
     def cShape(self):
@@ -411,6 +494,8 @@ class MainProgram:
         DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
         DiscardButton.image = DiscardImage
         DiscardButton.grid(row=0, column=1, padx=5)
+
+        self.root.bind('<Return>', Calculate)
 
 
     def RomanIShape(self):
@@ -510,6 +595,8 @@ class MainProgram:
         DiscardButton.image = DiscardImage
         DiscardButton.grid(row=0, column=1, padx=5)
 
+        self.root.bind('<Return>', Calculate)
+
 
 def main():
     root = tk.Tk()
@@ -519,10 +606,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-'''
-Developed By:
-Mano Lecao
-Mano Hércules
-Mano Vinicius
-'''
