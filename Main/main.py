@@ -212,7 +212,12 @@ class MainProgram:
 
             self.ImageList.append(DotImage)
 
-            ShapeCanvas.create_rectangle(158, DotHeight, 158 + 9, 844-50, fill='#121212', width=0)
+            x1 = 158
+            y1 = DotHeight
+            x2 = 158 + 9 # 9 = largura em pixel do retângulo
+            y2 = CanvasHeight - 50
+
+            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
 
             ShapeCanvas.create_text(153, 844 - 50, text='Ycg', font=self.ResultFont, fill='#303030', anchor='se')
 
@@ -326,26 +331,29 @@ class MainProgram:
             CanvasWidth = 702
             CanvasHeight = 840
 
-            ValueFrame = tk.Frame(RightFrame, bg='lightblue')
-            ValueFrame.pack()
+            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+            ValueFrame.pack(expand=True, padx=(0, 400))
 
             TopLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
             TopLabelFrame.pack(side=tk.TOP)
 
             a1Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            a1Label.pack(side=tk.LEFT, padx=170)
+            a1Label.pack(side=tk.LEFT, padx=(0, 170))
 
             a2Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            a2Label.pack(side=tk.RIGHT, padx=170)
+            a2Label.pack(side=tk.RIGHT, padx=(170, 0))
             
-            RightLabelFrame = tk.Frame(ValueFrame, bg='lightgreen')
-            RightLabelFrame.pack(side=tk.RIGHT, anchor='w')
+            YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=70)
 
-            yLabel = tk.Label(RightLabelFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            yLabel.pack(side=tk.TOP, anchor='w')
+            RightLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
+            RightLabelFrame.pack(side=tk.RIGHT, anchor='w', fill=tk.Y)
+
+            yLabel = tk.Label(RightLabelFrame, text=f'y = {y - x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            yLabel.pack(anchor='w', pady=(350, 0))
 
             xLabel = tk.Label(RightLabelFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            xLabel.pack(side=tk.BOTTOM, anchor='w')
+            xLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 150))
 
             ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()
@@ -375,6 +383,13 @@ class MainProgram:
 
             self.ImageList.append(DotImage)
 
+            x1 = 15
+            y1 = DotHeight
+            x2 = x1 + 9
+            y2 = 799
+
+            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+
 
         def Discard():
             a1Entry.delete(0, tk.END)
@@ -382,7 +397,6 @@ class MainProgram:
             hEntry.delete(0, tk.END)
             xEntry.delete(0, tk.END)
             yEntry.delete(0, tk.END)
-
 
         self.ClearMainSpace()
 
