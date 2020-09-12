@@ -343,7 +343,7 @@ class MainProgram:
             a2Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             a2Label.pack(side=tk.RIGHT, padx=(170, 0))
             
-            YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#121212')
             YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=70)
 
             RightLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
@@ -455,7 +455,7 @@ class MainProgram:
 
 
     def iShape(self):
-        def Calculate():
+        def Calculate(event=None):
             h = float(HeightEntry.get())
             w = float(WidthEntry.get())
 
@@ -468,8 +468,73 @@ class MainProgram:
             print(f'Ycg {str(Ycg)}')
             print(f'Iz {str(Iz)}')
             print(f'Scg {str(Scg)}')
+
+            self.ClearMainSpace()
+
+            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
+
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+
+            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
+            ResultFrame.pack(side=tk.TOP)
             
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
+
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
+
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
         
+            CanvasWidth = 265
+            CanvasHeight = 819
+
+            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+            ValueFrame.pack(expand=True, padx=(0, 400))
+
+            wLabel = tk.Label(ValueFrame, text=f'x = {w} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            wLabel.pack(side=tk.TOP)
+
+            hLabel = tk.Label(ValueFrame, text=f'x = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            hLabel.pack(side=tk.RIGHT)
+
+            YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=20)
+
+            ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
+            ShapeCanvas.pack()            
+
+            self.ImageList = []
+
+            iValuesImage = self.CreateImage('Images/Shapes/iValues.png')
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
+            self.ImageList.append(iValuesImage)
+
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=DotImage)
+
+            self.ImageList.append(DotImage)
+
+            x1 = 18
+            y1 = CanvasHeight / 2
+            x2 = x1 + 9
+            y2 = 796
+
+            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+
+
         def Discard():
             WidthEntry.delete(0, tk.END)
             HeightEntry.delete(0, tk.END)
@@ -513,7 +578,7 @@ class MainProgram:
 
 
     def RomanIShape(self):
-        def Calculate():
+        def Calculate(event=None):
             x = float(xEntry.get())
             y = float(yEntry.get())
             a = float(aEntry.get())
@@ -536,17 +601,46 @@ class MainProgram:
             elif Ycg < (a + h) and Ycg > a:
                 print('Terceira Fórmula')
                 Scg = (a * r * (Ycg - (a / 2))) + (d * (Ycg - a) * ((Ycg - a) / 2))
- 
-
-            '''
-            Iz1 = ((r * (a ** 3)) / (12)) + ((a * r * (((Ycg - (a / 2)) ** 2))))
-            Iz2 = ((d * (h ** 3)) / 12) + (h * d * ((((h / 2) + a) - (Ycg)) ** 2))
-            Iz3 = ((x * (y ** 3)) / 12) + (y * x * (((a + h + (y / 2)) - Ycg) ** 2))
-            ''' 
 
             print(f'Ycg = {Ycg}')
             print(f'Iz = {Iz}')
             print(f'Scg = {Scg}')
+
+            self.ClearMainSpace()
+
+            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
+
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+
+            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
+            ResultFrame.pack(side=tk.TOP)
+
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
+
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
+
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
+
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
+
+            CanvasWidth = 0
+            CanvasHeight = 0
+
+            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+            ValueFrame.pack(expand=True, padx=(0, 400))
+
 
         def Discard():
             xEntry.delete(0, tk.END)
