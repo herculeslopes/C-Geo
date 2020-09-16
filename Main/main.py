@@ -19,6 +19,13 @@ class MainProgram:
 
         self.Register = self.MainSpace.register(self.validate)
 
+        self.root.bind('<Control-Key-1>', self.tShape)
+        self.root.bind('<Control-Key-2>', self.LShape)
+        self.root.bind('<Control-Key-3>', self.uShape)
+        self.root.bind('<Control-Key-4>', self.cShape)
+        self.root.bind('<Control-Key-5>', self.iShape)
+        self.root.bind('<Control-Key-6>', self.RomanIShape)
+
         self.SideFramePacking()     
 
 
@@ -88,15 +95,13 @@ class MainProgram:
             return True
 
 
-    def tShape(self):
+    def tShape(self, event=None):
 
         def Calculate(event=None):
             x = float(TopEntry.get())
             b = float(LeftEntry.get())
             y = float(RightEntry.get())
             z = float(BottomEntry.get())
-
-            print(f'x: {x}\ny: {y}\nb: {b}\nz: {z}')
 
             self.ClearMainSpace()
 
@@ -150,7 +155,7 @@ class MainProgram:
             CanvasWidth = 694
             CanvasHeight = 844
 
-            # TODO: Show Leght Values On T Shape
+            # Show Length Values On T Shape
 
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
             ValueFrame.pack(padx=(0, 400))
@@ -193,28 +198,25 @@ class MainProgram:
 
             # DotHeight = ((height-100) / y - 1) * 100
 
-            DotHeight = Ycg * CanvasHeight  / (y + b)
-            print(f'DotHeight: {DotHeight}')
-
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            # DotHeight = Ycg * CanvasHeight  / (y + b)
+            # print(f'DotHeight: {DotHeight}')
 
             if Ycg < y:
                 DotHeight = CanvasHeight - 650
-                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
                 
             elif Ycg > y:
                 DotHeight = CanvasHeight - 720
-                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
             elif Ycg == y:
                 DotHeight = CanvasHeight - 496
-                ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
-
+                
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 
             x1 = 158
             y1 = DotHeight
-            x2 = 158 + 9 # 9 = largura em pixel do retângulo
+            x2 = x1 + 9 # 9 = largura em pixel do retângulo
             y2 = CanvasHeight - 50
 
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
@@ -274,11 +276,11 @@ class MainProgram:
         self.root.bind('<Return>', Calculate)
 
 
-    def LShape(self):
+    def LShape(self, event=None):
         pass
 
 
-    def uShape(self):
+    def uShape(self, event=None):
         def Calculate(event=None):
             x = float(xEntry.get())  
             y = float(yEntry.get())
@@ -450,11 +452,11 @@ class MainProgram:
         self.root.bind('<Return>', Calculate)
 
 
-    def cShape(self):
+    def cShape(self, event=None):
         pass
 
 
-    def iShape(self):
+    def iShape(self, event=None):
         def Calculate(event=None):
             h = float(HeightEntry.get())
             w = float(WidthEntry.get())
@@ -577,7 +579,7 @@ class MainProgram:
         self.root.bind('<Return>', Calculate)
 
 
-    def RomanIShape(self):
+    def RomanIShape(self, event=None):
         def Calculate(event=None):
             x = float(xEntry.get())
             y = float(yEntry.get())
@@ -601,10 +603,6 @@ class MainProgram:
             elif Ycg < (a + h) and Ycg > a:
                 print('Terceira Fórmula')
                 Scg = (a * r * (Ycg - (a / 2))) + (d * (Ycg - a) * ((Ycg - a) / 2))
-
-            print(f'Ycg = {Ycg}')
-            print(f'Iz = {Iz}')
-            print(f'Scg = {Scg}')
 
             self.ClearMainSpace()
 
@@ -635,12 +633,79 @@ class MainProgram:
             ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
-            CanvasWidth = 0
-            CanvasHeight = 0
+            CanvasWidth = 496
+            CanvasHeight = 820
+
+            # TODO: Show Length Values on Roman I Shape
 
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
             ValueFrame.pack(expand=True, padx=(0, 400))
 
+            xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            xLabel.pack(side=tk.TOP, pady=(50, 5))
+
+            aLabel = tk.Label(ValueFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            aLabel.pack(side=tk.LEFT)
+
+            RightValueFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
+            RightValueFrame.pack(side=tk.RIGHT, fill=tk.Y)
+
+            yLabel = tk.Label(RightValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            yLabel.pack(side=tk.TOP, anchor='w', pady=(100, 0))
+
+            hLabel = tk.Label(RightValueFrame, text=f'h = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            hLabel.pack(anchor='w', pady=(290, 0))
+
+            dLabel = tk.Label(RightValueFrame, text=f'd = {d} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            dLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 120))
+
+            ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
+            ShapeCanvas.pack()
+
+            rLabel = tk.Label(ValueFrame, text=f'r = {r} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            rLabel.pack()
+
+            self.ImageList = []
+
+            RomanIValuesImage = self.CreateImage('Images/Shapes/RomanIValues.png')
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=RomanIValuesImage)
+            self.ImageList.append(RomanIValuesImage)
+
+            if Ycg > (h + d):
+                DotHeight = CanvasHeight - 708
+                
+            elif Ycg == (h + d):
+                DotHeight = CanvasHeight - 632
+            
+            elif ((y + h + d) / 2) < Ycg < (h + d):
+                DotHeight = CanvasHeight - 522
+
+            elif Ycg == ((y + h + d) / 2):
+                DotHeight = CanvasHeight - 411
+
+            elif Ycg == ((h + d) / 2):
+                DotHeight = CanvasHeight - 336
+
+            elif d < Ycg < ((y + d + h) / 2):
+                DotHeight = CanvasHeight - 299
+            
+            elif Ycg == d:
+                DotHeight = CanvasHeight - 189
+
+            elif Ycg < d:
+                DotHeight = CanvasHeight - 94
+
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
+            self.ImageList.append(DotImage)
+
+            x1 = 283
+            y1 = DotHeight
+            x2 = x1 + 9
+            y2 = CanvasHeight - 37
+
+            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+            ShapeCanvas.create_text(x2 + 10, y2, text='Ycg', font=self.ResultFont, fill='#303030', anchor='sw')
 
         def Discard():
             xEntry.delete(0, tk.END)
