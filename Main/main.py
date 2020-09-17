@@ -1,3 +1,5 @@
+# Teste de Atualização
+
 import tkinter as tk
 from tkinter.font import Font
 from PIL import ImageTk, Image
