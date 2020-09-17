@@ -18,6 +18,7 @@ class MainProgram:
 
         self.EntryFont = Font(family='Arial', size=20)
         self.ResultFont = Font(family='Arial', size=16)
+        self.WarningFont = Font(size=50)
 
         self.Register = self.MainSpace.register(self.validate)
 
@@ -279,7 +280,18 @@ class MainProgram:
 
 
     def LShape(self, event=None):
-        pass
+        self.ClearMainSpace()
+
+        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+        DataFrame.pack(expand=True)
+
+        self.LShapeImage = self.CreateImage('Images/Shapes/LShape.png')
+        LShapeLabel = tk.Label(DataFrame, image=self.LShapeImage, bd=0)
+        LShapeLabel.image = self.LShapeImage
+        LShapeLabel.pack()
+
+        WarningLabel = tk.Label(DataFrame, text='EM BREVE', font=self.WarningFont, fg='#8c8c8c', bg='#dbdbdb')
+        WarningLabel.pack()
 
 
     def uShape(self, event=None):
@@ -455,7 +467,18 @@ class MainProgram:
 
 
     def cShape(self, event=None):
-        pass
+        self.ClearMainSpace()
+
+        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+        DataFrame.pack(expand=True)
+
+        self.cShapeImage = self.CreateImage('Images/Shapes/cShape.png')
+        cShapeLabel = tk.Label(DataFrame, image=self.cShapeImage, bd=0)
+        cShapeLabel.image = self.cShapeImage
+        cShapeLabel.pack()
+
+        WarningLabel = tk.Label(DataFrame, text='EM BREVE', font=self.WarningFont, fg='#8c8c8c', bg='#dbdbdb')
+        WarningLabel.pack()
 
 
     def iShape(self, event=None):
