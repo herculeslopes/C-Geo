@@ -75,12 +75,6 @@ class MainProgram:
 
 
     def validate(self, value, action):
-        '''if value.isdigit() or value == '':
-            
-            return True
-        else:
-            return False'''
-
         if action == '1':
             if value:
                 try:
@@ -115,16 +109,7 @@ class MainProgram:
             
             else:
                 Scg = x * (y + b - Ycg) * ((y + b - Ycg) / 2)
-
-            print(f'Scg: {Scg}')
-
-            '''Yz = 
-            (((x * (b ** 3)) / (12)) + (x * b * ((y + (b / 2)) - Ycg))) 
-            + 
-            (((z * (y ** 3)) / (12)) + ((y * z) * (Ycg - (y / 2))))'''
-
-            print(f'Ycg = {Ycg}')
-            print(f'Iz = {Iz}')
+                
 
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
             LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
@@ -175,21 +160,6 @@ class MainProgram:
             
             zLabel = tk.Label(ValueFrame, text=f'z = {z} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             zLabel.pack(side=tk.BOTTOM)
-
-            '''
-            ShapeCanvas.create_rectangle(0, 0, width, 100, fill='#707070', width=0)
-            ShapeCanvas.create_rectangle(176, 5, 294, height, fill='#707070', width=0)
-
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
-
-            # xPosition
-
-            ShapeCanvas.create_image(25, 25, image=DotImage)
-
-            ShapeCanvas.image = DotImage'''
-
-            '''width = tShapeCanvas.winfo_width()
-            height = tShapeCanvas.winfo_height() '''
 
             self.ImageList = []
 
