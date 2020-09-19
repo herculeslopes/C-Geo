@@ -668,7 +668,7 @@ class MainProgram:
             xLabel.pack(side=tk.TOP, pady=(50, 5))
 
             aLabel = tk.Label(ValueFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            aLabel.pack(side=tk.LEFT)
+            aLabel.pack(side=tk.LEFT, pady=(0, 40))
 
             RightValueFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
             RightValueFrame.pack(side=tk.RIGHT, fill=tk.Y)
