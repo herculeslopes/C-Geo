@@ -20,14 +20,6 @@ class MainProgram:
 
         self.WindowsZoom = 125
 
-        if self.WindowsZoom == 100:
-            self.xScale = 70
-            self.yScale = 70
-        
-        elif self.WindowsZoom == 125:
-            self.xScale = 53
-            self.yScale = 53
-
         self.SideFramePacking()     
 
 
@@ -70,7 +62,13 @@ class MainProgram:
 
     def CreateImage(self, path):
         ImageFile = Image.open(path)
-        TkImage = ImageTk.PhotoImage(ImageFile.resize((self.xScale, self.yScale), Image.ANTIALIAS))
+        ImageWidth, ImageHeight = ImageFile.size
+        
+        if self.WindowsZoom == 125:
+            xSize = ImageWidth - (ImageWidth * 0.25)
+            ySize = ImageHeight - (ImageHeight * 0.25)
+
+        TkImage = ImageTk.PhotoImage(ImageFile.resize((int(xSize), int(ySize)), Image.ANTIALIAS))
         
         return TkImage
 
