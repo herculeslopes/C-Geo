@@ -18,6 +18,8 @@ class MainProgram:
         self.ResultFont = Font(family='Arial', size=16)
         self.WarningFont = Font(size=50)
 
+        self.WindowsZoom = 100
+
         self.Register = self.MainSpace.register(self.validate)
 
         self.root.bind('<Control-Key-1>', self.tShape)
@@ -69,7 +71,17 @@ class MainProgram:
 
     def CreateImage(self, path):
         ImageFile = Image.open(path)
-        TkImage = ImageTk.PhotoImage(ImageFile)
+        ImageWidth, ImageHeight = ImageFile.size
+        
+        if self.WindowsZoom == 100:
+            xSize = ImageWidth
+            ySize = ImageHeight
+
+        elif self.WindowsZoom == 125:
+            xSize = ImageWidth - (ImageWidth * 0.25)
+            ySize = ImageHeight - (ImageHeight * 0.25)
+
+        TkImage = ImageTk.PhotoImage(ImageFile.resize((int(xSize), int(ySize)), Image.ANTIALIAS))
         
         return TkImage
 
