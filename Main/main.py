@@ -1,8 +1,8 @@
-# Mudei a Primeira Linha do Código
-
 import tkinter as tk
 from tkinter.font import Font
 from PIL import ImageTk, Image
+import ctypes
+import screeninfo
 
 class MainProgram:
     def __init__(self, master):
@@ -20,7 +20,7 @@ class MainProgram:
         self.ResultFont = Font(family='Arial', size=16)
         self.WarningFont = Font(size=50)
 
-        self.WindowsZoom = 100
+        self.WindowsZoom = self.GetScreenInfo()
 
         self.Register = self.MainSpace.register(self.validate)
 
@@ -32,6 +32,42 @@ class MainProgram:
         self.root.bind('<Control-Key-6>', self.RomanIShape)
 
         self.SideFramePacking()     
+
+
+    def GetScreenInfo(self):
+        # Relative Must Be Processed First, Otherwise Values Will Be The Same
+
+        # Get Screen Resolution Relative To The Zoom
+        user32 = ctypes.windll.user32
+        ScreenRelativeResolution = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)
+
+        print(ScreenRelativeResolution)
+        print()
+
+        # Get Actual Screen Resolution
+        ScreenResolution = screeninfo.get_monitors()[0].width, screeninfo.get_monitors()[0].height
+
+        if ScreenResolution == (1920, 1080):
+            if ScreenRelativeResolution == ScreenResolution:
+                ZoomRation = 100
+
+            elif ScreenRelativeResolution == (1536, 864):
+                ZoomRation = 125
+
+            elif ScreenRelativeResolution == (1280, 720):
+                ZoomRation = 150
+
+            else:
+                ZoomRation = 0
+
+        elif ScreenResolution == (1280, 720):
+            if ScreenRelativeResolution == ScreenRelativeResolution:
+                ZoomRation = 100
+
+            else:
+                ZoomRation = 0
+
+        return ZoomRation
 
 
     def SideFramePacking(self):
