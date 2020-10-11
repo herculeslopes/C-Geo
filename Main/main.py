@@ -20,7 +20,13 @@ class MainProgram:
         self.ResultFont = Font(family='Arial', size=16)
         self.WarningFont = Font(size=50)
 
-        self.WindowsZoom = self.GetScreenInfo()
+        self.ScreenInfo = self.GetScreenInfo()
+        self.ScreenResolution = self.ScreenInfo[0]
+        self.WindowsZoom = self.ScreenInfo[1]
+
+        print(f'\nScreen Info: {self.ScreenInfo}')
+        print(f'Zoom Ration: {self.WindowsZoom}')
+        print(f'Screen Resolution {self.ScreenResolution}\n')
 
         self.Register = self.MainSpace.register(self.validate)
 
@@ -67,7 +73,7 @@ class MainProgram:
             else:
                 ZoomRation = 0
 
-        return ZoomRation
+        return ScreenResolution, ZoomRation
 
 
     def SideFramePacking(self):
