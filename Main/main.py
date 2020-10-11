@@ -505,8 +505,24 @@ class MainProgram:
         WarningLabel.pack()
 
 
-    def iShape(self, event=None):
+    def iShape(self, event=None):     
         def Calculate(event=None):
+            def get_fibra():
+                fibra = int(input('Digite Sua Fibra: '))
+
+                if fibra >= (h / 2):
+                    S = 0
+
+                elif fibra == 0:
+                    S = Scg
+
+                S = ((Ycg - fibra) * w) * (((Ycg - fibra) / 2) + fibra)
+
+
+                print(f'Fibra = {fibra}')   
+                print(f'S = {S}')
+                print()
+
             h = float(HeightEntry.get())
             w = float(WidthEntry.get())
 
@@ -584,6 +600,8 @@ class MainProgram:
             y2 = 796
 
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+
+            get_fibra()
 
 
         def Discard():
