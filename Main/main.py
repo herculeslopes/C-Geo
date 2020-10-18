@@ -589,7 +589,7 @@ class MainProgram:
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
 
             # Cria Os Widgets Para O FibraFrame
-            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraLabel = tk.Label(FibraFrame, text='Qual a distância da sua fibra em relação ao cg?', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
             FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
