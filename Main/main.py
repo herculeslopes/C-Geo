@@ -24,6 +24,14 @@ class MainProgram:
         self.ScreenResolution = self.ScreenInfo[0]
         self.WindowsZoom = self.ScreenInfo[1]
 
+        self.FibraOptions = (
+            "ACIMA",
+            "ABAIXO"
+        )
+
+        self.OptionSelected = tk.StringVar()
+        self.OptionSelected.set(self.FibraOptions[0])
+
         print(f'\nScreen Info: {self.ScreenInfo}')
         print(f'Zoom Ration: {self.WindowsZoom}')
         print(f'Screen Resolution {self.ScreenResolution}\n')
@@ -55,25 +63,25 @@ class MainProgram:
 
         if ScreenResolution == (1920, 1080):
             if ScreenRelativeResolution == ScreenResolution:
-                ZoomRation = 100
+                ZoomRatio = 100
 
             elif ScreenRelativeResolution == (1536, 864):
-                ZoomRation = 125
+                ZoomRatio = 125
 
             elif ScreenRelativeResolution == (1280, 720):
-                ZoomRation = 150
+                ZoomRatio = 150
 
             else:
-                ZoomRation = 0
+                ZoomRatio = 0
 
         elif ScreenResolution == (1280, 720):
             if ScreenRelativeResolution == ScreenRelativeResolution:
-                ZoomRation = 100
+                ZoomRatio = 150
 
             else:
-                ZoomRation = 0
+                ZoomRatio = 0
 
-        return ScreenResolution, ZoomRation
+        return ScreenResolution, ZoomRatio
 
 
     def SideFramePacking(self):
@@ -124,6 +132,14 @@ class MainProgram:
         elif self.WindowsZoom == 125:
             xSize = ImageWidth - (ImageWidth * 0.25)
             ySize = ImageHeight - (ImageHeight * 0.25)
+
+        elif self.WindowsZoom == 150:
+            xSize = ImageWidth - (ImageWidth * 0.50)
+            ySize = ImageHeight - (ImageHeight * 0.50)
+
+        elif self.WindowsZoom == 175:
+            xSize = ImageWidth - (ImageWidth * 0.75)
+            ySize = ImageHeight - (ImageHeight * 0.75)
 
         TkImage = ImageTk.PhotoImage(ImageFile.resize((int(xSize), int(ySize)), Image.ANTIALIAS))
         
@@ -383,18 +399,22 @@ class MainProgram:
             IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
-            
+
             # Cria Os Widgets Para O FibraFrame
-            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraLabel = tk.Label(FibraFrame, text='Distância Da Fibra Em Relação Ao cg', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
             FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
+            jLabel = tk.Label(FibraFrame, text='Posição Da Fibra:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected,*self.FibraOptions)
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
             # Layout Dos Widgets De FibraFrame
-            FibraLabel.grid(row=0, column=0)
-            FibraEntry.grid(row=1, column=0, pady=15)
-            FibraButton.grid(row=2, column=0)
-            sLabel.grid(row=3, column=0)
+            FibraLabel.grid(row=0, column=0, columnspan=2)
+            FibraEntry.grid(row=1, column=0, pady=15, columnspan=2)
+            FibraButton.grid(row=2, column=0, columnspan=2)
+            jLabel.grid(row=3, column=0)
+            jDrop.grid(row=3, column=1)
+            sLabel.grid(row=4, column=0, columnspan=2)
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
@@ -531,7 +551,7 @@ class MainProgram:
         def Calculate(event=None):
             def get_fibra():
                 fibra = float(FibraEntry.get())
-                
+                sLabel['fg'] = '#404040'
                 if fibra < (h / 2):
                     if fibra == (h / 2):
                         S = 0
@@ -596,9 +616,12 @@ class MainProgram:
 
             # Cria Os Widgets Para O FibraFrame
             FibraLabel = tk.Label(FibraFrame, text='Qual A Distância Da Sua Fibra Em Relação Ao cg?', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-            FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
+            FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
             FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+
+            # Teste De Validação
+            FibraEntry['validatecommand'] = (self.Register, '%P', '%d')
 
             # Layout Dos Widgets De FibraFrame
             FibraLabel.grid(row=0, column=0)
@@ -646,36 +669,45 @@ class MainProgram:
 
         self.ClearMainSpace()
 
+        # Cria Os Widgets Do self.MainSpace
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+
+        # Layout Dos Widgets Do self.MainSpace
         DataFrame.pack(expand=True)
+        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
 
+        # Cria Os Widgets Do DataFrame
         WidthEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        WidthEntry['validatecommand'] = (self.Register, '%P', '%d')
-        WidthEntry.pack(side=tk.TOP, pady=(50, 25))
-
         HeightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-        HeightEntry['validatecommand'] = (self.Register, '%P', '%d')
-        HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
 
         self.iShapeImage = self.CreateImage('Images/Shapes/iShape.png')
         iShapeLabel = tk.Label(DataFrame, image=self.iShapeImage, bd=0)
         iShapeLabel.image = self.iShapeImage
-        iShapeLabel.pack(padx=(360, 0))
 
-        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
-        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+        # Teste De Validação Destes Widgets
+        WidthEntry['validatecommand'] = (self.Register, '%P', '%d')
+        HeightEntry['validatecommand'] = (self.Register, '%P', '%d')
+
+        # Layout Dos Widgets Do DataFrame
+        WidthEntry.pack(side=tk.TOP, pady=(50, 25))
+        HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
+        iShapeLabel.pack(padx=(360, 0))
 
         ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
         ButtonsFrame.pack()
 
+        # Widgets De ButtonsFrame
         CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
         CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
         CalculateButton.image = CalculateImage
-        CalculateButton.grid(row=0, column=0, padx=5)
-
+        
         DiscardImage = self.CreateImage('Images/Buttons/discard.png')
         DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
         DiscardButton.image = DiscardImage
+
+        # Layout Dos Widgets
+        CalculateButton.grid(row=0, column=0, padx=5)
         DiscardButton.grid(row=0, column=1, padx=5)
 
         self.root.bind('<Return>', Calculate)
