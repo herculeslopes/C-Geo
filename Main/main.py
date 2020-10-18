@@ -245,13 +245,13 @@ class MainProgram:
             self.ImageList.append(justTImage)
 
             if Ycg < y:
-                DotHeight = CanvasHeight - 550
+                DotHeight = CanvasHeight - 650
                 
             elif Ycg > y:
-                DotHeight = CanvasHeight - 620
+                DotHeight = CanvasHeight - 720
 
             elif Ycg == y:
-                DotHeight = CanvasHeight - 396
+                DotHeight = CanvasHeight - 496
                 
             DotImage = self.CreateImage('Images/Shapes/dot.png')
             ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
