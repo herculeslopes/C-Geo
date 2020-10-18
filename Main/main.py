@@ -531,18 +531,21 @@ class MainProgram:
         def Calculate(event=None):
             def get_fibra():
                 fibra = float(FibraEntry.get())
+                
+                if fibra < (h / 2):
+                    if fibra == (h / 2):
+                        S = 0
 
-                if fibra > (h/2)
-                    S = 20
+                    elif fibra == 0:
+                        S = Scg
 
-                elif fibra == (h / 2):
+                    S = ((Ycg - fibra) * w) * (((Ycg - fibra) / 2) + fibra)
+                    sLabel['text'] = S
+
+                else:
                     S = 0
-
-                elif fibra == 0:
-                    S = Scg
-
-                S = ((Ycg - fibra) * w) * (((Ycg - fibra) / 2) + fibra)
-                sLabel['text'] = S
+                    sLabel['fg'] = '#eb4034'
+                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
 
 
             # Converte Os Valores Das Caixas De Entrada
