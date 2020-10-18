@@ -147,8 +147,11 @@ class MainProgram:
 
 
     def tShape(self, event=None):
-
         def Calculate(event=None):
+            def get_fibra():
+                pass
+
+            # Converte Os Valores Das Caixas De Entrada
             x = float(TopEntry.get())
             b = float(LeftEntry.get())
             y = float(RightEntry.get())
@@ -156,77 +159,90 @@ class MainProgram:
 
             self.ClearMainSpace()
 
+            # Fórmulas
             Ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
-
             Iz = (((x * (b ** 3)) / (12) ) + (b * x * ((y + (b / 2) - Ycg)) ** 2)) + (((z * (y ** 3)) / (12)) + (y * z * ((Ycg - (y / 2)) ** 2)))
-
+            
             if Ycg < y or Ycg == y:
                 Scg = (Ycg * z * (Ycg / 2))
             
             else:
                 Scg = x * (y + b - Ycg) * ((y + b - Ycg) / 2)
                 
-
+            # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
-
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+
+            # Layout Dos Frames Principais 
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
-            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
-            ResultFrame.pack(side=tk.TOP)
+            # Cria Frames Para O Frame Esquerdo 
+            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
+            FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
+            
+            # Cria Frames Para O Frame Direito
+            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
 
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
+            # Layout Dos Frames Da Esquerda
+            ResultFrame.grid(row=0, column=0, padx=50, pady=50)
+            FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
+            # Cria Os Widgets Para O ResultFrame 
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
 
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
+            # Layout Dos Widgets Do Frame Resultado
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            
+            # Cria Os Widgets Para O FibraFrame
+            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
+            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
+            sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
+            # Layout Dos Widgets De FibraFrame
+            FibraLabel.grid(row=0, column=0)
+            FibraEntry.grid(row=1, column=0, pady=15)
+            FibraButton.grid(row=2, column=0)
+            sLabel.grid(row=3, column=0)
 
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
+            # Layout Dos Frames Da Direita
+            ValueFrame.pack(expand=True, padx=(0, 400))
 
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
+            # Cria Os Widgets Do ValueFrame
+            xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            bLabel = tk.Label(ValueFrame, text=f'b = {b} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            yLabel = tk.Label(ValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            zLabel = tk.Label(ValueFrame, text=f'z = {z} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
 
+            # Layout Dos Widgets Do ValueFrame  
+            xLabel.pack(side=tk.TOP, pady=(50, 5))
+            bLabel.pack(side=tk.LEFT, anchor='ne', pady=100)
+            yLabel.pack(side=tk.RIGHT, anchor='w', pady=100)
+            zLabel.pack(side=tk.BOTTOM)
+
+
+            # Cria O Canvas Da Imagem Principal
             CanvasWidth = 694
             CanvasHeight = 844
-
-            # Show Length Values On T Shape
-
-            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
-            ValueFrame.pack(padx=(0, 400))
-
-            xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            xLabel.pack(side=tk.TOP, pady=(50, 5))
-            
-            bLabel = tk.Label(ValueFrame, text=f'b = {b} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            bLabel.pack(side=tk.LEFT, anchor='ne', pady=100)
-
-            yLabel = tk.Label(ValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            yLabel.pack(side=tk.RIGHT, anchor='w', pady=100)
-
             ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()
             
-            zLabel = tk.Label(ValueFrame, text=f'z = {z} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            zLabel.pack(side=tk.BOTTOM)
-
+            # Cria As Imagens No Canvas
             self.ImageList = []
-
             justTImage = self.CreateImage('Images/Shapes/tValues.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
-
-            # DotHeight = ((height-100) / y - 1) * 100
-
-            # DotHeight = Ycg * CanvasHeight  / (y + b)
-            # print(f'DotHeight: {DotHeight}')
 
             if Ycg < y:
                 DotHeight = CanvasHeight - 650
@@ -241,13 +257,10 @@ class MainProgram:
             ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 
-            x1 = 158
-            y1 = DotHeight
-            x2 = x1 + 9 # 9 = largura em pixel do retângulo
-            y2 = CanvasHeight - 50
+            x1 = 158; y1 = DotHeight; x2 = x1 + 9; y2 = CanvasHeight - 50
 
+            # Cria A Linha Do Ycg
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
-
             ShapeCanvas.create_text(153, 844 - 50, text='Ycg', font=self.ResultFont, fill='#303030', anchor='se')
 
 
@@ -320,93 +333,105 @@ class MainProgram:
 
     def uShape(self, event=None):
         def Calculate(event=None):
+            def get_fibra():
+                pass
+
+            # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())  
             y = float(yEntry.get())
             a = float(a1Entry.get())
             h = float(hEntry.get())
 
-            Ycg = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
-         
-            Iz = (2 * (((a * y ** 3) / (12)) + ((y * a * ((y / 2) - Ycg) ** 2)))) + ((((h) * (x ** 3)) / (12)) + (x * h * ((Ycg - (x / 2)) ** 2)))
-    
-            Scg = (((y - Ycg) * (a + h + a)) - ((y - Ycg) * (h))) * ((y - Ycg) / 2)
-
-            print(f'x: {x}')
-            print(f'y: {y}')
-            print(f'a: {a}')
-            print(f'h: {h}')
-            print(f'Ycg: {Ycg}')
-            print(f'Iz: {Iz}')
-            print(f'Scg: {Scg}')
-
             self.ClearMainSpace()
 
-            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
+            # Fórmulas
+            Ycg = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
+            Iz = (2 * (((a * y ** 3) / (12)) + ((y * a * ((y / 2) - Ycg) ** 2)))) + ((((h) * (x ** 3)) / (12)) + (x * h * ((Ycg - (x / 2)) ** 2)))
+            Scg = (((y - Ycg) * (a + h + a)) - ((y - Ycg) * (h))) * ((y - Ycg) / 2)
 
+            # Cria Os Frames Principais
+            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+
+            # Layout Dos Frames Principais 
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
-            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
-            ResultFrame.pack(side=tk.TOP)
+            # Cria Frames Para O Frame Esquerdo 
+            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0')
+            FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
 
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
-
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
-
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
-
-            CanvasWidth = 702
-            CanvasHeight = 840
-
+            # Cria Frames Para O Frame Direito
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+
+            # Layout Dos Frames Da Esquerda
+            ResultFrame.grid(row=0, column=0, padx=50, pady=50)
+            FibraFrame.grid(row=1, column=0, padx=50, pady=50)
+
+            # Cria Os Widgets Para O ResultFrame 
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            
+            # Layout Dos Widgets Do Frame Resultado
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            
+            # Cria Os Widgets Para O FibraFrame
+            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
+            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
+            sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+
+            # Layout Dos Widgets De FibraFrame
+            FibraLabel.grid(row=0, column=0)
+            FibraEntry.grid(row=1, column=0, pady=15)
+            FibraButton.grid(row=2, column=0)
+            sLabel.grid(row=3, column=0)
+
+            # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
 
+            # Cria Os Widgets Do ValueFrame
             TopLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
-            TopLabelFrame.pack(side=tk.TOP)
-
             a1Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            a1Label.pack(side=tk.LEFT, padx=(0, 170))
-
             a2Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            a2Label.pack(side=tk.RIGHT, padx=(170, 0))
-            
             YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#121212')
-            YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=70)
+            hLabel = tk.Label(ValueFrame, text=f'h = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
 
             RightLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
-            RightLabelFrame.pack(side=tk.RIGHT, anchor='w', fill=tk.Y)
 
             yLabel = tk.Label(RightLabelFrame, text=f'y = {y - x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            yLabel.pack(anchor='w', pady=(350, 0))
-
             xLabel = tk.Label(RightLabelFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            xLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 150))
 
+            # Layout Dos Widgets Do ValueFrame  
+            TopLabelFrame.pack(side=tk.TOP)
+            a1Label.pack(side=tk.LEFT, padx=(0, 170))
+            a2Label.pack(side=tk.RIGHT, padx=(170, 0))
+            YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=70)
+            RightLabelFrame.pack(side=tk.RIGHT, anchor='w', fill=tk.Y)
+            yLabel.pack(anchor='w', pady=(350, 0))
+            xLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 150))
+            hLabel.pack(side=tk.BOTTOM)
+            
+            # Cria O Canvas Da Imagem Principal
+            CanvasWidth = 702
+            CanvasHeight = 840
             ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()
 
-            hLabel = tk.Label(ValueFrame, text=f'h = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            hLabel.pack(side=tk.BOTTOM)
-
+            # Cria As Imagens No Canvas
             self.ImageList = []
-
             uValuesImage = self.CreateImage('Images/Shapes/uValues.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=uValuesImage)
             self.ImageList.append(uValuesImage)
-
             DotImage = self.CreateImage('Images/Shapes/dot.png')
 
             if Ycg < x:
@@ -423,11 +448,8 @@ class MainProgram:
 
             self.ImageList.append(DotImage)
 
-            x1 = 15
-            y1 = DotHeight
-            x2 = x1 + 9
-            y2 = 799
-
+            # Cria A Linha Do Ycg
+            x1 = 15; y1 = DotHeight; x2 = x1 + 9; y2 = 799
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
 
 
@@ -505,10 +527,10 @@ class MainProgram:
         WarningLabel.pack()
 
 
-    def iShape(self, event=None):     
+    def iShape(self, event=None):
         def Calculate(event=None):
             def get_fibra():
-                fibra = int(input('Digite Sua Fibra: '))
+                fibra = float(FibraEntry.get())
 
                 if fibra >= (h / 2):
                     S = 0
@@ -517,91 +539,98 @@ class MainProgram:
                     S = Scg
 
                 S = ((Ycg - fibra) * w) * (((Ycg - fibra) / 2) + fibra)
+                sLabel['text'] = S
 
 
-                print(f'Fibra = {fibra}')   
-                print(f'S = {S}')
-                print()
-
+            # Converte Os Valores Das Caixas De Entrada
             h = float(HeightEntry.get())
             w = float(WidthEntry.get())
 
+            self.ClearMainSpace()
+
+            # Fórmulas
             Ycg = h / 2
             Iz = (w * (h ** 3)) / 12
             Scg = (w * Ycg * (Ycg / 2))
 
-            print(f'Height {str(h)}')
-            print(f'Width {str(w)}')
-            print(f'Ycg {str(Ycg)}')
-            print(f'Iz {str(Iz)}')
-            print(f'Scg {str(Scg)}')
-
-            self.ClearMainSpace()
-
+            # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
-
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            
+            # Layout Dos Frames Principais 
+            LeftFrame.pack(side=tk.LEFT, anchor='n')
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
-            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
-            ResultFrame.pack(side=tk.TOP)
-            
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
+            # Cria Frames Para O Frame Esquerdo 
+            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
+            FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
 
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
-
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
-
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
-        
-            CanvasWidth = 265
-            CanvasHeight = 819
-
+            # Cria Frames Para O Frame Direito
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+
+            # Layout Dos Frames Da Esquerda
+            ResultFrame.grid(row=0, column=0, padx=50, pady=50)
+            FibraFrame.grid(row=1, column=0, padx=50, pady=50)
+
+            # Cria Os Widgets Para O ResultFrame 
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+                
+            # Layout Dos Labels Do Frame Resultado
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+            # Cria Os Widgets Para O FibraFrame
+            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
+            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
+            sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+
+            # Layout Dos Widgets De FibraFrame
+            FibraLabel.grid(row=0, column=0)
+            FibraEntry.grid(row=1, column=0, pady=15)
+            FibraButton.grid(row=2, column=0)
+            sLabel.grid(row=3, column=0)
+
+            # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
 
+            # Cria Os Widgets Do ValueFrame
             wLabel = tk.Label(ValueFrame, text=f'x = {w} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            wLabel.pack(side=tk.TOP)
-
-            hLabel = tk.Label(ValueFrame, text=f'x = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            hLabel.pack(side=tk.RIGHT)
-
+            hLabel = tk.Label(ValueFrame, text=f'y = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+
+            # Layout Dos Widgets Do ValueFrame
+            wLabel.pack(side=tk.TOP)
+            hLabel.pack(side=tk.RIGHT)
             YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=20)
 
+            # Cria O Canvas Da Imagem Principal
+            CanvasWidth = 265
+            CanvasHeight = 819
             ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()            
 
+            # Cria As Imagens No Canvas
             self.ImageList = []
-
             iValuesImage = self.CreateImage('Images/Shapes/iValues.png')
-            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
-            self.ImageList.append(iValuesImage)
-
             DotImage = self.CreateImage('Images/Shapes/dot.png')
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=DotImage)
-
+            self.ImageList.append(iValuesImage)
             self.ImageList.append(DotImage)
 
-            x1 = 18
-            y1 = CanvasHeight / 2
-            x2 = x1 + 9
-            y2 = 796
-
+            # Cria A Linha Do Ycg
+            x1 = 18; y1 = CanvasHeight / 2; x2 = x1 + 9; y2 = 796
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
-
-            get_fibra()
 
 
         def Discard():
@@ -648,6 +677,10 @@ class MainProgram:
 
     def RomanIShape(self, event=None):
         def Calculate(event=None):
+            def get_fibra():
+                pass
+
+            # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())
             y = float(yEntry.get())
             a = float(aEntry.get())
@@ -656,6 +689,9 @@ class MainProgram:
             x = float(xEntry.get())
             r = float(rEntry.get())
 
+            self.ClearMainSpace()
+
+            # Fórmulas
             Ycg = ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2)))) / ((a * r) + (d * h) + (y * x))
             Iz = (((r * (a ** 3)) / (12)) + ((a * r * (((Ycg - (a / 2)) ** 2))))) + (((d * (h ** 3)) / 12) + (h * d * ((((h / 2) + a) - (Ycg)) ** 2))) + (((x * (y ** 3)) / 12) + (y * x * (((a + h + (y / 2)) - Ycg) ** 2)))
             
@@ -671,69 +707,84 @@ class MainProgram:
                 print('Terceira Fórmula')
                 Scg = (a * r * (Ycg - (a / 2))) + (d * (Ycg - a) * ((Ycg - a) / 2))
 
-            self.ClearMainSpace()
-
+            # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
-
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            
+            # Layout Dos Frames Principais 
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
-            ResultFrame = tk.Frame(LeftFrame, bg='#dbdbdb')
-            ResultFrame.pack(side=tk.TOP)
+            # Cria Frames Para O Frame Esquerdo 
+            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0')
+            FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
 
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=10, sticky='w')
-
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=10, sticky='w')
-
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=10, sticky='e')
-
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=10, sticky='w')
-
-            CanvasWidth = 496
-            CanvasHeight = 820
-
-            # TODO: Show Length Values on Roman I Shape
-
+            # Cria Frames Para O Frame Direito
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+
+            # Layout Dos Frames Da Esquerda
+            ResultFrame.grid(row=0, column=0, padx=50, pady=50)
+            FibraFrame.grid(row=1, column=0, padx=50, pady=50)
+
+            # Cria Os Widgets Para O ResultFrame 
+            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            
+            # Layout Dos Widgets Do Frame Resultado
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            
+            # Cria Os Widgets Para O FibraFrame
+            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
+            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
+            sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+           
+            # Layout Dos Widgets De FibraFrame
+            FibraLabel.grid(row=0, column=0)
+            FibraEntry.grid(row=1, column=0, pady=15)
+            FibraButton.grid(row=2, column=0)
+            sLabel.grid(row=3, column=0)
+
+            # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
 
+            # Cria Os Widgets Do ValueFrame
             xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            xLabel.pack(side=tk.TOP, pady=(50, 5))
-
             aLabel = tk.Label(ValueFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            aLabel.pack(side=tk.LEFT, pady=(0, 40))
+            rLabel = tk.Label(ValueFrame, text=f'r = {r} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
 
             RightValueFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
-            RightValueFrame.pack(side=tk.RIGHT, fill=tk.Y)
-
+            
             yLabel = tk.Label(RightValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            yLabel.pack(side=tk.TOP, anchor='w', pady=(100, 0))
-
             hLabel = tk.Label(RightValueFrame, text=f'h = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            hLabel.pack(anchor='w', pady=(290, 0))
-
             dLabel = tk.Label(RightValueFrame, text=f'd = {d} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            dLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 120))
 
+            # Layout Dos Widgets Do ValueFrame  
+            xLabel.pack(side=tk.TOP, pady=(50, 5))
+            aLabel.pack(side=tk.LEFT, pady=(0, 40))
+            RightValueFrame.pack(side=tk.RIGHT, fill=tk.Y)
+            yLabel.pack(side=tk.TOP, anchor='w', pady=(100, 0))
+            hLabel.pack(anchor='w', pady=(290, 0))
+            dLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 120))
+            rLabel.pack(side=tk.BOTTOM)
+           
+            # Cria O Canvas Da Imagem Principal
+            CanvasWidth = 496
+            CanvasHeight = 820
             ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()
 
-            rLabel = tk.Label(ValueFrame, text=f'r = {r} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            rLabel.pack()
-
+            # Cria As Imagens No Canvas
             self.ImageList = []
-
             RomanIValuesImage = self.CreateImage('Images/Shapes/RomanIValues.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=RomanIValuesImage)
             self.ImageList.append(RomanIValuesImage)
@@ -766,11 +817,9 @@ class MainProgram:
             ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 
-            x1 = 283
-            y1 = DotHeight
-            x2 = x1 + 9
-            y2 = CanvasHeight - 37
+            x1 = 283; y1 = DotHeight; x2 = x1 + 9; y2 = CanvasHeight - 37
 
+            # Cria A Linha Do Ycg
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
             ShapeCanvas.create_text(x2 + 10, y2, text='Ycg', font=self.ResultFont, fill='#303030', anchor='sw')
 
