@@ -532,7 +532,10 @@ class MainProgram:
             def get_fibra():
                 fibra = float(FibraEntry.get())
 
-                if fibra >= (h / 2):
+                if fibra > (h/2)
+                    S = 20
+
+                elif fibra == (h / 2):
                     S = 0
 
                 elif fibra == 0:
