@@ -69,7 +69,7 @@ caso ela seja falsa ele vera a condição abaixo elif
 			Essa seria minha resposta
 
 
-elif (ycg - j) = y 
+elife (ycg - j) = y 
 
 se essa condição é true o programa efetuara os seguintes caluclos
 caso ela seja falsa ele vera a condição abaixo elif		
