@@ -7,72 +7,86 @@
 
 
 
-posicionentry acima 
+# posicionentry acima 
+
+if var == 'acima':
+
+    if ycg + jentry < y + b:
+
+        se a informação acima é false ela dira que não é possivel calcular, se é true ela usara formulas abaixo
+
+    else:   
+        sLabel['fg'] = '#eb4034'
+        sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
+
+# posicionentry abaixo 
+
+elif var == 'abaixo':
+
+    if ycg - jentry > 0 
 
 
-if ycg + jentry < y + b 
+    else:
+        sLabel['fg'] = '#eb4034'
+        sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
 
-se a informação acima é false ela dira que não é possivel calcular, se é true ela usara formulas abaixo
 
-else:
-sLabel['fg'] = '#eb4034'
- sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
 
- posicionentry abaixo 
+ESSAS REGRAS ACIMA SÃO GERAIS IRA PASSAR EM TODOS, AGORA IREI CRIAR REGRAS PARA CADA POSIÇÃO POSSIVEL DO YCG. NO RETANGULO DEBAIXO,
+BEM NO MEIO OU NO RETANGULO ACIMA.
 
- if ycg - jentry > 0 
 
- else:
-sLabel['fg'] = '#eb4034'
- sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
 
- ESSAS REGRAS ACIMA SÃO GERAIS IRA PASSAR EM TODOS, AGORA IREI CRIAR REGRAS PARA CADA POSIÇÃO POSSIVEL DO YCG. NO RETANGULO DEBAIXO,
- BEM NO MEIO OU NO RETANGULO ACIMA.
 
- CONDIÇÃO PARA QUANDO O YCG > Y , ELE UTILIZARA AS FORMULAS ABAIXO
+CONDIÇÃO PARA QUANDO O YCG > Y , ELE UTILIZARA AS FORMULAS ABAIXO
 
- BOM ELE ESCOLHEU UM 'jentry' E A posicionentry 'ABAIXO'
+BOM ELE ESCOLHEU UM 'jentry' E A posicionentry 'ABAIXO'
 
 ELE VAI RODAR PARA VERIFICAR AS CONDICOES 
 
 
                         CONDIÇÃO ONE
+if ycg > y:
 
-if ((ygc - j )< y)
+    if ((ygc - j )< y)
 
-se essa condição é true o programa efetuara os seguintes caluclos
-caso ela seja falsa ele vera a condição abaixo elif
+    se essa condição é True o programa efetuara os seguintes caluclos
+    caso ela seja falsa ele vera a condição abaixo elif
 
-   h = ycg - jentry
-
-
-   e jogara na formula abaixo para dar a resposta (s)
+    h = ycg - jentry
 
 
-   				S = h * z * ((h/2)+ jentry)
-
-   				Essa seria a resposta exibida 
+    e jogara na formula abaixo para dar a resposta (s)
 
 
-   						
-   						CONDIÇÃO TWO
+                    S = h * z * ((h/2)+ jentry)
 
-elif ((ycg - jentry )> y)
-se essa condição é true o programa efetuara os seguintes caluclos
-caso ela seja falsa ele vera a condição abaixo elif
-
-	d = (ycg - jentry) - y
-
-	S = (d * x * ((d/2) + jentry)) + (y * z * ((y/2) + d + jentry))
+                    Essa seria a resposta exibida 
 
 
-			Essa seria minha resposta
+                            
+                            CONDIÇÃO TWO
+
+    elif ((ycg - jentry )> y)
+    se essa condição é true o programa efetuara os seguintes caluclos
+    caso ela seja falsa ele vera a condição abaixo elif
+
+        d = (ycg - jentry) - y
+
+        S = (d * x * ((d/2) + jentry)) + (y * z * ((y/2) + d + jentry))
 
 
-elife (ycg - j) = y 
+                Essa seria minha resposta
 
-se essa condição é true o programa efetuara os seguintes caluclos
-caso ela seja falsa ele vera a condição abaixo elif		
 
-	
-	S = (y * z *(y/2) + jentry)
+    elif (ycg - j) = y 
+
+    se essa condição é true o programa efetuara os seguintes caluclos
+    caso ela seja falsa ele vera a condição abaixo elif		
+
+        
+        S = (y * z *(y/2) + jentry)
+
+
+else:
+    # a fazer

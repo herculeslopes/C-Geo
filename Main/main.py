@@ -165,7 +165,43 @@ class MainProgram:
     def tShape(self, event=None):
         def Calculate(event=None):
             def get_fibra():
-                pass
+                fibra = float(FibraEntry.get())
+                option = self.OptionSelected.get()    
+
+                sLabel['fg'] = '#404040'
+
+                if ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
+                    if Ycg > y:
+                        if option == 'ABAIXO':
+                            if Ycg - fibra < y:
+                                h = Ycg - fibra
+                                S = h * z * ((h / 2) + fibra)
+                            
+                            elif Ycg - fibra > y:
+                                d = Ycg - fibra - y
+                                S = (d * x * ((d / 2) + fibra)) + (y * z * ((y / 2) + d + fibra))
+
+                            elif Ycg - fibra == y:
+                                S = y * z * (y / 2) + fibra
+
+                        elif option == 'ACIMA':
+                            # LECAO AINDA VAI ESCREVER A FÓRMULA
+                            pass
+
+                    elif Ycg < y:
+                        # LECAO AINDA VAI ESCREVER A FÓRMULA
+                        pass
+
+                    else:
+                        # LECAO AINDA VAI ESCREVER A FÓRMULA
+                        pass
+
+                    sLabel['text'] = S
+                    
+                else:
+                    sLabel['fg'] = '#eb4034'
+                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
+
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(TopEntry.get())
@@ -224,13 +260,21 @@ class MainProgram:
             FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
             FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
+            jLabel = tk.Label(FibraFrame, text='Posição Da Fibra:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+
+
+            jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected, *self.FibraOptions)
+            jDrop.configure(fg='#121212', bg='#808080', bd=0, highlightthickness=0)            
+            
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
             # Layout Dos Widgets De FibraFrame
-            FibraLabel.grid(row=0, column=0)
-            FibraEntry.grid(row=1, column=0, pady=15)
-            FibraButton.grid(row=2, column=0)
-            sLabel.grid(row=3, column=0)
+            FibraLabel.grid(row=0, column=0, columnspan=2)
+            FibraEntry.grid(row=1, column=0, pady=15, columnspan=2)
+            FibraButton.grid(row=2, column=0, columnspan=2)
+            jLabel.grid(row=3, column=0)
+            jDrop.grid(row=3, column=1)
+            sLabel.grid(row=4, column=0, columnspan=2)
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
@@ -352,6 +396,9 @@ class MainProgram:
             def get_fibra():
                 pass
 
+            def change_stringvar(option):
+                print(option)
+            
             # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())  
             y = float(yEntry.get())
@@ -405,7 +452,10 @@ class MainProgram:
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
             FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
             jLabel = tk.Label(FibraFrame, text='Posição Da Fibra:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-            jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected,*self.FibraOptions)
+            
+            jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected, *self.FibraOptions, command=change_stringvar)
+            jDrop.configure(fg='#121212', bg='#808080', bd=0, highlightthickness=0)
+
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
             # Layout Dos Widgets De FibraFrame
