@@ -176,24 +176,30 @@ class MainProgram:
                             if Ycg - fibra < y:
                                 h = Ycg - fibra
                                 S = h * z * ((h / 2) + fibra)
+                                print('1')
                             
                             elif Ycg - fibra > y:
                                 d = Ycg - fibra - y
                                 S = (d * x * ((d / 2) + fibra)) + (y * z * ((y / 2) + d + fibra))
+                                print('2')
 
                             elif Ycg - fibra == y:
                                 S = y * z * (y / 2) + fibra
+                                print('3')
 
                         elif option == 'ACIMA':
                             # LECAO AINDA VAI ESCREVER A FÓRMULA
+                            print('4')
                             pass
 
                     elif Ycg < y:
                         # LECAO AINDA VAI ESCREVER A FÓRMULA
+                        print('5')
                         pass
 
                     else:
                         # LECAO AINDA VAI ESCREVER A FÓRMULA
+                        print('6')
                         pass
 
                     sLabel['text'] = S
@@ -201,6 +207,7 @@ class MainProgram:
                 else:
                     sLabel['fg'] = '#eb4034'
                     sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
+                    print('7')
 
 
             # Converte Os Valores Das Caixas De Entrada
