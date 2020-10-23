@@ -188,7 +188,6 @@ class MainProgram:
                         elif option == 'ACIMA':
                             S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
                             print('4')
-                            pass
 
                     elif Ycg < y:
                         S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
