@@ -188,9 +188,11 @@ class MainProgram:
                                 print('3')
 
                         elif option == 'ACIMA':
-                            # LECAO AINDA VAI ESCREVER A FÓRMULA
+                            if Ycg + fibra < ( y + b):
+                                i = y + b  - (Ycg + fibra)
+                                S = i * x * ((i / 2) + fibra)
+                                
                             print('4')
-                            pass
 
                     elif Ycg < y:
                         # LECAO AINDA VAI ESCREVER A FÓRMULA
