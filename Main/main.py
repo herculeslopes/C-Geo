@@ -187,18 +187,20 @@ class MainProgram:
 
                         elif option == 'ACIMA':
                             S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
+                            
+                            if Ycg + fibra < ( y + b):
+                                i = y + b  - (Ycg + fibra)
+                                S = i * x * ((i / 2) + fibra)
+                                    
                             print('4')
-                            pass
 
                     elif Ycg < y:
                         S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
                         print('5')
-                        pass
 
                     else:
                         S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
                         print('6')
-                        pass
 
                     sLabel['text'] = S
                     
