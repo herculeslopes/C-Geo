@@ -37,7 +37,7 @@ f ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and 
 
                                 S = (b * x * ((b / 2 )+ (fibra + i))) + (i * z * ((i/2) + fibra))
 
-                            elif (Ycg + fibr) > y: 
+                            elif (Ycg + fibra) > y: 
                                 
                                 a = (Y + b) - (Ycg + fibra)
 
@@ -46,7 +46,7 @@ f ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and 
                          
                          elif option == 'ABAIXO':
 
-                            if(Ycg - fibra < y)
+                            if(Ycg - fibra < y):
 
                                d = Ycg - fibra
                                 
