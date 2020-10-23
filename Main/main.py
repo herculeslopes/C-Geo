@@ -186,11 +186,7 @@ class MainProgram:
                                 print('3')
 
                         elif option == 'ACIMA':
-<<<<<<< HEAD
                             S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
-=======
-                            # LECAO AINDA VAI ESCREVER A FÓRMULA
->>>>>>> parent of 48dd83b... Update main.py
                             print('4')
                             pass
 
