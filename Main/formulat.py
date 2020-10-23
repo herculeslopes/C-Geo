@@ -1,92 +1,68 @@
-# REGRAS GERAIS PARA CALCULAR O T
-#jentry
-#posicionentry ACIMA OR ABAIXO
-#qual a posição da sua fibra em relação ao cg?
-#qual a distancia da sua fibra em relação ao cg?
-
-
-
-
-# posicionentry acima 
-
-if var == 'acima':
-
-    if ycg + jentry < y + b:
-
-        se a informação acima é false ela dira que não é possivel calcular, se é true ela usara formulas abaixo
-
-    else:   
-        sLabel['fg'] = '#eb4034'
-        sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-
-# posicionentry abaixo 
-
-elif var == 'abaixo':
-
-    if ycg - jentry > 0 
-
-
-    else:
-        sLabel['fg'] = '#eb4034'
-        sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-
-
-
-ESSAS REGRAS ACIMA SÃO GERAIS IRA PASSAR EM TODOS, AGORA IREI CRIAR REGRAS PARA CADA POSIÇÃO POSSIVEL DO YCG. NO RETANGULO DEBAIXO,
-BEM NO MEIO OU NO RETANGULO ACIMA.
-
-
-
-
-CONDIÇÃO PARA QUANDO O YCG > Y , ELE UTILIZARA AS FORMULAS ABAIXO
-
-BOM ELE ESCOLHEU UM 'jentry' E A posicionentry 'ABAIXO'
-
-ELE VAI RODAR PARA VERIFICAR AS CONDICOES 
-
-
-                        CONDIÇÃO ONE
-if ycg > y:
-
-    if ((ygc - j )< y)
-
-    se essa condição é True o programa efetuara os seguintes caluclos
-    caso ela seja falsa ele vera a condição abaixo elif
-
-    h = ycg - jentry
-
-
-    e jogara na formula abaixo para dar a resposta (s)
-
-
-                    S = h * z * ((h/2)+ jentry)
-
-                    Essa seria a resposta exibida 
-
-
+f ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
+                    if Ycg > y:
+                        if option == 'ABAIXO':
+                            if Ycg - fibra < y:
+                                h = Ycg - fibra
+                                S = h * z * ((h / 2) + fibra)
+                                print('1')
                             
-                            CONDIÇÃO TWO
+                            elif Ycg - fibra > y:
+                                d = Ycg - fibra - y
+                                S = (d * x * ((d / 2) + fibra)) + (y * z * ((y / 2) + d + fibra))
+                                print('2')
 
-    elif ((ycg - jentry )> y)
-    se essa condição é true o programa efetuara os seguintes caluclos
-    caso ela seja falsa ele vera a condição abaixo elif
+                            elif Ycg - fibra == y:
+                                S = y * z * (y / 2) + fibra
+                                print('3')
 
-        d = (ycg - jentry) - y
+                        elif option == 'ACIMA':
+                            if Ycg + fibra < ( y + b):
+                                i = y + b  - (Ycg + fibra)
+                                S = i * x * ((i / 2) + fibra)
+                                
+                            print('4')
+                            
 
-        S = (d * x * ((d/2) + jentry)) + (y * z * ((y/2) + d + jentry))
+                        
+                    elif Ycg < y:
+                        if option == 'ACIMA':
 
+                            if (Ycg + fibra) == y:
 
-                Essa seria minha resposta
+                                S = b * x * ((b / 2) + fibra)
 
+                            elif (Ycg + fibra) < y:
 
-    elif (ycg - j) = y 
+                                i = y - (Ycg + fibra)
 
-    se essa condição é true o programa efetuara os seguintes caluclos
-    caso ela seja falsa ele vera a condição abaixo elif		
+                                S = (b * x * ((b / 2 )+ (fibra + i))) + (i * z * ((i/2) + fibra))
 
-        
-        S = (y * z *(y/2) + jentry)
+                            elif (Ycg + fibr) > y: 
+                                
+                                a = (Y + b) - (Ycg + fibra)
 
+                                S = a * x * ((a/2) + fibra)        
 
-else:
-    # a fazer
+                         
+                         elif option == 'ABAIXO':
+
+                            if(Ycg - fibra < y)
+
+                               d = Ycg - fibra
+                                
+                               S = d * z * ((d / 2 ) + fibra)
+  
+                        print('5')
+                        
+
+                    else 
+                        
+                        print('6')
+                        pass
+
+                    sLabel['text'] = S
+                    
+                else:
+                    sLabel['fg'] = '#eb4034'
+                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
+                    print('7')
