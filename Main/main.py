@@ -49,16 +49,14 @@ class MainProgram:
 
 
     def GetScreenInfo(self):
-        # Relative Must Be Processed First, Otherwise Values Will Be The Same
-
-        # Get Screen Resolution Relative To The Zoom
+        # Pega A Quantidade De Pixels Da Tela (Windows)
         user32 = ctypes.windll.user32
         ScreenRelativeResolution = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)
 
         print(ScreenRelativeResolution)
         print()
 
-        # Get Actual Screen Resolution
+        # Pega A Resolução Real Da Tela (Monitor)
         ScreenResolution = screeninfo.get_monitors()[0].width, screeninfo.get_monitors()[0].height
 
         if ScreenResolution == (1920, 1080):
@@ -79,7 +77,7 @@ class MainProgram:
                 ZoomRatio = 150
 
             else:
-                ZoomRatio = 0
+                ZoomRatio = 100
 
         return ScreenResolution, ZoomRatio
 
@@ -188,17 +186,17 @@ class MainProgram:
                                 print('3')
 
                         elif option == 'ACIMA':
-                            # LECAO AINDA VAI ESCREVER A FÓRMULA
+                            S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
                             print('4')
                             pass
 
                     elif Ycg < y:
-                        # LECAO AINDA VAI ESCREVER A FÓRMULA
+                        S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
                         print('5')
                         pass
 
                     else:
-                        # LECAO AINDA VAI ESCREVER A FÓRMULA
+                        S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
                         print('6')
                         pass
 
@@ -266,22 +264,21 @@ class MainProgram:
             # Cria Os Widgets Para O FibraFrame
             FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
-            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
-            jLabel = tk.Label(FibraFrame, text='Posição Da Fibra:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-
+            jLabel = tk.Label(FibraFrame, text='POSIÇÃO:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
             jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected, *self.FibraOptions)
             jDrop.configure(fg='#121212', bg='#808080', bd=0, highlightthickness=0)            
-            
+
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
 
             # Layout Dos Widgets De FibraFrame
             FibraLabel.grid(row=0, column=0, columnspan=2)
             FibraEntry.grid(row=1, column=0, pady=15, columnspan=2)
-            FibraButton.grid(row=2, column=0, columnspan=2)
-            jLabel.grid(row=3, column=0)
-            jDrop.grid(row=3, column=1)
-            sLabel.grid(row=4, column=0, columnspan=2)
+            jLabel.grid(row=2, column=0)
+            jDrop.grid(row=2, column=1)
+            sLabel.grid(row=3, column=0, columnspan=2)
+            FibraButton.grid(row=4, column=0, columnspan=2)
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
