@@ -1,4 +1,4 @@
-f ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
+if ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
                     if Ycg > y:
                         if option == 'ABAIXO':
                             if Ycg - fibra < y:
