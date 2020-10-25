@@ -186,8 +186,6 @@ class MainProgram:
                                 print('3')
 
                         elif option == 'ACIMA':
-                            S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
-                            
                             if Ycg + fibra < ( y + b):
                                 i = y + b  - (Ycg + fibra)
                                 S = i * x * ((i / 2) + fibra)
@@ -195,7 +193,24 @@ class MainProgram:
                             print('4')
 
                     elif Ycg < y:
-                        S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
+                        if option == 'ACIMA':
+                            if (Ycg + fibra) == y:
+                                S = b * x * ((b / 2) + fibra)
+
+                            elif (Ycg + fibra) < y:
+                                i = y - (Ycg + fibra)
+                                S = (b * x * ((b / 2 )+ (fibra + i))) + (i * z * ((i/2) + fibra))
+
+                            elif (Ycg + fibra) > y: 
+                                a = (y + b) - (Ycg + fibra)
+                                S = a * x * ((a/2) + fibra)        
+
+                         
+                        elif option == 'ABAIXO':
+                            if (Ycg - fibra < y):
+                               d = Ycg - fibra
+                               S = d * z * ((d / 2 ) + fibra)
+
                         print('5')
 
                     else:
