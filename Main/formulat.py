@@ -1,4 +1,4 @@
-if ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
+gif ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
                     if Ycg > y:
                         if option == 'ABAIXO':
                             if Ycg - fibra < y:
@@ -55,14 +55,36 @@ if ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and
                         print('5')
                         
 
-                    else 
+                    else Ycg == y:
+                        if option 'ACIMA':
+
+                            if (Ycg + fibra) > y:
+
+                                a = b - fibra
+
+                                S = a * x * ((a / 2) + fibra)
                         
                         print('6')
-                        pass
+                        
+                        elif option 'ABAIXO':
+
+                            if ( Ycg - fibra) < Y   
+
+                                a = Ycg - fibra
+
+                                S = a * z * ((a / 2) + fibra) 
+
+                        print('7')
 
                     sLabel['text'] = S
                     
                 else:
                     sLabel['fg'] = '#eb4034'
                     sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-                    print('7')
+                    print('8')
+
+
+
+
+                                            CALCULO DO I Romano
+
