@@ -213,16 +213,33 @@ class MainProgram:
 
                         print('5')
 
-                    else:
-                        S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
-                        print('6')
+                    elif Ycg == y:
+                        if option == 'ACIMA':
+
+                            if (Ycg + fibra) > y:
+
+                                a = b - fibra
+
+                                S = a * x * ((a / 2) + fibra)
+                        
+                            print('6')
+                        
+                        elif option == 'ABAIXO':
+
+                            if ( Ycg - fibra) < y: 
+
+                                a = Ycg - fibra
+
+                                S = a * z * ((a / 2) + fibra) 
+
+                        print('7')
 
                     sLabel['text'] = S
                     
                 else:
                     sLabel['fg'] = '#eb4034'
                     sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-                    print('7')
+                    print('8')
 
 
             # Converte Os Valores Das Caixas De Entrada
