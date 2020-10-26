@@ -44,7 +44,7 @@ if ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and
                                 S = a * x * ((a/2) + fibra)        
 
                          
-                        elif option == 'ABAIXO':
+                         elif option == 'ABAIXO':
 
                             if(Ycg - fibra < y):
 
@@ -55,7 +55,7 @@ if ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and
                         print('5')
                         
 
-                    elif Ycg == y:
+                    else Ycg == y:
                         if option 'ACIMA':
 
                             if (Ycg + fibra) > y:
