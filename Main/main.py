@@ -217,7 +217,7 @@ class MainProgram:
                         S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
                         print('6')
 
-                    sLabel['text'] = S
+                    sLabel['text'] = str(S) + "cm³"
                     
                 else:
                     sLabel['fg'] = '#eb4034'
@@ -623,6 +623,7 @@ class MainProgram:
             def get_fibra():
                 fibra = float(FibraEntry.get())
                 sLabel['fg'] = '#404040'
+
                 if fibra < (h / 2):
                     if fibra == (h / 2):
                         S = 0
