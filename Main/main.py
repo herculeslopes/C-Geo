@@ -208,21 +208,31 @@ class MainProgram:
                          
                         elif option == 'ABAIXO':
                             if (Ycg - fibra < y):
-                               d = Ycg - fibra
-                               S = d * z * ((d / 2 ) + fibra)
+                                d = Ycg - fibra
+                                S = d * z * ((d / 2 ) + fibra)
+                                print('5')
+                        
+                    elif Ycg == y:
+                        if option == 'ACIMA':
+                            if (Ycg + fibra) > y:
+                                a = b - fibra
+                                S = a * x * ((a / 2) + fibra)
+                        
+                            print('6')
+                        
+                        elif option == 'ABAIXO':
+                            if (Ycg - fibra) < y:
+                                a = Ycg - fibra
+                                S = a * z * ((a / 2) + fibra) 
 
-                        print('5')
+                        print('7')
 
-                    else:
-                        S = "LECAO AINDA VAI ESCREVER A FÓRMULA"
-                        print('6')
+                    sLabel['text'] = S
 
-                    sLabel['text'] = str(S) + "cm³"
-                    
                 else:
                     sLabel['fg'] = '#eb4034'
                     sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-                    print('7')
+                    print('8')
 
 
             # Converte Os Valores Das Caixas De Entrada
@@ -415,7 +425,60 @@ class MainProgram:
     def uShape(self, event=None):
         def Calculate(event=None):
             def get_fibra():
-                pass
+                fibra = float(FibraEntry.get())
+                option = self.OptionSelected.get()
+                sLabel['fg'] = '#404040'
+
+                if ((option == 'ACIMA') and (Ycg + fibra <= y)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
+                    if Ycg > x:
+                        if option == 'ACIMA':
+                            if (Ycg + fibra) < y:
+                                m = y - (Ycg + fibra)
+                                S = m * (a + h + a) * ((m / 2) + fibra)
+
+                        elif option == 'ABAIXO':
+                            if (Ycg - fibra) > x: 
+                                i =(Ycg - x) - fibra 
+                                S = (x * (h + a + a) * ((x / 2) + i + fibra)) + ( 2 * (i * a * ((i / 2) + fibra)))
+
+                            elif (Ycg - fibra) <= (x):
+                                m = Ycg - fibra
+                                S = m * (h + a + a) * ((m / 2 ) + fibra)
+
+                    elif (Ycg < x):
+                        if option == 'ABAIXO':
+                            if(Ycg - fibra) < (x):
+                                i = Ycg - fibra
+                                S = i * (a + a + h) * ((i / 2) + fibra)
+
+                        elif option == 'ACIMA':
+                            if (Ycg + fibra) >= x:
+                                m = y - (Ycg + fibra) 
+                                S = 2 * ( m * a * ((m / 2) + fibra))       
+
+                            elif (Ycg + fibra) < x:
+                                v = y - x
+                                m = (Ycg + fibra) - x 
+                                S = (m * (a + h + a) * ((m / 2)+ fibra)) + (2 * (a * v * ((v / 2) + fibra + m)))
+
+
+                    elif (Ycg == x):
+                        if option=='ABAIXO':
+                            if (Ycg - fibra) <= x:
+                                i = Ycg - fibra
+                                S = (h + a + a) * i * ((i / 2) + fibra)
+
+                        elif option == 'ACIMA':
+                            if ( Ycg + fibra) >= x:
+                                v = (Ycg + fibra)
+                                S = (v * a * ((v / 2) + fibra)) * 2 
+
+                    sLabel['text'] = str(S) + "cm³"
+
+                else:
+                    sLabel['fg'] = '#eb4034'
+                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
+
 
             def change_stringvar(option):
                 print(option)
