@@ -788,73 +788,7 @@ class MainProgram:
     def RomanIShape(self, event=None):
         def Calculate(event=None):
             def get_fibra():
-                fibra = float(FibraEntry.get())
-                option = self.OptionSelected.get()
-                sLabel['fg'] = '#404040'
-
-                if ((option == 'ACIMA') and (Ycg + fibra <= y + d + h)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
-                    if Ycg >= (h + d):
-                        if option == 'ACIMA':
-                            if (Ycg + fibra) < (y + d + h):
-                            	i = ((Ycg + fibra) - (y + h + d))
-                            	S = i * x * ((i/2) + fibra)
-
-                        elif option == 'ABAIXO':
-                            if ( Ycg - fibra) <= (d + h) and (Ycg - fibra) > (d):
-                                i = ( d + h) - (Ycg - fibra)
-                                S = ((i * a * ((i / 2) + fibra)) + (d * r * ((d / 2) + i + fibra)))
-
-                            elif (Ycg - fibra) <= (d):
-                                u = ( Ycg - fibra)  
-                                S = u * r * ((u / 2) + fibra)
-
-                            elif (Ycg - fibra) > (d + h):    
-                                u = (Ycg - fibra) - (h + d)
-                                S = (u * x * ((u / 2 ) + fibra)) + (h * a * ((h / 2) + u + fibra)) + d * r * ((d / 2) + h + u + fibra)
-
-                    elif ( Ycg > d ) and Ycg <= ( d + h):     
-                        if option =='ACIMA':      
-                        	if (Ycg + fibra) >= (d + h):
-                        	    i = ( d + h + y) - (Ycg + fibra)
-                        	    S = i * x * ((i / 2) + fibra)
-                        	
-                        	elif (Ycg + fibra) <= ( d + h) and (Ycg + fibra) >= (d):
-                        	    i = (d + h) - (Ycg + fibra)
-                        	    S = (y * x * ((y / 2) + i + fibra)) + (i * a * ((i / 2) + fibra))
-
-                        elif option == 'ABAIXO':
-                            if (Ycg - fibra) > (d):
-                                v = (d + h) - ( Ycg - fibra)    
-                                S = (v * a * ((v / 2) + fibra)) + (d * r * ((d / 2) + fibra))
-
-                            elif (Ycg - fibra) <= (d): 
-                                v = (Ycg - fibra)
-                                S = v * r * ((v / 2) + fibra)
-
-                    elif ( Ycg <= d ):
-                        if option == 'ABAIXO':
-                        	if ( Ycg - fibra) <= (d):
-                        	    g = (Ycg - fibra)
-                        	    S = g * r * ((g / 2)+ fibra)
-
-                        elif option == 'ACIMA':
-                        	if (Ycg + fibra) >= (d + h):
-                        	    i = (d + h + fibra) - (Ycg + fibra)
-                        	    S = (i * x * ((i / 2)+ fibra))
-
-                        	elif (Ycg + fibra) >= (d):
-                        	    m = (h + d) - (Ycg + fibra)    
-                        	    S = y * x * ((y / 2) + fibra)
-
-                        	elif (Ycg + fibra) < (d):   
-                        	    m = (d) - (Ycg + fibra)
-                        	    S = (y * x * ((y / 2) + h + m + fibra)) + (h * a * ((h / 2) + m + fibra)) + (m * r * ((m / 2) + fibra)) 
-                    
-                    sLabel['text'] = str(S) + "cm³"
-
-                else:
-                    sLabel['fg'] = '#eb4034'
-                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
+                pass
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())
@@ -921,20 +855,14 @@ class MainProgram:
             # Cria Os Widgets Para O FibraFrame
             FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
-            jLabel = tk.Label(FibraFrame, text='POSIÇÃO:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-            jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected, *self.FibraOptions)
-            jDrop.configure(fg='#121212', bg='#808080', bd=0, highlightthickness=0) 
-
-            sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
-
+            sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+           
             # Layout Dos Widgets De FibraFrame
-            FibraLabel.grid(row=0, column=0, columnspan=2)
-            FibraEntry.grid(row=1, column=0, pady=15, columnspan=2)
-            jLabel.grid(row=2, column=0)
-            jDrop.grid(row=2, column=1)
-            sLabel.grid(row=3, column=0, columnspan=2)
-            FibraButton.grid(row=4, column=0, columnspan=2)
+            FibraLabel.grid(row=0, column=0)
+            FibraEntry.grid(row=1, column=0, pady=15)
+            FibraButton.grid(row=2, column=0)
+            sLabel.grid(row=3, column=0)
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
