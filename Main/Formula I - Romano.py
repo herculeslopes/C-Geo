@@ -59,15 +59,3 @@ if ((option == 'ACIMA') and (Ycg + fibra <= y + d + h)) or ((option == 'ABAIXO')
                         	elif (Ycg + fibra) < (d):   
                         	    m = (d) - (Ycg + fibra)
                         	    S = (y * x * ((y / 2) + h + m + fibra)) + (h * a * ((h / 2) + m + fibra)) + (m * r * ((m / 2) + fibra)) 
-
-                        	   
-
-
-                        	                        FORMULA SEÇÃO U
-
-
-if ((option == 'ACIMA') and (Ycg + fibra <= y )) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)): 
-                   
-                   if (Ycg > x):
-                        if option == 'ACIMA':
-                            if (Ycg + fibra) < Y                       	                        
