@@ -2,6 +2,8 @@
 
 O presente projeto tem como objetivo criação de um programa que realiza cálculos de seção geométrica, tais como: área, centro de gravidade, momento de inércia e momento estático.
 
+Há duas formas de rodar o programa. A primeira é baixar o arquivo de instalação pelo link, [cgeo-setup.exe](https://github.com/herculeslopes/C-Geo/releases/download/v0.1/cgeo-setup.exe). A segunda é rodar o script com um interpretador python, para isso, apenas siga os passos a frente:
+
 ### Requisitos necessários para rodar o C-Geo
 - Python 3 instalado
 - PIP (Gerenciador de pacotes)
