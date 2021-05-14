@@ -7,7 +7,8 @@ import screeninfo
 class MainProgram:
     def __init__(self, master):
         self.root = master
-        self.root.title('Características Geométricas')
+        self.root.title('C-Geo')
+        self.root.iconbitmap('Images/c-geo.ico')
         self.root.state('zoomed')
 
         self.SideFrame = tk.Frame(master, bg='#c9c9c9', width=90, bd=0)
