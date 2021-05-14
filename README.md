@@ -7,6 +7,7 @@ O presente projeto tem como objetivo criação de um programa que realiza cálcu
 - PIP (Gerenciador de pacotes)
 
 Ambos podem ser acessados no site oficial, [Python.org](https://www.python.org).
+
 **OBS:** Certifique-se de instalar a versão completa.
 
 ### Como executar o programa propriamente
