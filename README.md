@@ -2,14 +2,14 @@
 
 O presente projeto tem como objetivo criação de um programa que realiza cálculos de seção geométrica, tais como: área, centro de gravidade, momento de inércia e momento estático.
 
-## Requisitos necessários para rodar o C-Geo:
+### Requisitos necessários para rodar o C-Geo
 - Python 3 instalado
 - PIP (Gerenciador de pacotes)
 
 Ambos podem ser acessados no site oficial, [Python.org](https://www.python.org).
 **OBS:** Certifique-se de instalar a versão completa.
 
-## Como executar o programa propriamente:
+### Como executar o programa propriamente
 - Faça o download do projeto em zip
 - Abra o terminal no diretório do projeto `C-Geo/Main`
 - Digite o comando abaixo para instalar os pacotes necessários:
