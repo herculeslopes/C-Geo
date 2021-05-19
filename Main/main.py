@@ -80,6 +80,9 @@ class MainProgram:
             else:
                 ZoomRatio = 100
 
+        else:
+            ZoomRatio = 100
+
         return ScreenResolution, ZoomRatio
 
 
