@@ -1,8 +1,10 @@
 import tkinter as tk
+from tkinter import font
 from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
 import screeninfo
+from Formulas import lSection
 
 class MainProgram:
     def __init__(self, master):
@@ -412,18 +414,76 @@ class MainProgram:
 
 
     def LShape(self, event=None):
+        def Calculate():
+            def getFibra():
+                pass
+            
+
+            #Converte Os Valores Das Caixas De Entrada
+            y = float(yEntry.get())
+            k = float(kEntry.get())
+            x = float(xEntry.get())
+            u = float(uEntry.get())
+
+            ycg = lSection.getYcg(y, k, x, u)
+            ix = lSection.getIx(y, k, x, u , ycg)
+            # print(f'Ycg = {ycg}')
+
+            # self.ClearMainSpace()
+
+
+
+        def Discard():
+            yEntry.delete(0, tk.END)
+            kEntry.delete(0, tk.END)
+            xEntry.delete(0, tk.END)
+            uEntry.delete(0, tk.END)
+
+       
         self.ClearMainSpace()
 
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
+
+        yEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        yEntry['validatecommand'] = (self.Register, '%P', '%d')
+        yEntry.pack(side=tk.TOP, pady=(50, 25))
+
+        xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+        xEntry['validatecommand'] = (self.Register, '%P', '%d')
+        xEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
+
+        kEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
+        kEntry['validatecommand'] = (self.Register, '%P', '%d')
+        kEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)
+
+        uEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        uEntry['validatecommand'] = (self.Register, '%P', '%d')
+        uEntry.pack(side=tk.BOTTOM, pady=(25, 50))
 
         self.LShapeImage = self.CreateImage('Images/Shapes/LShape.png')
         LShapeLabel = tk.Label(DataFrame, image=self.LShapeImage, bd=0)
         LShapeLabel.image = self.LShapeImage
         LShapeLabel.pack()
 
-        WarningLabel = tk.Label(DataFrame, text='EM BREVE', font=self.WarningFont, fg='#8c8c8c', bg='#dbdbdb')
-        WarningLabel.pack()
+        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+
+        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+        ButtonsFrame.pack()
+
+        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
+        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
+        CalculateButton.image = CalculateImage
+        CalculateButton.grid(row=0, column=0, padx=5)
+
+        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
+        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
+        DiscardButton.image = DiscardImage
+        DiscardButton.grid(row=0, column=1, padx=5)
+
+        """WarningLabel = tk.Label(DataFrame, text='EM BREVE', font=self.WarningFont, fg='#8c8c8c', bg='#dbdbdb')
+        WarningLabel.pack()"""
 
 
     def uShape(self, event=None):
