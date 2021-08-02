@@ -13,7 +13,7 @@ def getYcg(y, k, x, u):
 def getIx(y, k, x, u, ycg):
     t = x + (k / 2)
     h = (x / 2)
-    ix =    (((y * k ** 3) / 12+y * k * (t - ycg) ** 2)+((u * x ** 3 / 12)+u * x * (ycg - h) ** 2))
+    ix = (((y * k ** 3) / 12+y * k * (t - ycg) ** 2)+((u * x ** 3 / 12)+u * x * (ycg - h) ** 2))
 
     print(f't = {t}')
     print(f'h = {h}')

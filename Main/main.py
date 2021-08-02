@@ -4,7 +4,7 @@ from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
 import screeninfo
-from Formulas import lSection
+from Formulas import tSection, lSection, uSection, iSection
 
 class MainProgram:
     def __init__(self, master):
@@ -174,61 +174,61 @@ class MainProgram:
 
                 sLabel['fg'] = '#404040'
 
-                if ((option == 'ACIMA') and (Ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
-                    if Ycg > y:
+                if ((option == 'ACIMA') and (ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (ycg - fibra >= 0)):
+                    if ycg > y:
                         if option == 'ABAIXO':
-                            if Ycg - fibra < y:
-                                h = Ycg - fibra
+                            if ycg - fibra < y:
+                                h = ycg - fibra
                                 S = h * z * ((h / 2) + fibra)
                                 print('1')
                             
-                            elif Ycg - fibra > y:
-                                d = Ycg - fibra - y
+                            elif ycg - fibra > y:
+                                d = ycg - fibra - y
                                 S = (d * x * ((d / 2) + fibra)) + (y * z * ((y / 2) + d + fibra))
                                 print('2')
 
-                            elif Ycg - fibra == y:
+                            elif ycg - fibra == y:
                                 S = y * z * (y / 2) + fibra
                                 print('3')
 
                         elif option == 'ACIMA':
-                            if Ycg + fibra < ( y + b):
-                                i = y + b  - (Ycg + fibra)
+                            if ycg + fibra < ( y + b):
+                                i = y + b  - (ycg + fibra)
                                 S = i * x * ((i / 2) + fibra)
                                     
                             print('4')
 
-                    elif Ycg < y:
+                    elif ycg < y:
                         if option == 'ACIMA':
-                            if (Ycg + fibra) == y:
+                            if (ycg + fibra) == y:
                                 S = b * x * ((b / 2) + fibra)
 
-                            elif (Ycg + fibra) < y:
-                                i = y - (Ycg + fibra)
+                            elif (ycg + fibra) < y:
+                                i = y - (ycg + fibra)
                                 S = (b * x * ((b / 2 )+ (fibra + i))) + (i * z * ((i/2) + fibra))
 
-                            elif (Ycg + fibra) > y: 
-                                a = (y + b) - (Ycg + fibra)
+                            elif (ycg + fibra) > y: 
+                                a = (y + b) - (ycg + fibra)
                                 S = a * x * ((a/2) + fibra)        
 
                          
                         elif option == 'ABAIXO':
-                            if (Ycg - fibra < y):
-                                d = Ycg - fibra
+                            if (ycg - fibra < y):
+                                d = ycg - fibra
                                 S = d * z * ((d / 2 ) + fibra)
                                 print('5')
                         
-                    elif Ycg == y:
+                    elif ycg == y:
                         if option == 'ACIMA':
-                            if (Ycg + fibra) > y:
+                            if (ycg + fibra) > y:
                                 a = b - fibra
                                 S = a * x * ((a / 2) + fibra)
                         
                             print('6')
                         
                         elif option == 'ABAIXO':
-                            if (Ycg - fibra) < y:
-                                a = Ycg - fibra
+                            if (ycg - fibra) < y:
+                                a = ycg - fibra
                                 S = a * z * ((a / 2) + fibra) 
 
                         print('7')
@@ -249,16 +249,11 @@ class MainProgram:
 
             self.ClearMainSpace()
 
-            # Fórmulas
-            Ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
-            Iz = (((x * (b ** 3)) / (12) ) + (b * x * ((y + (b / 2) - Ycg)) ** 2)) + (((z * (y ** 3)) / (12)) + (y * z * ((Ycg - (y / 2)) ** 2)))
-            
-            if Ycg < y or Ycg == y:
-                Scg = (Ycg * z * (Ycg / 2))
-            
-            else:
-                Scg = x * (y + b - Ycg) * ((y + b - Ycg) / 2)
-                
+            # Calcular As Seções Geométricas
+            ycg = tSection.getYcg(x, b, y ,z)
+            iz = tSection.getIz(x, b, y, z ,ycg)
+            scg = tSection.getScg(x, b, y, z, ycg)
+
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
@@ -280,11 +275,11 @@ class MainProgram:
 
             # Cria Os Widgets Para O ResultFrame 
             YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
 
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -341,13 +336,13 @@ class MainProgram:
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
-            if Ycg < y:
+            if ycg < y:
                 DotHeight = CanvasHeight - 650
                 
-            elif Ycg > y:
+            elif ycg > y:
                 DotHeight = CanvasHeight - 720
 
-            elif Ycg == y:
+            elif ycg == y:
                 DotHeight = CanvasHeight - 496
                 
             DotImage = self.CreateImage('Images/Shapes/dot.png')
@@ -555,10 +550,10 @@ class MainProgram:
 
             self.ClearMainSpace()
 
-            # Fórmulas
-            Ycg = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
-            Iz = (2 * (((a * y ** 3) / (12)) + ((y * a * ((y / 2) - Ycg) ** 2)))) + ((((h) * (x ** 3)) / (12)) + (x * h * ((Ycg - (x / 2)) ** 2)))
-            Scg = (((y - Ycg) * (a + h + a)) - ((y - Ycg) * (h))) * ((y - Ycg) / 2)
+            # Calcular As Seções Geométricas
+            ycg = uSection.getYcg(x, y, a, h)
+            iz = uSection.getIz(x, y, a, h ,ycg)
+            scg = uSection.getScg(x, y, a, h, ycg)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
@@ -581,11 +576,11 @@ class MainProgram:
 
             # Cria Os Widgets Para O ResultFrame 
             YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -652,15 +647,15 @@ class MainProgram:
             self.ImageList.append(uValuesImage)
             DotImage = self.CreateImage('Images/Shapes/dot.png')
 
-            if Ycg < x:
+            if ycg < x:
                 DotHeight = CanvasHeight - 145
                 ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
-            elif Ycg > x:
+            elif ycg > x:
                 DotHeight = CanvasHeight - 350
                 ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
-            elif Ycg == x:
+            elif ycg == x:
                 DotHeight = CanvasHeight - 190
                 ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
@@ -756,9 +751,9 @@ class MainProgram:
                         S = 0
 
                     elif fibra == 0:
-                        S = Scg
+                        S = scg
 
-                    S = ((Ycg - fibra) * w) * (((Ycg - fibra) / 2) + fibra)
+                    S = ((ycg - fibra) * w) * (((ycg - fibra) / 2) + fibra)
                     sLabel['text'] = S
 
                 else:
@@ -773,10 +768,10 @@ class MainProgram:
 
             self.ClearMainSpace()
 
-            # Fórmulas
-            Ycg = h / 2
-            Iz = (w * (h ** 3)) / 12
-            Scg = (w * Ycg * (Ycg / 2))
+            # Calcular As Seções Geométricas
+            ycg = iSection.getYcg(h)
+            iz = iSection.getIz(h, w)
+            scg = iSection.getScg(w, ycg)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
@@ -799,11 +794,11 @@ class MainProgram:
 
             # Cria Os Widgets Para O ResultFrame 
             YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
                 
             # Layout Dos Labels Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
