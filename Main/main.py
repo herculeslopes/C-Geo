@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+from tkinter.constants import LEFT
 from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
@@ -168,7 +169,13 @@ class MainProgram:
 
     def tShape(self, event=None):
         def Calculate(event=None):
-            def get_fibra():
+            def getData():
+                fibra = float(FibraEntry.get())
+                pos = self.OptionSelected.get()
+                s = tSection.getFibra(x, b, y, z, ycg, fibra, pos)
+                sLabel['text'] = s
+
+            """def get_fibra():
                 fibra = float(FibraEntry.get())
                 option = self.OptionSelected.get()    
 
@@ -238,8 +245,7 @@ class MainProgram:
                 else:
                     sLabel['fg'] = '#eb4034'
                     sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-                    print('8')
-
+                    print('8')"""
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(TopEntry.get())
@@ -255,8 +261,8 @@ class MainProgram:
             scg = tSection.getScg(x, b, y, z, ycg)
 
             # Cria Os Frames Principais
-            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
+            LeftFrame = tk.Frame(self.MainSpace, bg='light green', bd=0) #dbdbdb
+            RightFrame = tk.Frame(self.MainSpace, bg='light blue', bd=0) #dbdbdb
 
             # Layout Dos Frames Principais 
             LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
@@ -290,26 +296,32 @@ class MainProgram:
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
             # Cria Os Widgets Para O FibraFrame
-            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            FibraLabel = tk.Label(FibraFrame, text='Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
-            jLabel = tk.Label(FibraFrame, text='POSIÇÃO:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            jLabel = tk.Label(FibraFrame, text='Posição', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
             jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected, *self.FibraOptions)
             jDrop.configure(fg='#121212', bg='#808080', bd=0, highlightthickness=0)            
 
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
+
+            # Determina fibra e option
+            """fibra = float(FibraEntry.get())
+            option = self.OptionSelected.get()"""
+
+            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=getData)
 
             # Layout Dos Widgets De FibraFrame
-            FibraLabel.grid(row=0, column=0, columnspan=2)
-            FibraEntry.grid(row=1, column=0, pady=15, columnspan=2)
-            jLabel.grid(row=2, column=0)
-            jDrop.grid(row=2, column=1)
-            sLabel.grid(row=3, column=0, columnspan=2)
-            FibraButton.grid(row=4, column=0, columnspan=2)
+            FibraLabel.grid(row=0, column=0, padx=(0, 10), pady=(0, 10), sticky='e')
+            FibraEntry.grid(row=0, column=1, pady=(0, 10), sticky='e')
+            jLabel.grid(row=2, column=0, padx=(0, 10), pady=(0, 10), sticky='e')
+            jDrop.grid(row=2, column=1, sticky='w')
+            FibraButton.grid(row=3, column=0, padx=(0, 10), sticky='e')
+            sLabel.grid(row=3, column=1, sticky='w')
+            
 
             # Layout Dos Frames Da Direita
-            ValueFrame.pack(expand=True, padx=(0, 400))
+            ValueFrame.pack(expand=True, padx=(0, 300)) # ValueFrame.pack(expand=True, padx=(0, 400))
 
             # Cria Os Widgets Do ValueFrame
             xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
@@ -421,7 +433,7 @@ class MainProgram:
             u = float(uEntry.get())
 
             ycg = lSection.getYcg(y, k, x, u)
-            ix = lSection.getIx(y, k, x, u , ycg)
+            ix = lSection.getIx(y, k, x, u , ycg)   
             # print(f'Ycg = {ycg}')
 
             # self.ClearMainSpace()

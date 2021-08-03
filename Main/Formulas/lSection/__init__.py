@@ -19,8 +19,9 @@ def getIx(y, k, x, u, ycg):
     print(f'h = {h}')
     print(f'ix = {ix}')
 
-def getIz():
-    pass
+def getIy(y, k, x, u, ycg):
+    iy = ((y * k ** 3) / 3 + k * y * (ycg - y / 2) ** 2) + (x * u ** 3 / 12 + x * u * (u / 2 * ycg))
+    return iy
 
 def getScg():
     pass
