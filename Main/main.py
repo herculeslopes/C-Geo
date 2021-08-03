@@ -4,7 +4,7 @@ from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
 import screeninfo
-from Formulas import tSection, lSection, uSection, iSection
+from Formulas import tSection, lSection, uSection, iSection, hSection
 
 class MainProgram:
     def __init__(self, master):
@@ -914,62 +914,62 @@ class MainProgram:
                 option = self.OptionSelected.get()
                 sLabel['fg'] = '#404040'
 
-                if ((option == 'ACIMA') and (Ycg + fibra <= y + d + h)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
-                    if Ycg >= (h + d):
+                if ((option == 'ACIMA') and (ycg + fibra <= y + d + h)) or ((option == 'ABAIXO') and (ycg - fibra >= 0)):
+                    if ycg >= (h + d):
                         if option == 'ACIMA':
-                            if (Ycg + fibra) < (y + d + h):
-                            	i = ((Ycg + fibra) - (y + h + d))
+                            if (ycg + fibra) < (y + d + h):
+                            	i = ((ycg + fibra) - (y + h + d))
                             	S = i * x * ((i/2) + fibra)
 
                         elif option == 'ABAIXO':
-                            if ( Ycg - fibra) <= (d + h) and (Ycg - fibra) > (d):
-                                i = ( d + h) - (Ycg - fibra)
+                            if (ycg - fibra) <= (d + h) and (ycg - fibra) > (d):
+                                i = ( d + h) - (ycg - fibra)
                                 S = ((i * a * ((i / 2) + fibra)) + (d * r * ((d / 2) + i + fibra)))
 
-                            elif (Ycg - fibra) <= (d):
-                                u = ( Ycg - fibra)  
+                            elif (ycg - fibra) <= (d):
+                                u = ( ycg - fibra)  
                                 S = u * r * ((u / 2) + fibra)
 
-                            elif (Ycg - fibra) > (d + h):    
-                                u = (Ycg - fibra) - (h + d)
+                            elif (ycg - fibra) > (d + h):    
+                                u = (ycg - fibra) - (h + d)
                                 S = (u * x * ((u / 2 ) + fibra)) + (h * a * ((h / 2) + u + fibra)) + d * r * ((d / 2) + h + u + fibra)
 
-                    elif ( Ycg > d ) and Ycg <= ( d + h):     
+                    elif (ycg > d ) and ycg <= ( d + h):     
                         if option =='ACIMA':      
-                        	if (Ycg + fibra) >= (d + h):
-                        	    i = ( d + h + y) - (Ycg + fibra)
+                        	if (ycg + fibra) >= (d + h):
+                        	    i = ( d + h + y) - (ycg + fibra)
                         	    S = i * x * ((i / 2) + fibra)
                         	
-                        	elif (Ycg + fibra) <= ( d + h) and (Ycg + fibra) >= (d):
-                        	    i = (d + h) - (Ycg + fibra)
+                        	elif (ycg + fibra) <= ( d + h) and (ycg + fibra) >= (d):
+                        	    i = (d + h) - (ycg + fibra)
                         	    S = (y * x * ((y / 2) + i + fibra)) + (i * a * ((i / 2) + fibra))
 
                         elif option == 'ABAIXO':
-                            if (Ycg - fibra) > (d):
-                                v = (d + h) - ( Ycg - fibra)    
+                            if (ycg - fibra) > (d):
+                                v = (d + h) - ( ycg - fibra)    
                                 S = (v * a * ((v / 2) + fibra)) + (d * r * ((d / 2) + fibra))
 
-                            elif (Ycg - fibra) <= (d): 
-                                v = (Ycg - fibra)
+                            elif (ycg - fibra) <= (d): 
+                                v = (ycg - fibra)
                                 S = v * r * ((v / 2) + fibra)
 
-                    elif ( Ycg <= d ):
+                    elif ( ycg <= d ):
                         if option == 'ABAIXO':
-                        	if ( Ycg - fibra) <= (d):
-                        	    g = (Ycg - fibra)
+                        	if ( ycg - fibra) <= (d):
+                        	    g = (ycg - fibra)
                         	    S = g * r * ((g / 2)+ fibra)
 
                         elif option == 'ACIMA':
-                        	if (Ycg + fibra) >= (d + h):
-                        	    i = (d + h + fibra) - (Ycg + fibra)
+                        	if (ycg + fibra) >= (d + h):
+                        	    i = (d + h + fibra) - (ycg + fibra)
                         	    S = (i * x * ((i / 2)+ fibra))
 
-                        	elif (Ycg + fibra) >= (d):
-                        	    m = (h + d) - (Ycg + fibra)    
+                        	elif (ycg + fibra) >= (d):
+                        	    m = (h + d) - (ycg + fibra)    
                         	    S = y * x * ((y / 2) + fibra)
 
-                        	elif (Ycg + fibra) < (d):   
-                        	    m = (d) - (Ycg + fibra)
+                        	elif (ycg + fibra) < (d):   
+                        	    m = (d) - (ycg + fibra)
                         	    S = (y * x * ((y / 2) + h + m + fibra)) + (h * a * ((h / 2) + m + fibra)) + (m * r * ((m / 2) + fibra)) 
                     
                     sLabel['text'] = str(S) + "cm³"
@@ -984,26 +984,14 @@ class MainProgram:
             a = float(aEntry.get())
             d = float(dEntry.get())
             h = float(hEntry.get())
-            x = float(xEntry.get())
             r = float(rEntry.get())
 
             self.ClearMainSpace()
 
-            # Fórmulas
-            Ycg = ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2)))) / ((a * r) + (d * h) + (y * x))
-            Iz = (((r * (a ** 3)) / (12)) + ((a * r * (((Ycg - (a / 2)) ** 2))))) + (((d * (h ** 3)) / 12) + (h * d * ((((h / 2) + a) - (Ycg)) ** 2))) + (((x * (y ** 3)) / 12) + (y * x * (((a + h + (y / 2)) - Ycg) ** 2)))
-            
-            if Ycg == a:
-                print('Primeira Fórmula')
-                Scg = a * r * (a / 2)
-
-            elif Ycg == (a + h):
-                print('Segunda Fórmula')
-                Scg = y * x * (y / 2)
-
-            elif Ycg < (a + h) and Ycg > a:
-                print('Terceira Fórmula')
-                Scg = (a * r * (Ycg - (a / 2))) + (d * (Ycg - a) * ((Ycg - a) / 2))
+            # Calcular As Seções Geométricas
+            ycg = hSection.getYcg(x, y, a, d, h, r)
+            iz = hSection.getIz(x, y, a, d, h, r, ycg)
+            scg = hSection.getScg(x, y, a, d, h, r, ycg)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
@@ -1026,11 +1014,11 @@ class MainProgram:
 
             # Cria Os Widgets Para O ResultFrame 
             YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{Ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{Iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{Scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
             
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -1093,28 +1081,28 @@ class MainProgram:
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=RomanIValuesImage)
             self.ImageList.append(RomanIValuesImage)
 
-            if Ycg > (h + d):
+            if ycg > (h + d):
                 DotHeight = CanvasHeight - 708
                 
-            elif Ycg == (h + d):
+            elif ycg == (h + d):
                 DotHeight = CanvasHeight - 632
             
-            elif ((y + h + d) / 2) < Ycg < (h + d):
+            elif ((y + h + d) / 2) < ycg < (h + d):
                 DotHeight = CanvasHeight - 522
 
-            elif Ycg == ((y + h + d) / 2):
+            elif ycg == ((y + h + d) / 2):
                 DotHeight = CanvasHeight - 411
 
-            elif Ycg == ((h + d) / 2):
+            elif ycg == ((h + d) / 2):
                 DotHeight = CanvasHeight - 336
 
-            elif d < Ycg < ((y + d + h) / 2):
+            elif d < ycg < ((y + d + h) / 2):
                 DotHeight = CanvasHeight - 299
             
-            elif Ycg == d:
+            elif ycg == d:
                 DotHeight = CanvasHeight - 189
 
-            elif Ycg < d:
+            elif ycg < d:
                 DotHeight = CanvasHeight - 94
 
             DotImage = self.CreateImage('Images/Shapes/dot.png')
