@@ -1,11 +1,10 @@
-import enum
 import tkinter as tk
 from tkinter.font import Font
 from tkinter import ttk
-from sections import tSection
+from sections import tSection, lSection, uSection, cSection, iSection, hSection
 
 class FibraWindow():
-    def __init__(self, master, values):
+    def __init__(self, master, section, values):
         self.win_fibra = master
         self.win_fibra.geometry("700x400")
         self.win_fibra.title("Calcular Fibra")
@@ -13,6 +12,8 @@ class FibraWindow():
         self.win_fibra.resizable(0, 0)
         # self.win_fibra.attributes('-topmost', True)
         # self.win_fibra.grab_set()
+
+        self.section = section
 
         self.label_fibra = Font(family='Calibri', size=16)
 
@@ -60,6 +61,23 @@ class FibraWindow():
     def show_result(self):
         distancia = float(self.entryDist.get())
         posicao = self.comboPos.get()
-        result = tSection.getFibra(*self.sectionValues, distancia, posicao)
-        self.lblFibra['text'] = result
 
+        if self.section == 't':
+            result = tSection.get_fibra(*self.sectionValues, distancia, posicao)
+
+        elif self.section == 'l':
+            result = lSection.get_fibra(*self.sectionValues, distancia, posicao)
+
+        elif self.section == 'u':
+            result = uSection.get_fibra(*self.sectionValues, distancia, posicao)
+        
+        elif self.section == 'c':
+            result = cSection.get_fibra(*self.sectionValues, distancia, posicao)
+
+        elif self.section == 'i':
+            result = iSection.get_fibra(*self.sectionValues, distancia)
+        
+        elif self.section == 'h':
+            result = hSection.get_fibra(*self.sectionValues, distancia, posicao)
+        
+        self.lblFibra['text'] = result

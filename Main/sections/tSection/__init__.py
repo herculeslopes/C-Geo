@@ -27,7 +27,7 @@ def get_scg(x, b, y, z, ycg):
     return scg
 
 
-def getFibra(x, b, y, z, ycg, fibra, pos):
+def get_fibra(x, b, y, z, ycg, fibra, pos):
     # fibra = float(FibraEntry.get())
     # pos = OptionSelected.get()
 

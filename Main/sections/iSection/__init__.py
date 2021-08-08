@@ -20,14 +20,8 @@ def get_scg(w, ycg):
     return scg
 
 
-def get_fibra(w, h, ycg, scg, fibra):
-    if fibra < (h / 2):
-        if fibra == (h / 2):
-            S = 0
-
-        elif fibra == 0:
-            S = scg
-
+def get_fibra(w, h, ycg, fibra):
+    if fibra <= (h / 2):
         S = ((ycg - fibra) * w) * (((ycg - fibra) / 2) + fibra)
         sLabel = S
 
