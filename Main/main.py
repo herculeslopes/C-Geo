@@ -171,99 +171,9 @@ class MainProgram:
     def tShape(self, event=None):
         def Calculate(event=None):
             def OpenFibra():
-                """FibraWindow = tk.Tk()
-                FibraWindow.geometry("500x500")
-                FibraWindow.title("Calcular Fibra")
-                FibraWindow.resizable(0, 0)
-                FibraWindow.attributes('-topmost', True)
-
-
-                FibraWindow.mainloop()"""
-                # from os import system
-
-                # system(f'''python win_fibra.py {x} {b} {y} {z} {ycg}''')
                 win_fibra = tk.Tk()
                 FibraWindow(win_fibra, [x, b, y, z, ycg])
                 win_fibra.mainloop()
-
-
-            """def getData():
-                fibra = float(FibraEntry.get())
-                pos = self.OptionSelected.get()
-                s = tSection.getFibra(x, b, y, z, ycg, fibra, pos)
-                sLabel['text'] = s"""
-
-            """def get_fibra():
-                fibra = float(FibraEntry.get())
-                option = self.OptionSelected.get()    
-
-                sLabel['fg'] = '#404040'
-
-                if ((option == 'ACIMA') and (ycg + fibra <= y + b)) or ((option == 'ABAIXO') and (ycg - fibra >= 0)):
-                    if ycg > y:
-                        if option == 'ABAIXO':
-                            if ycg - fibra < y:
-                                h = ycg - fibra
-                                S = h * z * ((h / 2) + fibra)
-                                print('1')
-                            
-                            elif ycg - fibra > y:
-                                d = ycg - fibra - y
-                                S = (d * x * ((d / 2) + fibra)) + (y * z * ((y / 2) + d + fibra))
-                                print('2')
-
-                            elif ycg - fibra == y:
-                                S = y * z * (y / 2) + fibra
-                                print('3')
-
-                        elif option == 'ACIMA':
-                            if ycg + fibra < ( y + b):
-                                i = y + b  - (ycg + fibra)
-                                S = i * x * ((i / 2) + fibra)
-                                    
-                            print('4')
-
-                    elif ycg < y:
-                        if option == 'ACIMA':
-                            if (ycg + fibra) == y:
-                                S = b * x * ((b / 2) + fibra)
-
-                            elif (ycg + fibra) < y:
-                                i = y - (ycg + fibra)
-                                S = (b * x * ((b / 2 )+ (fibra + i))) + (i * z * ((i/2) + fibra))
-
-                            elif (ycg + fibra) > y: 
-                                a = (y + b) - (ycg + fibra)
-                                S = a * x * ((a/2) + fibra)        
-
-                         
-                        elif option == 'ABAIXO':
-                            if (ycg - fibra < y):
-                                d = ycg - fibra
-                                S = d * z * ((d / 2 ) + fibra)
-                                print('5')
-                        
-                    elif ycg == y:
-                        if option == 'ACIMA':
-                            if (ycg + fibra) > y:
-                                a = b - fibra
-                                S = a * x * ((a / 2) + fibra)
-                        
-                            print('6')
-                        
-                        elif option == 'ABAIXO':
-                            if (ycg - fibra) < y:
-                                a = ycg - fibra
-                                S = a * z * ((a / 2) + fibra) 
-
-                        print('7')
-
-                    sLabel['text'] = S
-
-                else:
-                    sLabel['fg'] = '#eb4034'
-                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-                    print('8')"""
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(TopEntry.get())
@@ -274,9 +184,9 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
-            ycg = tSection.getYcg(x, b, y ,z)
-            iz = tSection.getIz(x, b, y, z ,ycg)
-            scg = tSection.getScg(x, b, y, z, ycg)
+            ycg = tSection.get_ycg(x, b, y ,z)
+            iz = tSection.get_iz(x, b, y, z ,ycg)
+            scg = tSection.get_scg(x, b, y, z, ycg)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='light green', bd=0) #dbdbdb
@@ -296,8 +206,8 @@ class MainProgram:
 
             # Layout Dos Frames Da Esquerda
             # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
-            ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.TOP)
-            ButtonFrame.pack(side=tk.BOTTOM)
+            ButtonFrame.pack(side=tk.TOP)
+            ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
@@ -521,60 +431,8 @@ class MainProgram:
     def uShape(self, event=None):
         def Calculate(event=None):
             def get_fibra():
-                fibra = float(FibraEntry.get())
-                option = self.OptionSelected.get()
-                sLabel['fg'] = '#404040'
-
-                if ((option == 'ACIMA') and (Ycg + fibra <= y)) or ((option == 'ABAIXO') and (Ycg - fibra >= 0)):
-                    if Ycg > x:
-                        if option == 'ACIMA':
-                            if (Ycg + fibra) < y:
-                                m = y - (Ycg + fibra)
-                                S = m * (a + h + a) * ((m / 2) + fibra)
-
-                        elif option == 'ABAIXO':
-                            if (Ycg - fibra) > x: 
-                                i =(Ycg - x) - fibra 
-                                S = (x * (h + a + a) * ((x / 2) + i + fibra)) + ( 2 * (i * a * ((i / 2) + fibra)))
-
-                            elif (Ycg - fibra) <= (x):
-                                m = Ycg - fibra
-                                S = m * (h + a + a) * ((m / 2 ) + fibra)
-
-                    elif (Ycg < x):
-                        if option == 'ABAIXO':
-                            if(Ycg - fibra) < (x):
-                                i = Ycg - fibra
-                                S = i * (a + a + h) * ((i / 2) + fibra)
-
-                        elif option == 'ACIMA':
-                            if (Ycg + fibra) >= x:
-                                m = y - (Ycg + fibra) 
-                                S = 2 * ( m * a * ((m / 2) + fibra))       
-
-                            elif (Ycg + fibra) < x:
-                                v = y - x
-                                m = (Ycg + fibra) - x 
-                                S = (m * (a + h + a) * ((m / 2)+ fibra)) + (2 * (a * v * ((v / 2) + fibra + m)))
-
-
-                    elif (Ycg == x):
-                        if option=='ABAIXO':
-                            if (Ycg - fibra) <= x:
-                                i = Ycg - fibra
-                                S = (h + a + a) * i * ((i / 2) + fibra)
-
-                        elif option == 'ACIMA':
-                            if ( Ycg + fibra) >= x:
-                                v = (Ycg + fibra)
-                                S = (v * a * ((v / 2) + fibra)) * 2 
-
-                    sLabel['text'] = str(S) + "cm³"
-
-                else:
-                    sLabel['fg'] = '#eb4034'
-                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-
+                fibra = uSection.get_fibra(x, y, a, h, ycg, float(FibraEntry.get()), self.OptionSelected)
+                sLabel['text'] = fibra
 
             def change_stringvar(option):
                 print(option)
@@ -588,9 +446,9 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
-            ycg = uSection.getYcg(x, y, a, h)
-            iz = uSection.getIz(x, y, a, h ,ycg)
-            scg = uSection.getScg(x, y, a, h, ycg)
+            ycg = uSection.get_ycg(x, y, a, h)
+            iz = uSection.get_iz(x, y, a, h ,ycg)
+            scg = uSection.get_scg(x, y, a, h, ycg)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
@@ -780,24 +638,8 @@ class MainProgram:
     def iShape(self, event=None):
         def Calculate(event=None):
             def get_fibra():
-                fibra = float(FibraEntry.get())
-                sLabel['fg'] = '#404040'
-
-                if fibra < (h / 2):
-                    if fibra == (h / 2):
-                        S = 0
-
-                    elif fibra == 0:
-                        S = scg
-
-                    S = ((ycg - fibra) * w) * (((ycg - fibra) / 2) + fibra)
-                    sLabel['text'] = S
-
-                else:
-                    S = 0
-                    sLabel['fg'] = '#eb4034'
-                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-
+                fibra = iSection.get_fibra(w, h, ycg, scg, float(FibraEntry.get()))
+                sLabel['text'] = fibra
 
             # Converte Os Valores Das Caixas De Entrada
             h = float(HeightEntry.get())
@@ -806,9 +648,9 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
-            ycg = iSection.getYcg(h)
-            iz = iSection.getIz(h, w)
-            scg = iSection.getScg(w, ycg)
+            ycg = iSection.get_ycg(h)
+            iz = iSection.get_iz(h, w)
+            scg = iSection.get_scg(w, ycg)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
@@ -947,73 +789,8 @@ class MainProgram:
     def RomanIShape(self, event=None):
         def Calculate(event=None):
             def get_fibra():
-                fibra = float(FibraEntry.get())
-                option = self.OptionSelected.get()
-                sLabel['fg'] = '#404040'
-
-                if ((option == 'ACIMA') and (ycg + fibra <= y + d + h)) or ((option == 'ABAIXO') and (ycg - fibra >= 0)):
-                    if ycg >= (h + d):
-                        if option == 'ACIMA':
-                            if (ycg + fibra) < (y + d + h):
-                            	i = ((ycg + fibra) - (y + h + d))
-                            	S = i * x * ((i/2) + fibra)
-
-                        elif option == 'ABAIXO':
-                            if (ycg - fibra) <= (d + h) and (ycg - fibra) > (d):
-                                i = ( d + h) - (ycg - fibra)
-                                S = ((i * a * ((i / 2) + fibra)) + (d * r * ((d / 2) + i + fibra)))
-
-                            elif (ycg - fibra) <= (d):
-                                u = ( ycg - fibra)  
-                                S = u * r * ((u / 2) + fibra)
-
-                            elif (ycg - fibra) > (d + h):    
-                                u = (ycg - fibra) - (h + d)
-                                S = (u * x * ((u / 2 ) + fibra)) + (h * a * ((h / 2) + u + fibra)) + d * r * ((d / 2) + h + u + fibra)
-
-                    elif (ycg > d ) and ycg <= ( d + h):     
-                        if option =='ACIMA':      
-                        	if (ycg + fibra) >= (d + h):
-                        	    i = ( d + h + y) - (ycg + fibra)
-                        	    S = i * x * ((i / 2) + fibra)
-                        	
-                        	elif (ycg + fibra) <= ( d + h) and (ycg + fibra) >= (d):
-                        	    i = (d + h) - (ycg + fibra)
-                        	    S = (y * x * ((y / 2) + i + fibra)) + (i * a * ((i / 2) + fibra))
-
-                        elif option == 'ABAIXO':
-                            if (ycg - fibra) > (d):
-                                v = (d + h) - ( ycg - fibra)    
-                                S = (v * a * ((v / 2) + fibra)) + (d * r * ((d / 2) + fibra))
-
-                            elif (ycg - fibra) <= (d): 
-                                v = (ycg - fibra)
-                                S = v * r * ((v / 2) + fibra)
-
-                    elif ( ycg <= d ):
-                        if option == 'ABAIXO':
-                        	if ( ycg - fibra) <= (d):
-                        	    g = (ycg - fibra)
-                        	    S = g * r * ((g / 2)+ fibra)
-
-                        elif option == 'ACIMA':
-                        	if (ycg + fibra) >= (d + h):
-                        	    i = (d + h + fibra) - (ycg + fibra)
-                        	    S = (i * x * ((i / 2)+ fibra))
-
-                        	elif (ycg + fibra) >= (d):
-                        	    m = (h + d) - (ycg + fibra)    
-                        	    S = y * x * ((y / 2) + fibra)
-
-                        	elif (ycg + fibra) < (d):   
-                        	    m = (d) - (ycg + fibra)
-                        	    S = (y * x * ((y / 2) + h + m + fibra)) + (h * a * ((h / 2) + m + fibra)) + (m * r * ((m / 2) + fibra)) 
-                    
-                    sLabel['text'] = str(S) + "cm³"
-
-                else:
-                    sLabel['fg'] = '#eb4034'
-                    sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
+                fibra = hSection.get_fibra(x, y, a, d, h, r, ycg, float(FibraEntry.get()), self.OptionSelected)
+                sLabel['text'] = fibra
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())
@@ -1026,9 +803,9 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
-            ycg = hSection.getYcg(x, y, a, d, h, r)
-            iz = hSection.getIz(x, y, a, d, h, r, ycg)
-            scg = hSection.getScg(x, y, a, d, h, r, ycg)
+            ycg = hSection.get_ycg(x, y, a, d, h, r)
+            iz = hSection.get_iz(x, y, a, d, h, r, ycg)
+            scg = hSection.get_scg(x, y, a, d, h, r, ycg)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)

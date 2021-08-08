@@ -51,10 +51,10 @@ class FibraWindow():
         self.comboPos.grid(row=1, column=1, sticky='w')
 
         btnCalc = tk.Button(frmMain, text='Calcular Fibra', command=self.show_result)
-        btnCalc.grid(row=2, column=0, sticky='w')
+        btnCalc.grid(row=2, column=0, sticky='w', padx=20)
 
         self.lblFibra = tk.Label(frmMain)
-        self.lblFibra.grid(row=3, column=0, sticky='w')
+        self.lblFibra.grid(row=3, column=0, sticky='w', padx=20)
 
     
     def show_result(self):

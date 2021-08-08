@@ -6,6 +6,22 @@ from tkinter.font import Font
     self.tButton.image = tButtonImage
     self.tButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)"""
 
+def validate(self, value, action):
+    if action == '1':
+        if value:
+            try:
+                float(value)
+                return True
+                
+            except ValueError:
+                return False
+        
+        else:
+            return False
+    else:
+        return True
+
+
 class SideButton(tk.Button):    
     def __init__(self, master, text):
         super().__init__(master)
@@ -15,9 +31,12 @@ class SideButton(tk.Button):
         self['bd'] = 0
     
 
-class EntryField():
+class EntryField(tk.Entry):
     def __init__(self, master):
-        self.entry_font = Font(family='Calibri', size=20)    
-        self.entry = tk.Entry(master, font=self.entry_font, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
-        self.entry.pack()
+        super().__init__(master)
+        self.entry_font = Font(family='Calibri', size=20)
+        self['bg'] = '#bfbfbf'
+        self['fg'] = '#303030'
+        self['bd'] = 0
+        self['justify'] = tk.CENTER
     
