@@ -31,6 +31,14 @@ def getFibra(x, b, y, z, ycg, fibra, pos):
     # fibra = float(FibraEntry.get())
     # pos = OptionSelected.get()
 
+    print(f'x = {x}, {type(x)}')
+    print(f'b = {b}, {type(b)}')
+    print(f'y = {y}, {type(y)}')
+    print(f'z = {z}, {type(z)}')
+    print(f'ycg = {ycg}, {type(ycg)}')
+    print(f'Fibra = {fibra}, {type(fibra)}')
+    print(f'Posição = {pos}, {type(pos)}')
+
     if ((pos == 'ACIMA') and (ycg + fibra <= y + b)) or ((pos == 'ABAIXO') and (ycg - fibra >= 0)):
         if ycg > y:
             if pos == 'ABAIXO':

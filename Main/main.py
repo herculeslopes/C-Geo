@@ -5,7 +5,8 @@ from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
 import screeninfo
-from Formulas import tSection, lSection, uSection, iSection, hSection
+from sections import tSection, lSection, uSection, iSection, hSection
+from win_fibra import FibraWindow
 
 class MainProgram:
     def __init__(self, master):
@@ -20,8 +21,8 @@ class MainProgram:
         self.MainSpace = tk.Frame(master, bg='#dbdbdb', bd=0)
         self.MainSpace.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-        self.EntryFont = Font(family='Arial', size=20)
-        self.ResultFont = Font(family='Arial', size=16)
+        self.EntryFont = Font(family='Calibri', size=20)
+        self.ResultFont = Font(family='Calibri', size=16)
         self.WarningFont = Font(size=50)
 
         self.ScreenInfo = self.GetScreenInfo()
@@ -169,11 +170,28 @@ class MainProgram:
 
     def tShape(self, event=None):
         def Calculate(event=None):
-            def getData():
+            def OpenFibra():
+                """FibraWindow = tk.Tk()
+                FibraWindow.geometry("500x500")
+                FibraWindow.title("Calcular Fibra")
+                FibraWindow.resizable(0, 0)
+                FibraWindow.attributes('-topmost', True)
+
+
+                FibraWindow.mainloop()"""
+                # from os import system
+
+                # system(f'''python win_fibra.py {x} {b} {y} {z} {ycg}''')
+                win_fibra = tk.Tk()
+                FibraWindow(win_fibra, [x, b, y, z, ycg])
+                win_fibra.mainloop()
+
+
+            """def getData():
                 fibra = float(FibraEntry.get())
                 pos = self.OptionSelected.get()
                 s = tSection.getFibra(x, b, y, z, ycg, fibra, pos)
-                sLabel['text'] = s
+                sLabel['text'] = s"""
 
             """def get_fibra():
                 fibra = float(FibraEntry.get())
@@ -262,7 +280,7 @@ class MainProgram:
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='light green', bd=0) #dbdbdb
-            RightFrame = tk.Frame(self.MainSpace, bg='light blue', bd=0) #dbdbdb
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0) #dbdbdb
 
             # Layout Dos Frames Principais 
             LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
@@ -270,14 +288,17 @@ class MainProgram:
 
             # Cria Frames Para O Frame Esquerdo 
             ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
-            FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
+            ButtonFrame = tk.Frame(LeftFrame, bg='light blue', bd=5)
+            # FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
             
             # Cria Frames Para O Frame Direito
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
 
             # Layout Dos Frames Da Esquerda
-            ResultFrame.grid(row=0, column=0, padx=50, pady=50)
-            FibraFrame.grid(row=1, column=0, padx=50, pady=50)
+            # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
+            ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.TOP)
+            ButtonFrame.pack(side=tk.BOTTOM)
+            # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
             YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
@@ -295,8 +316,12 @@ class MainProgram:
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
+            FibraButton = tk.Button(ButtonFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=OpenFibra)
+            FibraButton.pack()
+
+
             # Cria Os Widgets Para O FibraFrame
-            FibraLabel = tk.Label(FibraFrame, text='Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
+            """FibraLabel = tk.Label(FibraFrame, text='Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
             FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
             jLabel = tk.Label(FibraFrame, text='Posição', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
@@ -306,8 +331,8 @@ class MainProgram:
             sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
 
             # Determina fibra e option
-            """fibra = float(FibraEntry.get())
-            option = self.OptionSelected.get()"""
+            fibra = float(FibraEntry.get())
+            option = self.OptionSelected.get()
 
             FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=getData)
 
@@ -317,7 +342,7 @@ class MainProgram:
             jLabel.grid(row=2, column=0, padx=(0, 10), pady=(0, 10), sticky='e')
             jDrop.grid(row=2, column=1, sticky='w')
             FibraButton.grid(row=3, column=0, padx=(0, 10), sticky='e')
-            sLabel.grid(row=3, column=1, sticky='w')
+            sLabel.grid(row=3, column=1, sticky='w')"""
             
 
             # Layout Dos Frames Da Direita
