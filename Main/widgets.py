@@ -54,3 +54,22 @@ class MenuButton(tk.Button):
         self['activebackground'] = '#dbdbdb'
         self['bd'] = 0
         self['command'] = action
+
+
+class ResultLabel(tk.Label):
+    def __init__(self, master, txt):
+        super().__init__(master)
+        self['text'] = txt
+        self['font'] = Font(family='Calibri', size=16)
+        self['bg'] = '#b0b0b0'
+        self['fg'] = '#303030'
+
+
+class ValueLabel(tk.Label):
+    def __init__(self, master, txt):
+        super().__init__(master)
+        self['text'] = txt
+        self['font'] = Font(family='Calibri', size=16)
+        self['bg'] = '#dbdbdb'
+        self['fg'] = '#303030'
+        

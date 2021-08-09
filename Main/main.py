@@ -217,12 +217,12 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
+            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
+            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
+            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -239,10 +239,10 @@ class MainProgram:
             ValueFrame.pack(expand=True, padx=(0, 300)) # ValueFrame.pack(expand=True, padx=(0, 400))
 
             # Cria Os Widgets Do ValueFrame
-            xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            bLabel = tk.Label(ValueFrame, text=f'b = {b} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            yLabel = tk.Label(ValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            zLabel = tk.Label(ValueFrame, text=f'z = {z} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            xLabel = widgets.ValueLabel(ValueFrame, f'x = {x} cm')
+            bLabel = widgets.ValueLabel(ValueFrame, f'b = {b} cm')
+            yLabel = widgets.ValueLabel(ValueFrame, f'y = {y} cm')
+            zLabel = widgets.ValueLabel(ValueFrame, f'z = {z} cm')
 
             # Layout Dos Widgets Do ValueFrame  
             xLabel.pack(side=tk.TOP, pady=(50, 5))
@@ -450,12 +450,12 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
+            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
+            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
+            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -473,10 +473,10 @@ class MainProgram:
 
             # Cria Os Widgets Do ValueFrame
             TopLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
-            a1Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            a2Label = tk.Label(TopLabelFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#121212')
-            hLabel = tk.Label(ValueFrame, text=f'h = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            a1Label = widgets.ValueLabel(TopLabelFrame, f'a = {a} cm')
+            a2Label = widgets.ValueLabel(TopLabelFrame, f'a = {a} cm')
+            YcgL = widgets.ValueLabel(ValueFrame, 'Ycg')
+            hLabel = widgets.ValueLabel(ValueFrame, f'h = {h} cm')
 
             RightLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
 
@@ -624,12 +624,12 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
+            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
+            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
+            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -646,9 +646,9 @@ class MainProgram:
             ValueFrame.pack(expand=True, padx=(0, 400))
 
             # Cria Os Widgets Do ValueFrame
-            wLabel = tk.Label(ValueFrame, text=f'x = {w} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            hLabel = tk.Label(ValueFrame, text=f'y = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            YcgL = tk.Label(ValueFrame, text='Ycg', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            wLabel = widgets.ValueLabel(ValueFrame, f'x = {w} cm')
+            hLabel = widgets.ValueLabel(ValueFrame, f'y = {h} cm')
+            YcgL = widgets.ValueLabel(ValueFrame, 'Ycg')
 
             # Layout Dos Widgets Do ValueFrame
             wLabel.pack(side=tk.TOP)
@@ -759,12 +759,12 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
-            YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            YcgLabelContent = tk.Label(ResultFrame, text=str(f'{ycg:.2f} cm'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabel = tk.Label(ResultFrame, text='Iz =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            IzLabelContent = tk.Label(ResultFrame, text=str(f'{iz:.2f} cm⁴'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabel = tk.Label(ResultFrame, text='Scg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
-            ScgLabelContent = tk.Label(ResultFrame, text=str(f'{scg:.2f} cm³'), font=self.ResultFont, bg='#b0b0b0', fg='#303030')
+            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
+            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
+            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
+            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
             
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -782,15 +782,15 @@ class MainProgram:
             ValueFrame.pack(expand=True, padx=(0, 400))
 
             # Cria Os Widgets Do ValueFrame
-            xLabel = tk.Label(ValueFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            aLabel = tk.Label(ValueFrame, text=f'a = {a} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            rLabel = tk.Label(ValueFrame, text=f'r = {r} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            xLabel = widgets.ValueLabel(ValueFrame, f'x = {x} cm')
+            aLabel = widgets.ValueLabel(ValueFrame, f'a = {a} cm')
+            rLabel = widgets.ValueLabel(ValueFrame, f'r = {r} cm')
 
             RightValueFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
             
-            yLabel = tk.Label(RightValueFrame, text=f'y = {y} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            hLabel = tk.Label(RightValueFrame, text=f'h = {h} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
-            dLabel = tk.Label(RightValueFrame, text=f'd = {d} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            yLabel = widgets.ValueLabel(RightValueFrame, f'y = {y} cm')
+            hLabel = widgets.ValueLabel(RightValueFrame, f'h = {h} cm')
+            dLabel = widgets.ValueLabel(RightValueFrame, f'd = {d} cm')
 
             # Layout Dos Widgets Do ValueFrame  
             xLabel.pack(side=tk.TOP, pady=(50, 5))
