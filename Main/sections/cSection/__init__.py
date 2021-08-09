@@ -1,12 +1,16 @@
 # Fórmulas do C
 
-def getYcg():
+def get_ycg():
     pass
 
 
-def getIz():
+def get_iz():
     pass
 
 
-def getScg():
+def get_scg():
+    pass
+
+
+def get_fibra():
     pass

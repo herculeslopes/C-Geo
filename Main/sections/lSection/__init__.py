@@ -1,6 +1,6 @@
 # Fórmulas do L
 
-def getYcg(y, k, x, u):
+def get_ycg(y, k, x, u):
     ycg = ((x * u * (x / 2)) + (k * y * ((k / 2) + x))) / (x * u + k * y)
     print(f'y = {y}')
     print(f'k = {k}')
@@ -10,7 +10,7 @@ def getYcg(y, k, x, u):
     return ycg
             
 
-def getIx(y, k, x, u, ycg):
+def get_ix(y, k, x, u, ycg):
     t = x + (k / 2)
     h = (x / 2)
     ix = (((y * k ** 3) / 12+y * k * (t - ycg) ** 2)+((u * x ** 3 / 12)+u * x * (ycg - h) ** 2))
@@ -19,9 +19,9 @@ def getIx(y, k, x, u, ycg):
     print(f'h = {h}')
     print(f'ix = {ix}')
 
-def getIy(y, k, x, u, ycg):
+def get_iy(y, k, x, u, ycg):
     iy = ((y * k ** 3) / 3 + k * y * (ycg - y / 2) ** 2) + (x * u ** 3 / 12 + x * u * (u / 2 * ycg))
     return iy
 
-def getScg():
+def get_scg():
     pass

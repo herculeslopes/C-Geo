@@ -1,8 +1,11 @@
 
-Main/Formulas/hSection/__pycache__/__init__.cpython-39.pyc
-Main/Formulas/iSection/__pycache__/__init__.cpython-39.pyc
-Main/Formulas/tSection/__pycache__/__init__.cpython-39.pyc
-Main/Formulas/uSection/__pycache__/__init__.cpython-39.pyc
-Main/Formulas/lSection/__pycache__/__init__.cpython-39.pyc
+Main/sections/hSection/__pycache__/__init__.cpython-39.pyc
+Main/sections/iSection/__pycache__/__init__.cpython-39.pyc
+Main/sections/tSection/__pycache__/__init__.cpython-39.pyc
+Main/sections/uSection/__pycache__/__init__.cpython-39.pyc
+Main/sections/lSection/__pycache__/__init__.cpython-39.pyc
+Main/sections/cSection/__pycache__/__init__.cpython-39.pyc
+
 Main/__pycache__/widgets.cpython-39.pyc
 *.pyc
+Main/run_fibra.py

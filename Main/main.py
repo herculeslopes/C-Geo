@@ -346,8 +346,8 @@ class MainProgram:
             x = float(xEntry.get())
             u = float(uEntry.get())
 
-            ycg = lSection.getYcg(y, k, x, u)
-            ix = lSection.getIx(y, k, x, u , ycg)   
+            ycg = lSection.get_ycg(y, k, x, u)
+            ix = lSection.get_ix(y, k, x, u , ycg)   
             # print(f'Ycg = {ycg}')
 
             # self.ClearMainSpace()
@@ -392,14 +392,10 @@ class MainProgram:
         ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
         ButtonsFrame.pack()
 
-        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
-        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
-        CalculateButton.image = CalculateImage
-        CalculateButton.grid(row=0, column=0, padx=5)
+        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
+        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
 
-        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
-        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
-        DiscardButton.image = DiscardImage
+        CalculateButton.grid(row=0, column=0, padx=5)
         DiscardButton.grid(row=0, column=1, padx=5)
 
         """WarningLabel = tk.Label(DataFrame, text='EM BREVE', font=self.WarningFont, fg='#8c8c8c', bg='#dbdbdb')
@@ -586,9 +582,9 @@ class MainProgram:
     def iShape(self, event=None):
         def Calculate(event=None):
             def OpenFibra():
-                win_fibra = tk.Tk()
+                win_fibra = tk.Toplevel()
                 FibraWindow(win_fibra, 'i', [w, h, ycg])
-                win_fibra.mainloop()
+                # win_fibra.mainloop()
 
             # Converte Os Valores Das Caixas De Entrada
             h = float(HeightEntry.get())

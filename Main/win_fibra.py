@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter.font import Font
 from tkinter import ttk
+from PIL import ImageTk, Image
 from sections import tSection, lSection, uSection, cSection, iSection, hSection
+import widgets
 
 class FibraWindow():
     def __init__(self, master, section, values):
@@ -12,6 +14,11 @@ class FibraWindow():
         self.win_fibra.resizable(0, 0)
         # self.win_fibra.attributes('-topmost', True)
         # self.win_fibra.grab_set()
+
+        self.imgCalc = ImageTk.PhotoImage(Image.open('Images/Buttons/calculate.png'))
+        self.imgDisc = ImageTk.PhotoImage(Image.open('Images/Buttons/discard.png'))
+
+        print(f'Imagem: {self.imgCalc}')
 
         self.section = section
 
@@ -36,28 +43,33 @@ class FibraWindow():
 
     def main_layout(self):
         frmMain = tk.Frame(self.win_fibra, bg="#dbdbdb")
-        frmMain.pack(fill=tk.X)
+        frmMain.pack(side=tk.TOP, fill=tk.X)
 
-        lblDist = tk.Label(frmMain, font=self.label_fibra, text="Distância da fibra:")
-        lblDist.grid(row=0, column=0, sticky='w', padx=20)
+        self.lblFibra = widgets.FibraResult(frmMain)
+        self.lblFibra.pack(pady=20)
 
-        self.entryDist = tk.Entry(frmMain, font=self.label_fibra)
-        self.entryDist.grid(row=0, column=1, sticky='w')
+        lblDist = widgets.WinFibraLabel(frmMain, "Distância da fibra")
+        lblDist.pack(pady=10)
 
-        lblPos = tk.Label(frmMain, font=self.label_fibra, text="Posição da fibra: ")
-        lblPos.grid(row=1, column = 0, sticky='w', padx=20)
+        self.entryDist = widgets.WinFibraEntry(frmMain)
+        self.entryDist.pack(fill=tk.X, padx=50)
 
-        self.comboPos = ttk.Combobox(frmMain, font=self.label_fibra, values=self.FibraOptions, width=10)
-        self.comboPos.current(0)
-        self.comboPos.grid(row=1, column=1, sticky='w')
+        lblPos = widgets.WinFibraLabel(frmMain, "Posição da fibra")
+        lblPos.pack(pady=10)
 
-        btnCalc = tk.Button(frmMain, text='Calcular Fibra', command=self.show_result)
-        btnCalc.grid(row=2, column=0, sticky='w', padx=20)
+        self.comboPos = widgets.FibraCombo(frmMain)
+        self.comboPos.pack()
+        
+        frmMenu = tk.Frame(self.win_fibra, bg='#dbdbdb', bd=0)
+        frmMenu.pack(side=tk.BOTTOM, pady=15)
 
-        self.lblFibra = tk.Label(frmMain)
-        self.lblFibra.grid(row=3, column=0, sticky='w', padx=20)
+        CalculateButton = widgets.MenuButton(frmMenu, img=self.imgCalc, action=self.show_result)
+        DiscardButton = widgets.MenuButton(frmMenu, img=self.imgDisc, action=lambda: self.entryDist.delete(0, tk.END))
 
-    
+        CalculateButton.grid(row=0, column=0, padx=5)
+        DiscardButton.grid(row=0, column=1, padx=5)
+
+
     def show_result(self):
         distancia = float(self.entryDist.get())
         posicao = self.comboPos.get()

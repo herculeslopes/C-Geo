@@ -1,5 +1,13 @@
 import tkinter as tk
 from tkinter.font import Font
+from tkinter import ttk
+
+# combo_style = ttk.Style()
+
+fibra_options = (
+    'ACIMA',
+    'ABAIXO'
+)
 
 def validate(value, action):
     if action == '1':
@@ -27,7 +35,6 @@ class SideButton(tk.Button):
         self['command'] = action
     
 
-# Caixa de Entrada Para Medidas
 class EntryField(tk.Entry):
     def __init__(self, master):
         super().__init__(master)
@@ -72,4 +79,48 @@ class ValueLabel(tk.Label):
         self['font'] = Font(family='Calibri', size=16)
         self['bg'] = '#dbdbdb'
         self['fg'] = '#303030'
-        
+
+
+class WinFibraLabel(tk.Label):
+    def __init__(self, master, txt):
+        super().__init__(master)
+        self['text'] = txt
+        self['font'] = Font(family='Arial', size=16)
+        self['bg'] = '#dbdbdb'
+        self['fg'] = '#303030'
+
+
+class WinFibraEntry(tk.Entry):
+    def __init__(self, master):
+        super().__init__(master)
+        self['font'] = Font(family='Calibri', size=20)
+        self['bg'] = '#bfbfbf'
+        self['fg'] = '#303030'
+        self['bd'] = 0
+        self['justify'] = tk.CENTER
+
+
+class FibraCombo(ttk.Combobox):
+    def __init__(self, master):
+        super().__init__(master)
+
+        self['font'] = Font(family='Calibri', size=16)
+        self['values'] = fibra_options
+        self['state'] = 'readonly'
+        self['width'] = 10
+        self.current(0)
+
+"""class FibraRadio(tk.Radiobutton):
+    def __init__(self, master, txt):
+        super().__init__(master)"""
+
+
+
+class FibraResult(tk.Label):
+    def __init__(self, master):
+        super().__init__(master)
+        self['font'] = Font(family='Arial', size=16)
+        self['bg'] = '#dbdbdb'
+        self['fg'] = '#303030'
+        self['width'] = 25
+        self['bd'] = 2
