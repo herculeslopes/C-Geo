@@ -177,9 +177,8 @@ class MainProgram:
     def tShape(self, event=None):
         def Calculate(event=None):
             def OpenFibra():
-                win_fibra = tk.Tk()
+                win_fibra = tk.Toplevel()
                 FibraWindow(win_fibra, 't', [x, b, y, z, ycg])
-                win_fibra.mainloop()
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(TopEntry.get())
@@ -405,9 +404,8 @@ class MainProgram:
     def uShape(self, event=None):
         def Calculate(event=None):
             def OpenFibra():
-                win_fibra = tk.Tk()
+                win_fibra = tk.Toplevel()
                 FibraWindow(win_fibra, 'u', [x, y, a, h, ycg])
-                win_fibra.mainloop()
 
 
             # Converte Os Valores Das Caixas De Entrada
@@ -584,7 +582,6 @@ class MainProgram:
             def OpenFibra():
                 win_fibra = tk.Toplevel()
                 FibraWindow(win_fibra, 'i', [w, h, ycg])
-                # win_fibra.mainloop()
 
             # Converte Os Valores Das Caixas De Entrada
             h = float(HeightEntry.get())
@@ -713,9 +710,8 @@ class MainProgram:
     def RomanIShape(self, event=None):
         def Calculate(event=None):
             def OpenFibra():
-                win_fibra = tk.Tk()
+                win_fibra = tk.Toplevel()
                 FibraWindow(win_fibra, 'h', [x, y, a, d, h, r, ycg])
-                win_fibra.mainloop()
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())
