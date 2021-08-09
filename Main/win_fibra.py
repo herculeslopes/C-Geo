@@ -41,30 +41,37 @@ class FibraWindow():
 
         self.main_layout()
 
+    def clearValues(self):
+        self.entryDist.delete(0, tk.END)
+        self.lblFibra['text'] = ''
+
     def main_layout(self):
         frmMain = tk.Frame(self.win_fibra, bg="#dbdbdb")
-        frmMain.pack(side=tk.TOP, fill=tk.X)
+        frmMain.pack(side=tk.TOP, fill=tk.X, padx=100)
 
         self.lblFibra = widgets.FibraResult(frmMain)
-        self.lblFibra.pack(pady=20)
+        self.lblFibra.pack(pady=(40, 0))
+
+        frmLine = tk.Frame(frmMain, bg="#121212", height=3)
+        frmLine.pack(expand=True, fill=tk.X) # , padx=200
 
         lblDist = widgets.WinFibraLabel(frmMain, "Distância da fibra")
-        lblDist.pack(pady=10)
+        lblDist.pack(anchor='w', pady=(30, 5))
 
         self.entryDist = widgets.WinFibraEntry(frmMain)
-        self.entryDist.pack(fill=tk.X, padx=50)
+        self.entryDist.pack(fill=tk.X) # , padx=100
 
         lblPos = widgets.WinFibraLabel(frmMain, "Posição da fibra")
-        lblPos.pack(pady=10)
+        lblPos.pack(anchor='w', pady=(20, 5))
 
         self.comboPos = widgets.FibraCombo(frmMain)
-        self.comboPos.pack()
+        self.comboPos.pack(anchor='w')
         
         frmMenu = tk.Frame(self.win_fibra, bg='#dbdbdb', bd=0)
-        frmMenu.pack(side=tk.BOTTOM, pady=15)
+        frmMenu.pack(side=tk.BOTTOM, pady=(0, 25))
 
         CalculateButton = widgets.MenuButton(frmMenu, img=self.imgCalc, action=self.show_result)
-        DiscardButton = widgets.MenuButton(frmMenu, img=self.imgDisc, action=lambda: self.entryDist.delete(0, tk.END))
+        DiscardButton = widgets.MenuButton(frmMenu, img=self.imgDisc, action=self.clearValues)
 
         CalculateButton.grid(row=0, column=0, padx=5)
         DiscardButton.grid(row=0, column=1, padx=5)
