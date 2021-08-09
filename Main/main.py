@@ -1,12 +1,11 @@
 import tkinter as tk
-from tkinter import font
-from tkinter.constants import LEFT
 from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
 import screeninfo
 from sections import tSection, lSection, uSection, iSection, hSection
 from win_fibra import FibraWindow
+import widgets
 
 class MainProgram:
     def __init__(self, master):
@@ -50,7 +49,55 @@ class MainProgram:
         self.root.bind('<Control-Key-5>', self.iShape)
         self.root.bind('<Control-Key-6>', self.RomanIShape)
 
+        self.InitImages()
         self.SideFramePacking()     
+
+    def CreateImage(self, path):
+        ImageFile = Image.open(path)
+        ImageWidth, ImageHeight = ImageFile.size
+        
+        if self.WindowsZoom == 100:
+            xSize = ImageWidth
+            ySize = ImageHeight
+
+        elif self.WindowsZoom == 125:
+            xSize = ImageWidth - (ImageWidth * 0.25)
+            ySize = ImageHeight - (ImageHeight * 0.25)
+
+        elif self.WindowsZoom == 150:
+            xSize = ImageWidth - (ImageWidth * 0.50)
+            ySize = ImageHeight - (ImageHeight * 0.50)
+
+        elif self.WindowsZoom == 175:
+            xSize = ImageWidth - (ImageWidth * 0.75)
+            ySize = ImageHeight - (ImageHeight * 0.75)
+
+        TkImage = ImageTk.PhotoImage(ImageFile.resize((int(xSize), int(ySize)), Image.ANTIALIAS))
+        
+        return TkImage
+    
+    
+    def InitImages(self):
+        # Side Button
+        self.tButtonImage = self.CreateImage('Images/Buttons/tButton.png')
+        self.LButtonImage = self.CreateImage('Images/Buttons/LButton.png')
+        self.uButtonImage = self.CreateImage('Images/Buttons/uButton.png')
+        self.cButtonImage = self.CreateImage('Images/Buttons/cButton.png')
+        self.iButtonImage = self.CreateImage('Images/Buttons/iButton.png')
+        self.RomanIButtonImage = self.CreateImage('Images/Buttons/RomanIButton.png')
+
+
+        # Shapes Labels
+        self.tShapeImage = self.CreateImage('Images/Shapes/tShape.png')
+        self.LShapeImage = self.CreateImage('Images/Shapes/LShape.png')
+        self.uShapeImage = self.CreateImage('Images/Shapes/uShape.png')
+        self.cShapeImage = self.CreateImage('Images/Shapes/cShape.png')
+        self.iShapeImage = self.CreateImage('Images/Shapes/iShape.png')
+        self.RomanIShapeImage = self.CreateImage('Images/Shapes/RomanIShape.png')
+
+        #Menu Buttons
+        self.CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
+        self.DiscardImage = self.CreateImage('Images/Buttons/discard.png')
 
 
     def GetScreenInfo(self):
@@ -91,65 +138,24 @@ class MainProgram:
 
 
     def SideFramePacking(self):
-        tButtonImage = self.CreateImage(r'Images\Buttons\tButton.png')
-        self.tButton = tk.Button(self.SideFrame, image=tButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.tShape)
-        self.tButton.image = tButtonImage
+        self.tButton = widgets.SideButton(self.SideFrame, self.tButtonImage, self.tShape)
+        self.LButton = widgets.SideButton(self.SideFrame, self.LButtonImage, self.LShape)
+        self.uButton = widgets.SideButton(self.SideFrame, self.uButtonImage, self.uShape)
+        self.cButton = widgets.SideButton(self.SideFrame, self.cButtonImage, self.cShape)
+        self.iButton = widgets.SideButton(self.SideFrame, self.iButtonImage, self.iShape)
+        self.RomanIButton = widgets.SideButton(self.SideFrame, self.RomanIButtonImage, self.RomanIShape)
+
         self.tButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-
-        LButtonImage = self.CreateImage(r'Images\Buttons\LButton.png')
-        self.LButton = tk.Button(self.SideFrame, image=LButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.LShape)
-        self.LButton.image = LButtonImage
         self.LButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-
-        uButtonImage = self.CreateImage(r'Images\Buttons\uButton.png')
-        self.uButton = tk.Button(self.SideFrame, image=uButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.uShape)
-        self.uButton.image = uButtonImage
         self.uButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-
-        cButtonImage = self.CreateImage(r'Images\Buttons\cButton.png')
-        self.cButton = tk.Button(self.SideFrame, image=cButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.cShape)
-        self.cButton.image = cButtonImage
         self.cButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-
-        iButtonImage = self.CreateImage(r'Images\Buttons\iButton.png')
-        self.iButton = tk.Button(self.SideFrame, image=iButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.iShape)
-        self.iButton.image = iButtonImage
         self.iButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-
-        RomanIButtonImage = self.CreateImage(r'Images\Buttons\RomanIButton.png')
-        self.RomanIButton = tk.Button(self.SideFrame, image=RomanIButtonImage, bg='#c9c9c9', activebackground='#c9c9c9', bd=0, command=self.RomanIShape)
-        self.RomanIButton.image = RomanIButtonImage
         self.RomanIButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
 
 
     def ClearMainSpace(self):
         for widget in self.MainSpace.winfo_children():
             widget.destroy()
-
-
-    def CreateImage(self, path):
-        ImageFile = Image.open(path)
-        ImageWidth, ImageHeight = ImageFile.size
-        
-        if self.WindowsZoom == 100:
-            xSize = ImageWidth
-            ySize = ImageHeight
-
-        elif self.WindowsZoom == 125:
-            xSize = ImageWidth - (ImageWidth * 0.25)
-            ySize = ImageHeight - (ImageHeight * 0.25)
-
-        elif self.WindowsZoom == 150:
-            xSize = ImageWidth - (ImageWidth * 0.50)
-            ySize = ImageHeight - (ImageHeight * 0.50)
-
-        elif self.WindowsZoom == 175:
-            xSize = ImageWidth - (ImageWidth * 0.75)
-            ySize = ImageHeight - (ImageHeight * 0.75)
-
-        TkImage = ImageTk.PhotoImage(ImageFile.resize((int(xSize), int(ySize)), Image.ANTIALIAS))
-        
-        return TkImage
 
 
     def validate(self, value, action):
@@ -289,9 +295,9 @@ class MainProgram:
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+        """TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
         TopEntry['validatecommand'] = (self.Register, '%P', '%d')
-        TopEntry.pack(side=tk.TOP, pady=(50, 25)) 
+        TopEntry.pack(side=tk.TOP, pady=(50, 25))
 
         RightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
         RightEntry['validatecommand'] = (self.Register, '%P', '%d')
@@ -299,15 +305,18 @@ class MainProgram:
 
         LeftEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
         LeftEntry['validatecommand'] = (self.Register, '%P', '%d')
+        LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)"""
+
+        TopEntry = widgets.EntryField(DataFrame)
+        RightEntry = widgets.EntryField(DataFrame)
+        LeftEntry = widgets.EntryField(DataFrame)
+        BottomEntry = widgets.EntryField(DataFrame)  
+        tShapeLabel = widgets.ShapeImage(DataFrame, img=self.tShapeImage)
+
+        TopEntry.pack(side=tk.TOP, pady=(50, 25))
+        RightEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
         LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)
-
-        self.tShapeImage = self.CreateImage('Images/Shapes/tShape.png')
-        tShapeLabel = tk.Label(DataFrame, image=self.tShapeImage, bd=0)
-        tShapeLabel.image = self.tShapeImage
         tShapeLabel.pack()
-
-        BottomEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        BottomEntry['validatecommand'] = (self.Register, '%P', '%d')
         BottomEntry.pack(side=tk.BOTTOM, pady=(25, 50))
         
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
@@ -316,14 +325,10 @@ class MainProgram:
         ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
         ButtonsFrame.pack()
 
-        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
-        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
-        CalculateButton.image = CalculateImage
-        CalculateButton.grid(row=0, column=0, padx=5)
+        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
+        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
 
-        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
-        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
-        DiscardButton.image = DiscardImage
+        CalculateButton.grid(row=0, column=0, padx=5)
         DiscardButton.grid(row=0, column=1, padx=5)
 
         self.root.bind('<Return>', Calculate)
@@ -377,7 +382,6 @@ class MainProgram:
         uEntry['validatecommand'] = (self.Register, '%P', '%d')
         uEntry.pack(side=tk.BOTTOM, pady=(25, 50))
 
-        self.LShapeImage = self.CreateImage('Images/Shapes/LShape.png')
         LShapeLabel = tk.Label(DataFrame, image=self.LShapeImage, bd=0)
         LShapeLabel.image = self.LShapeImage
         LShapeLabel.pack()
@@ -409,9 +413,7 @@ class MainProgram:
                 FibraWindow(win_fibra, 'u', [x, y, a, h, ycg])
                 win_fibra.mainloop()
 
-            def change_stringvar(option):
-                print(option)
-            
+
             # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())  
             y = float(yEntry.get())
@@ -538,29 +540,18 @@ class MainProgram:
         TopEntryFrame = tk.Frame(DataFrame, bg='#dbdbdb')
         TopEntryFrame.pack(side=tk.TOP, pady=(50, 25))
 
-        a1Entry = tk.Entry(TopEntryFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        a1Entry['validatecommand'] = (self.Register, '%P', '%d')
+        a1Entry = widgets.EntryField(TopEntryFrame)
+        a2Entry = widgets.EntryField(TopEntryFrame)
+        xEntry = widgets.EntryField(DataFrame)
+        yEntry = widgets.EntryField(DataFrame)
+        hEntry = widgets.EntryField(DataFrame)
+        uShapeLabel = widgets.ShapeImage(DataFrame, img=self.uShapeImage)
+
         a1Entry.pack(side=tk.LEFT, padx=30)
-
-        a2Entry = tk.Entry(TopEntryFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        a2Entry['validatecommand'] = (self.Register, '%P', '%d')
         a2Entry.pack(side=tk.RIGHT, padx=30)        
-
-        xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-        xEntry['validatecommand'] = (self.Register, '%P', '%d')
         xEntry.pack(side=tk.LEFT, anchor='s', pady=(0, 140), padx=30)
-
-        yEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-        yEntry['validatecommand'] = (self.Register, '%P', '%d')
         yEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
-
-        self.uShapeImage = self.CreateImage('Images/Shapes/uShape.png')
-        uShapeLabel = tk.Label(DataFrame, image=self.uShapeImage, bd=0)
-        uShapeLabel.image = self.uShapeImage
         uShapeLabel.pack()
-
-        hEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        hEntry['validatecommand'] = (self.Register, '%P', '%d')
         hEntry.pack(pady=(30, 0))
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
@@ -569,14 +560,10 @@ class MainProgram:
         ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
         ButtonsFrame.pack()
 
-        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
-        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
-        CalculateButton.image = CalculateImage
-        CalculateButton.grid(row=0, column=0, padx=5)
+        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
+        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
 
-        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
-        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
-        DiscardButton.image = DiscardImage
+        CalculateButton.grid(row=0, column=0, padx=5)
         DiscardButton.grid(row=0, column=1, padx=5)
 
         self.root.bind('<Return>', Calculate)
@@ -588,7 +575,6 @@ class MainProgram:
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        self.cShapeImage = self.CreateImage('Images/Shapes/cShape.png')
         cShapeLabel = tk.Label(DataFrame, image=self.cShapeImage, bd=0)
         cShapeLabel.image = self.cShapeImage
         cShapeLabel.pack()
@@ -705,16 +691,9 @@ class MainProgram:
         MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
 
         # Cria Os Widgets Do DataFrame
-        WidthEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        HeightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-
-        self.iShapeImage = self.CreateImage('Images/Shapes/iShape.png')
-        iShapeLabel = tk.Label(DataFrame, image=self.iShapeImage, bd=0)
-        iShapeLabel.image = self.iShapeImage
-
-        # Teste De Validação Destes Widgets
-        WidthEntry['validatecommand'] = (self.Register, '%P', '%d')
-        HeightEntry['validatecommand'] = (self.Register, '%P', '%d')
+        WidthEntry = widgets.EntryField(DataFrame)
+        HeightEntry = widgets.EntryField(DataFrame)
+        iShapeLabel = widgets.ShapeImage(DataFrame, img=self.iShapeImage)
 
         # Layout Dos Widgets Do DataFrame
         WidthEntry.pack(side=tk.TOP, pady=(50, 25))
@@ -725,13 +704,8 @@ class MainProgram:
         ButtonsFrame.pack()
 
         # Widgets De ButtonsFrame
-        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
-        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
-        CalculateButton.image = CalculateImage
-        
-        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
-        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
-        DiscardButton.image = DiscardImage
+        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
+        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
 
         # Layout Dos Widgets
         CalculateButton.grid(row=0, column=0, padx=5)
@@ -742,9 +716,10 @@ class MainProgram:
 
     def RomanIShape(self, event=None):
         def Calculate(event=None):
-            def get_fibra():
-                fibra = hSection.get_fibra(x, y, a, d, h, r, ycg, float(FibraEntry.get()), self.OptionSelected)
-                sLabel['text'] = fibra
+            def OpenFibra():
+                win_fibra = tk.Tk()
+                FibraWindow(win_fibra, 'h', [x, y, a, d, h, r, ycg])
+                win_fibra.mainloop()
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())
@@ -762,23 +737,26 @@ class MainProgram:
             scg = hSection.get_scg(x, y, a, d, h, r, ycg)
 
             # Cria Os Frames Principais
-            LeftFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0)
-            
+            LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0) #dbdbdb
+
             # Layout Dos Frames Principais 
             LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
             # Cria Frames Para O Frame Esquerdo 
-            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0')
-            FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
-
+            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
+            ButtonFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=5)
+            # FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
+            
             # Cria Frames Para O Frame Direito
             ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
 
             # Layout Dos Frames Da Esquerda
-            ResultFrame.grid(row=0, column=0, padx=50, pady=50)
-            FibraFrame.grid(row=1, column=0, padx=50, pady=50)
+            # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
+            ButtonFrame.pack(side=tk.TOP)
+            ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
+            # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
             YcgLabel = tk.Label(ResultFrame, text='Ycg =', font=self.ResultFont, bg='#b0b0b0', fg='#303030')
@@ -797,22 +775,8 @@ class MainProgram:
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
             # Cria Os Widgets Para O FibraFrame
-            FibraLabel = tk.Label(FibraFrame, text='Digite Sua Fibra', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-            FibraEntry = tk.Entry(FibraFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER)
-            jLabel = tk.Label(FibraFrame, text='POSIÇÃO:', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-            jDrop = tk.OptionMenu(FibraFrame, self.OptionSelected, *self.FibraOptions)
-            jDrop.configure(fg='#121212', bg='#808080', bd=0, highlightthickness=0) 
-
-            sLabel = tk.Label(FibraFrame, text='-----', font=self.ResultFont, fg='#404040', bg='#b0b0b0')
-            FibraButton = tk.Button(FibraFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=get_fibra)
-
-            # Layout Dos Widgets De FibraFrame
-            FibraLabel.grid(row=0, column=0, columnspan=2)
-            FibraEntry.grid(row=1, column=0, pady=15, columnspan=2)
-            jLabel.grid(row=2, column=0)
-            jDrop.grid(row=2, column=1)
-            sLabel.grid(row=3, column=0, columnspan=2)
-            FibraButton.grid(row=4, column=0, columnspan=2)
+            FibraButton = tk.Button(ButtonFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=OpenFibra)
+            FibraButton.pack()
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
@@ -896,36 +860,22 @@ class MainProgram:
         DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
         DataFrame.pack(expand=True)
 
-        xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        xEntry['validatecommand'] = (self.Register, '%P', '%d')
-        xEntry.pack(side=tk.TOP, pady=(50, 25))
-
+        xEntry = widgets.EntryField(DataFrame)
         LeftFrame = tk.Frame(DataFrame, bg='#dbdbdb')
+        yEntry = widgets.EntryField(LeftFrame)
+        aEntry = widgets.EntryField(LeftFrame)
+        dEntry = widgets.EntryField(LeftFrame)
+        hEntry = widgets.EntryField(DataFrame)
+        rEntry = widgets.EntryField(DataFrame)
+        RomanIShapeLabel = widgets.ShapeImage(DataFrame, img=self.RomanIShapeImage)
+
+        xEntry.pack(side=tk.TOP, pady=(50, 25))
         LeftFrame.pack(side=tk.LEFT, anchor='s', pady=50, padx=30)
-
-        yEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-        yEntry['validatecommand'] = (self.Register, '%P', '%d')
-        yEntry.pack(side=tk.TOP, pady=(0, 245))
-
-        aEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-        aEntry['validatecommand'] = (self.Register, '%P', '%d')
-        aEntry.pack(pady=(0, 160))
-
-        dEntry = tk.Entry(LeftFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-        dEntry['validatecommand'] = (self.Register, '%P', '%d')
+        yEntry.pack(side=tk.TOP, pady=(0, 245)) 
+        aEntry.pack(pady=(0, 160)) 
         dEntry.pack(side=tk.BOTTOM, pady=(0, 100))
-
-        hEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-        hEntry['validatecommand'] = (self.Register, '%P', '%d')
         hEntry.pack(side=tk.RIGHT, anchor='n', pady=325, padx=30)
-
-        self.RomanIShapeImage = self.CreateImage('Images/Shapes/RomanIShape.png')
-        RomanIShapeLabel = tk.Label(DataFrame, image=self.RomanIShapeImage, bd=0)
-        RomanIShapeLabel.image = self.RomanIShapeImage
-        RomanIShapeLabel.pack()
-
-        rEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        rEntry['validatecommand'] = (self.Register, '%P', '%d')
+        RomanIShapeLabel.pack()  
         rEntry.pack(pady=(20, 0))
 
         MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
@@ -934,14 +884,10 @@ class MainProgram:
         ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
         ButtonsFrame.pack()
 
-        CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
-        CalculateButton = tk.Button(ButtonsFrame, image=CalculateImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Calculate)
-        CalculateButton.image = CalculateImage
-        CalculateButton.grid(row=0, column=0, padx=5)
+        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
+        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
 
-        DiscardImage = self.CreateImage('Images/Buttons/discard.png')
-        DiscardButton = tk.Button(ButtonsFrame, image=DiscardImage, bg='#dbdbdb', activebackground='#dbdbdb', bd=0, command=Discard)
-        DiscardButton.image = DiscardImage
+        CalculateButton.grid(row=0, column=0, padx=5)
         DiscardButton.grid(row=0, column=1, padx=5)
 
         self.root.bind('<Return>', Calculate)
