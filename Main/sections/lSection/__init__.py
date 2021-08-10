@@ -25,3 +25,7 @@ def get_iy(y, k, x, u, ycg):
 
 def get_scg():
     pass
+
+
+def get_fibra():
+    pass

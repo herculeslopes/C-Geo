@@ -66,7 +66,7 @@ class OpenFibraButton(tk.Button):
     def __init__(self, master, action):
         super().__init__(master)
         self['text'] = 'Abrir cálculo da fibra'
-        self['font'] = Font(family='Helvetica', size=12)
+        self['font'] = Font(family='Arial', size=12, weight='bold')
         self['bg'] = '#8c8c8c'
         self['activebackground'] = '#dbdbdb'
         self['fg'] = '#dbdbdb'

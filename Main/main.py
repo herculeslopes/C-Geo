@@ -174,11 +174,16 @@ class MainProgram:
             return True
 
 
+    def OpenFibra(self, sec, meds):
+        win_fibra = tk.Toplevel()
+        FibraWindow(win_fibra, sec, meds)
+
+
     def tShape(self, event=None):
         def Calculate(event=None):
-            def OpenFibra():
+            """def OpenFibra():
                 win_fibra = tk.Toplevel()
-                FibraWindow(win_fibra, 't', [x, b, y, z, ycg])
+                FibraWindow(win_fibra, 't', [x, b, y, z, ycg])"""
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(TopEntry.get())
@@ -230,7 +235,8 @@ class MainProgram:
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('t', [x, b, y, z, ycg]))
             FibraButton.pack(fill=tk.X)
             
             # Layout Dos Frames Da Direita
@@ -334,10 +340,6 @@ class MainProgram:
 
     def LShape(self, event=None):
         def Calculate():
-            def getFibra():
-                pass
-            
-
             #Converte Os Valores Das Caixas De Entrada
             y = float(yEntry.get())
             k = float(kEntry.get())
@@ -402,9 +404,9 @@ class MainProgram:
 
     def uShape(self, event=None):
         def Calculate(event=None):
-            def OpenFibra():
+            """def OpenFibra():
                 win_fibra = tk.Toplevel()
-                FibraWindow(win_fibra, 'u', [x, y, a, h, ycg])
+                FibraWindow(win_fibra, 'u', [x, y, a, h, ycg])"""
 
 
             # Converte Os Valores Das Caixas De Entrada
@@ -458,7 +460,8 @@ class MainProgram:
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
 
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('u', [x, y, a, h, ycg]))
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
@@ -578,9 +581,9 @@ class MainProgram:
 
     def iShape(self, event=None):
         def Calculate(event=None):
-            def OpenFibra():
+            """def OpenFibra():
                 win_fibra = tk.Toplevel()
-                FibraWindow(win_fibra, 'i', [w, h, ycg])
+                FibraWindow(win_fibra, 'i', [w, h, ycg])"""
 
             # Converte Os Valores Das Caixas De Entrada
             h = float(HeightEntry.get())
@@ -631,7 +634,8 @@ class MainProgram:
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('i', [w, h, ycg]))
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
@@ -708,9 +712,9 @@ class MainProgram:
 
     def RomanIShape(self, event=None):
         def Calculate(event=None):
-            def OpenFibra():
+            """def OpenFibra():
                 win_fibra = tk.Toplevel()
-                FibraWindow(win_fibra, 'h', [x, y, a, d, h, r, ycg])
+                FibraWindow(win_fibra, 'h', [x, y, a, d, h, r, ycg])"""
 
             # Converte Os Valores Das Caixas De Entrada
             x = float(xEntry.get())
@@ -766,7 +770,8 @@ class MainProgram:
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
             # Cria Os Widgets Para O FibraFrame
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('h', [x, y, a, d, h, r, ycg]))
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
