@@ -444,11 +444,11 @@ class MainProgram:
 
             # Cria Os Widgets Para O ResultFrame 
             YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            YcgLabelContent = widgets.ResultValue(ResultFrame, str(f'{ycg:.2f} cm'))
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
             ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
+            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
             YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
