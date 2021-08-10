@@ -76,6 +76,8 @@ class FibraWindow():
         CalculateButton.grid(row=0, column=0, padx=5)
         DiscardButton.grid(row=0, column=1, padx=5)
 
+        self.entryDist.focus_set()
+
 
     def show_result(self):
         distancia = float(self.entryDist.get())

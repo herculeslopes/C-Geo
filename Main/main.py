@@ -28,13 +28,7 @@ class MainProgram:
         self.ScreenResolution = self.ScreenInfo[0]
         self.WindowsZoom = self.ScreenInfo[1]
 
-        self.FibraOptions = (
-            "ACIMA",
-            "ABAIXO"
-        )
-
         self.OptionSelected = tk.StringVar()
-        self.OptionSelected.set(self.FibraOptions[0])
 
         print(f'\nScreen Info: {self.ScreenInfo}')
         print(f'Zoom Ration: {self.WindowsZoom}')
@@ -47,10 +41,11 @@ class MainProgram:
         self.root.bind('<Control-Key-3>', self.uShape)
         self.root.bind('<Control-Key-4>', self.cShape)
         self.root.bind('<Control-Key-5>', self.iShape)
-        self.root.bind('<Control-Key-6>', self.RomanIShape)
+        self.root.bind('<Control-Key-6>', self.hShape)
 
         self.InitImages()
         self.SideFramePacking()     
+
 
     def CreateImage(self, path):
         ImageFile = Image.open(path)
@@ -137,14 +132,21 @@ class MainProgram:
         return ScreenResolution, ZoomRatio
 
 
+    def EntryDiscard(self, entries):
+        for e in entries:
+            e.delete(0, tk.END)
+
+
     def SideFramePacking(self):
+        # Botões Laterias
         self.tButton = widgets.SideButton(self.SideFrame, self.tButtonImage, self.tShape)
         self.LButton = widgets.SideButton(self.SideFrame, self.LButtonImage, self.LShape)
         self.uButton = widgets.SideButton(self.SideFrame, self.uButtonImage, self.uShape)
         self.cButton = widgets.SideButton(self.SideFrame, self.cButtonImage, self.cShape)
         self.iButton = widgets.SideButton(self.SideFrame, self.iButtonImage, self.iShape)
-        self.RomanIButton = widgets.SideButton(self.SideFrame, self.RomanIButtonImage, self.RomanIShape)
+        self.RomanIButton = widgets.SideButton(self.SideFrame, self.RomanIButtonImage, self.hShape)
 
+        # Layout
         self.tButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.LButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.uButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
@@ -180,16 +182,16 @@ class MainProgram:
 
 
     def tShape(self, event=None):
-        def Calculate(event=None):
+        def Calculate(event=None, entry=None):
             """def OpenFibra():
                 win_fibra = tk.Toplevel()
                 FibraWindow(win_fibra, 't', [x, b, y, z, ycg])"""
 
             # Converte Os Valores Das Caixas De Entrada
-            x = float(TopEntry.get())
-            b = float(LeftEntry.get())
-            y = float(RightEntry.get())
-            z = float(BottomEntry.get())
+            x = float(entry[0].get())
+            b = float(entry[1].get())
+            y = float(entry[2].get())
+            z = float(entry[3].get())
 
             self.ClearMainSpace()
 
@@ -287,55 +289,54 @@ class MainProgram:
             ShapeCanvas.create_text(153, 844 - 50, text='Ycg', font=self.ResultFont, fill='#303030', anchor='se')
 
 
-        def Discard():
-            TopEntry.delete(0, tk.END)
-            RightEntry.delete(0, tk.END)
-            LeftEntry.delete(0, tk.END)
-            BottomEntry.delete(0, tk.END)
+        def tLayout():
+            self.ClearMainSpace()
+            
+            DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+            DataFrame.pack(expand=True)
+
+            """TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+            TopEntry['validatecommand'] = (self.Register, '%P', '%d')
+            TopEntry.pack(side=tk.TOP, pady=(50, 25))
+
+            RightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
+            RightEntry['validatecommand'] = (self.Register, '%P', '%d')
+            RightEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
+
+            LeftEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
+            LeftEntry['validatecommand'] = (self.Register, '%P', '%d')
+            LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)"""
+
+            TopEntry = widgets.EntryField(DataFrame)
+            RightEntry = widgets.EntryField(DataFrame)
+            LeftEntry = widgets.EntryField(DataFrame)
+            BottomEntry = widgets.EntryField(DataFrame)  
+            tShapeLabel = widgets.ShapeImage(DataFrame, img=self.tShapeImage)
+
+            entries = [TopEntry, LeftEntry, RightEntry  , BottomEntry]
+
+            TopEntry.pack(side=tk.TOP, pady=(50, 25))
+            RightEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
+            LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)
+            tShapeLabel.pack()
+            BottomEntry.pack(side=tk.BOTTOM, pady=(25, 50))
+            
+            MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+            MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+
+            ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+            ButtonsFrame.pack()
+
+            CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=lambda: Calculate(entry=entries))
+            DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action= lambda:self.EntryDiscard(entries))
+
+            CalculateButton.grid(row=0, column=0, padx=5)
+            DiscardButton.grid(row=0, column=1, padx=5)
+            
+            self.root.bind('<Return>', lambda event, ent=entries: Calculate(entry=ent))
 
 
-        self.ClearMainSpace()
-        
-        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
-        DataFrame.pack(expand=True)
-
-        """TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        TopEntry['validatecommand'] = (self.Register, '%P', '%d')
-        TopEntry.pack(side=tk.TOP, pady=(50, 25))
-
-        RightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-        RightEntry['validatecommand'] = (self.Register, '%P', '%d')
-        RightEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
-
-        LeftEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-        LeftEntry['validatecommand'] = (self.Register, '%P', '%d')
-        LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)"""
-
-        TopEntry = widgets.EntryField(DataFrame)
-        RightEntry = widgets.EntryField(DataFrame)
-        LeftEntry = widgets.EntryField(DataFrame)
-        BottomEntry = widgets.EntryField(DataFrame)  
-        tShapeLabel = widgets.ShapeImage(DataFrame, img=self.tShapeImage)
-
-        TopEntry.pack(side=tk.TOP, pady=(50, 25))
-        RightEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
-        LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)
-        tShapeLabel.pack()
-        BottomEntry.pack(side=tk.BOTTOM, pady=(25, 50))
-        
-        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
-        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
-
-        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
-        ButtonsFrame.pack()
-
-        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
-        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
-
-        CalculateButton.grid(row=0, column=0, padx=5)
-        DiscardButton.grid(row=0, column=1, padx=5)
-
-        self.root.bind('<Return>', Calculate)
+        tLayout()
 
 
     def LShape(self, event=None):
@@ -403,17 +404,12 @@ class MainProgram:
 
 
     def uShape(self, event=None):
-        def Calculate(event=None):
-            """def OpenFibra():
-                win_fibra = tk.Toplevel()
-                FibraWindow(win_fibra, 'u', [x, y, a, h, ycg])"""
-
-
+        def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
-            x = float(xEntry.get())  
-            y = float(yEntry.get())
-            a = float(a1Entry.get())
-            h = float(hEntry.get())
+            x = float(entry[0].get())  
+            y = float(entry[1].get())
+            a = float(entry[2].get())
+            h = float(entry[3].get())
 
             self.ClearMainSpace()
 
@@ -521,48 +517,49 @@ class MainProgram:
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
 
 
-        def Discard():
-            a1Entry.delete(0, tk.END)
-            a2Entry.delete(0, tk.END)
-            hEntry.delete(0, tk.END)
-            xEntry.delete(0, tk.END)
-            yEntry.delete(0, tk.END)
+        def uLayout():
+            pass
 
-        self.ClearMainSpace()
+            self.ClearMainSpace()
 
-        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
-        DataFrame.pack(expand=True)
+            DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+            DataFrame.pack(expand=True)
 
-        TopEntryFrame = tk.Frame(DataFrame, bg='#dbdbdb')
-        TopEntryFrame.pack(side=tk.TOP, pady=(50, 25))
+            TopEntryFrame = tk.Frame(DataFrame, bg='#dbdbdb')
+            TopEntryFrame.pack(side=tk.TOP, pady=(50, 25))
 
-        a1Entry = widgets.EntryField(TopEntryFrame)
-        a2Entry = widgets.EntryField(TopEntryFrame)
-        xEntry = widgets.EntryField(DataFrame)
-        yEntry = widgets.EntryField(DataFrame)
-        hEntry = widgets.EntryField(DataFrame)
-        uShapeLabel = widgets.ShapeImage(DataFrame, img=self.uShapeImage)
+            a1Entry = widgets.EntryField(TopEntryFrame)
+            a2Entry = widgets.EntryField(TopEntryFrame)
+            xEntry = widgets.EntryField(DataFrame)
+            yEntry = widgets.EntryField(DataFrame)
+            hEntry = widgets.EntryField(DataFrame)
+            uShapeLabel = widgets.ShapeImage(DataFrame, img=self.uShapeImage)
 
-        a1Entry.pack(side=tk.LEFT, padx=30)
-        a2Entry.pack(side=tk.RIGHT, padx=30)        
-        xEntry.pack(side=tk.LEFT, anchor='s', pady=(0, 140), padx=30)
-        yEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
-        uShapeLabel.pack()
-        hEntry.pack(pady=(30, 0))
+            entries = [a1Entry, xEntry, yEntry, hEntry, a2Entry]
 
-        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
-        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+            a1Entry.pack(side=tk.LEFT, padx=30)
+            a2Entry.pack(side=tk.RIGHT, padx=30)        
+            xEntry.pack(side=tk.LEFT, anchor='s', pady=(0, 140), padx=30)
+            yEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
+            uShapeLabel.pack()
+            hEntry.pack(pady=(30, 0))
 
-        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
-        ButtonsFrame.pack()
+            MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+            MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
 
-        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
-        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
+            ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+            ButtonsFrame.pack()
 
-        CalculateButton.grid(row=0, column=0, padx=5)
-        DiscardButton.grid(row=0, column=1, padx=5)
+            CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action= lambda: Calculate(entry=entries))
+            DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action= lambda: self.EntryDiscard(entries))
 
-        self.root.bind('<Return>', Calculate)
+            CalculateButton.grid(row=0, column=0, padx=5)
+            DiscardButton.grid(row=0, column=1, padx=5)
+            
+            self.root.bind('<Return>', lambda event, ent=entries: Calculate(entry=ent))
+
+
+        uLayout()
 
 
     def cShape(self, event=None):
@@ -580,14 +577,10 @@ class MainProgram:
 
 
     def iShape(self, event=None):
-        def Calculate(event=None):
-            """def OpenFibra():
-                win_fibra = tk.Toplevel()
-                FibraWindow(win_fibra, 'i', [w, h, ycg])"""
-
+        def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
-            h = float(HeightEntry.get())
-            w = float(WidthEntry.get())
+            w = float(entry[0].get())
+            h = float(entry[1].get())
 
             self.ClearMainSpace()
 
@@ -671,58 +664,55 @@ class MainProgram:
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
 
 
-        def Discard():
-            WidthEntry.delete(0, tk.END)
-            HeightEntry.delete(0, tk.END)
+        def iLayout():
+
+            self.ClearMainSpace()
+
+            # Cria Os Widgets Do self.MainSpace
+            DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+            MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+
+            # Layout Dos Widgets Do self.MainSpace
+            DataFrame.pack(expand=True)
+            MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+
+            # Cria Os Widgets Do DataFrame
+            WidthEntry = widgets.EntryField(DataFrame)
+            HeightEntry = widgets.EntryField(DataFrame)
+            iShapeLabel = widgets.ShapeImage(DataFrame, img=self.iShapeImage)
+
+            entries = [WidthEntry, HeightEntry]
+
+            # Layout Dos Widgets Do DataFrame
+            WidthEntry.pack(side=tk.TOP, pady=(50, 25))
+            HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
+            iShapeLabel.pack(padx=(360, 0))
+
+            ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+            ButtonsFrame.pack()
+
+            # Widgets De ButtonsFrame
+            CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action= lambda: Calculate(entry=entries))
+            DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=lambda: self.EntryDiscard(entries))
+
+            # Layout Dos Widgets
+            CalculateButton.grid(row=0, column=0, padx=5)
+            DiscardButton.grid(row=0, column=1, padx=5)
+
+            self.root.bind('<Return>', lambda event, ent=entries: Calculate(entry=ent))
+
+        iLayout()
 
 
-        self.ClearMainSpace()
-
-        # Cria Os Widgets Do self.MainSpace
-        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
-        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
-
-        # Layout Dos Widgets Do self.MainSpace
-        DataFrame.pack(expand=True)
-        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
-
-        # Cria Os Widgets Do DataFrame
-        WidthEntry = widgets.EntryField(DataFrame)
-        HeightEntry = widgets.EntryField(DataFrame)
-        iShapeLabel = widgets.ShapeImage(DataFrame, img=self.iShapeImage)
-
-        # Layout Dos Widgets Do DataFrame
-        WidthEntry.pack(side=tk.TOP, pady=(50, 25))
-        HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
-        iShapeLabel.pack(padx=(360, 0))
-
-        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
-        ButtonsFrame.pack()
-
-        # Widgets De ButtonsFrame
-        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
-        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
-
-        # Layout Dos Widgets
-        CalculateButton.grid(row=0, column=0, padx=5)
-        DiscardButton.grid(row=0, column=1, padx=5)
-
-        self.root.bind('<Return>', Calculate)
-
-
-    def RomanIShape(self, event=None):
-        def Calculate(event=None):
-            """def OpenFibra():
-                win_fibra = tk.Toplevel()
-                FibraWindow(win_fibra, 'h', [x, y, a, d, h, r, ycg])"""
-
+    def hShape(self, event=None):
+        def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
-            x = float(xEntry.get())
-            y = float(yEntry.get())
-            a = float(aEntry.get())
-            d = float(dEntry.get())
-            h = float(hEntry.get())
-            r = float(rEntry.get())
+            x = float(entry[0].get())
+            y = float(entry[1].get())
+            a = float(entry[2].get())
+            d = float(entry[3].get())
+            h = float(entry[4].get())
+            r = float(entry[5].get())
 
             self.ClearMainSpace()
 
@@ -843,50 +833,48 @@ class MainProgram:
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
             ShapeCanvas.create_text(x2 + 10, y2, text='Ycg', font=self.ResultFont, fill='#303030', anchor='sw')
 
-        def Discard():
-            xEntry.delete(0, tk.END)
-            yEntry.delete(0, tk.END)
-            aEntry.delete(0, tk.END)
-            dEntry.delete(0, tk.END)
-            hEntry.delete(0, tk.END)
-            rEntry.delete(0, tk.END)
+        def hLayout():
+            self.ClearMainSpace()
 
-        self.ClearMainSpace()
+            DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+            DataFrame.pack(expand=True)
 
-        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
-        DataFrame.pack(expand=True)
+            xEntry = widgets.EntryField(DataFrame)
+            LeftFrame = tk.Frame(DataFrame, bg='#dbdbdb')
+            yEntry = widgets.EntryField(LeftFrame)
+            aEntry = widgets.EntryField(LeftFrame)
+            dEntry = widgets.EntryField(LeftFrame)
+            hEntry = widgets.EntryField(DataFrame)
+            rEntry = widgets.EntryField(DataFrame)
+            RomanIShapeLabel = widgets.ShapeImage(DataFrame, img=self.RomanIShapeImage)
 
-        xEntry = widgets.EntryField(DataFrame)
-        LeftFrame = tk.Frame(DataFrame, bg='#dbdbdb')
-        yEntry = widgets.EntryField(LeftFrame)
-        aEntry = widgets.EntryField(LeftFrame)
-        dEntry = widgets.EntryField(LeftFrame)
-        hEntry = widgets.EntryField(DataFrame)
-        rEntry = widgets.EntryField(DataFrame)
-        RomanIShapeLabel = widgets.ShapeImage(DataFrame, img=self.RomanIShapeImage)
+            entries = [xEntry, yEntry, aEntry, dEntry, hEntry, rEntry]
 
-        xEntry.pack(side=tk.TOP, pady=(50, 25))
-        LeftFrame.pack(side=tk.LEFT, anchor='s', pady=50, padx=30)
-        yEntry.pack(side=tk.TOP, pady=(0, 245)) 
-        aEntry.pack(pady=(0, 160)) 
-        dEntry.pack(side=tk.BOTTOM, pady=(0, 100))
-        hEntry.pack(side=tk.RIGHT, anchor='n', pady=325, padx=30)
-        RomanIShapeLabel.pack()  
-        rEntry.pack(pady=(20, 0))
+            xEntry.pack(side=tk.TOP, pady=(50, 25))
+            LeftFrame.pack(side=tk.LEFT, anchor='s', pady=50, padx=30)
+            yEntry.pack(side=tk.TOP, pady=(0, 245)) 
+            aEntry.pack(pady=(0, 160)) 
+            dEntry.pack(side=tk.BOTTOM, pady=(0, 100))
+            hEntry.pack(side=tk.RIGHT, anchor='n', pady=325, padx=30)
+            RomanIShapeLabel.pack()  
+            rEntry.pack(pady=(20, 0))
 
-        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
-        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+            MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+            MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
 
-        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
-        ButtonsFrame.pack()
+            ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+            ButtonsFrame.pack()
 
-        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
-        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
+            CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action= lambda: Calculate(entry=entries))
+            DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=lambda: self.EntryDiscard(entries))
 
-        CalculateButton.grid(row=0, column=0, padx=5)
-        DiscardButton.grid(row=0, column=1, padx=5)
+            CalculateButton.grid(row=0, column=0, padx=5)
+            DiscardButton.grid(row=0, column=1, padx=5)
 
-        self.root.bind('<Return>', Calculate)
+            self.root.bind('<Return>', lambda event, ent=entries: Calculate(entry=ent))
+
+
+        hLayout()
 
 
 def main():
