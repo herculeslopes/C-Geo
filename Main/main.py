@@ -193,7 +193,6 @@ class MainProgram:
             iz = tSection.get_iz(x, b, y, z ,ycg)
             scg = tSection.get_scg(x, b, y, z, ycg)
 
-            # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0) #dbdbdb
 
@@ -202,7 +201,7 @@ class MainProgram:
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
             # Cria Frames Para O Frame Esquerdo 
-            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
+            ResultFrame = tk.Frame(LeftFrame, bg='#d1d1d1', bd=0)
             ButtonFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=5)
             # FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
             
@@ -211,7 +210,7 @@ class MainProgram:
 
             # Layout Dos Frames Da Esquerda
             # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
-            ButtonFrame.pack(side=tk.TOP)
+            ButtonFrame.pack(side=tk.TOP, fill=tk.X)
             ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
@@ -231,8 +230,8 @@ class MainProgram:
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
-            FibraButton = tk.Button(ButtonFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=OpenFibra)
-            FibraButton.pack()
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton.pack(fill=tk.X)
             
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 300)) # ValueFrame.pack(expand=True, padx=(0, 400))
@@ -430,7 +429,7 @@ class MainProgram:
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
             # Cria Frames Para O Frame Esquerdo 
-            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
+            ResultFrame = tk.Frame(LeftFrame, bg='#d1d1d1', bd=0)
             ButtonFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=5)
             # FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
             
@@ -439,7 +438,7 @@ class MainProgram:
 
             # Layout Dos Frames Da Esquerda
             # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
-            ButtonFrame.pack(side=tk.TOP)
+            ButtonFrame.pack(side=tk.TOP, fill=tk.X)
             ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
@@ -459,8 +458,8 @@ class MainProgram:
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
 
-            FibraButton = tk.Button(ButtonFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=OpenFibra)
-            FibraButton.pack()
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
@@ -603,7 +602,7 @@ class MainProgram:
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
             # Cria Frames Para O Frame Esquerdo 
-            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
+            ResultFrame = tk.Frame(LeftFrame, bg='#d1d1d1', bd=0)
             ButtonFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=5)
             # FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
             
@@ -612,7 +611,7 @@ class MainProgram:
 
             # Layout Dos Frames Da Esquerda
             # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
-            ButtonFrame.pack(side=tk.TOP)
+            ButtonFrame.pack(side=tk.TOP, fill=tk.X)
             ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
@@ -632,8 +631,8 @@ class MainProgram:
             ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
-            FibraButton = tk.Button(ButtonFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=OpenFibra)
-            FibraButton.pack()
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))
@@ -737,7 +736,7 @@ class MainProgram:
             RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
 
             # Cria Frames Para O Frame Esquerdo 
-            ResultFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0)
+            ResultFrame = tk.Frame(LeftFrame, bg='#d1d1d1', bd=0)
             ButtonFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=5)
             # FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
             
@@ -746,7 +745,7 @@ class MainProgram:
 
             # Layout Dos Frames Da Esquerda
             # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
-            ButtonFrame.pack(side=tk.TOP)
+            ButtonFrame.pack(side=tk.TOP, fill=tk.X)
             ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
@@ -767,8 +766,8 @@ class MainProgram:
             ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             
             # Cria Os Widgets Para O FibraFrame
-            FibraButton = tk.Button(ButtonFrame, text='CALCULAR', fg='#121212', bg='#808080', bd=0, command=OpenFibra)
-            FibraButton.pack()
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
             ValueFrame.pack(expand=True, padx=(0, 400))

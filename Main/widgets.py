@@ -62,13 +62,24 @@ class MenuButton(tk.Button):
         self['bd'] = 0
         self['command'] = action
 
+class OpenFibraButton(tk.Button):
+    def __init__(self, master, action):
+        super().__init__(master)
+        self['text'] = 'Abrir cálculo da fibra'
+        self['font'] = Font(family='Arial', size=12)
+        self['bg'] = '#8c8c8c'
+        self['activebackground'] = '#dbdbdb'
+        self['fg'] = '#121212'
+        self['bd'] = 0
+        self['command'] = action
+
 
 class ResultLabel(tk.Label):
     def __init__(self, master, txt):
         super().__init__(master)
         self['text'] = txt
         self['font'] = Font(family='Calibri', size=16)
-        self['bg'] = '#b0b0b0'
+        self['bg'] = '#d1d1d1' #b0b0b0
         self['fg'] = '#303030'
 
 

@@ -53,7 +53,7 @@ class FibraWindow():
         self.lblFibra.pack(pady=(40, 0))
 
         frmLine = tk.Frame(frmMain, bg="#121212", height=3)
-        frmLine.pack(expand=True, fill=tk.X) # , padx=200
+        frmLine.pack(expand=True, fill=tk.X)
 
         lblDist = widgets.WinFibraLabel(frmMain, "Distância da fibra")
         lblDist.pack(anchor='w', pady=(30, 5))
