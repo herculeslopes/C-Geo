@@ -49,12 +49,6 @@ class FibraWindow():
         frmMain = tk.Frame(self.win_fibra, bg="#dbdbdb")
         frmMain.pack(side=tk.TOP, fill=tk.X, padx=100)
 
-        self.lblFibra = widgets.FibraResult(frmMain)
-        self.lblFibra.pack(pady=(40, 0))
-
-        frmLine = tk.Frame(frmMain, bg="#121212", height=3)
-        frmLine.pack(expand=True, fill=tk.X)
-
         lblDist = widgets.WinFibraLabel(frmMain, "Distância da fibra")
         lblDist.pack(anchor='w', pady=(30, 5))
 
@@ -67,6 +61,12 @@ class FibraWindow():
         self.comboPos = widgets.FibraCombo(frmMain)
         self.comboPos.pack(anchor='w')
         
+        self.lblFibra = widgets.FibraResult(frmMain)
+        self.lblFibra.pack(pady=(40, 0))
+
+        frmLine = tk.Frame(frmMain, bg="#121212", height=3)
+        frmLine.pack(expand=True, fill=tk.X)
+
         frmMenu = tk.Frame(self.win_fibra, bg='#dbdbdb', bd=0)
         frmMenu.pack(side=tk.BOTTOM, pady=(0, 25))
 

@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter.constants import Y
 from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
@@ -340,77 +341,118 @@ class MainProgram:
 
 
     def LShape(self, event=None):
-        def Calculate():
+        def Calculate(event=None, entry=None):
             #Converte Os Valores Das Caixas De Entrada
-            y = float(yEntry.get())
-            k = float(kEntry.get())
-            x = float(xEntry.get())
-            u = float(uEntry.get())
+            y = float(entry[0].get())
+            x = float(entry[1].get())
+            k = float(entry[2].get())
+            u = float(entry[3].get())
 
+            self.ClearMainSpace()
+
+            # Calcular As Seções Geométricas
             ycg = lSection.get_ycg(y, k, x, u)
-            ix = lSection.get_ix(y, k, x, u , ycg)   
-            # print(f'Ycg = {ycg}')
+            ix = lSection.get_ix(y, k, x, u , ycg) 
+            
+             # Cria Os Frames Principais
+            LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0) #dbdbdb
+
+            # Layout Dos Frames Principais 
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
+            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+
+            # Cria Frames Para O Frame Esquerdo 
+            ResultFrame = tk.Frame(LeftFrame, bg='#d1d1d1', bd=0)
+            ButtonFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=5)
+            # FibraFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=0, padx=20, pady=20)
+            
+            # Cria Frames Para O Frame Direito
+            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+
+            # Layout Dos Frames Da Esquerda
+            # ResultFrame.grid(row=0, column=0, padx=50, pady=50)
+            ButtonFrame.pack(side=tk.TOP, fill=tk.X)
+            ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
+            # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
+
+            # Cria Os Widgets Para O ResultFrame 
+            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
+            YcgLabelContent = widgets.ResultValue(ResultFrame, str(f'{ycg:.2f} cm'))
+            IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
+            # IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
+            # ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
+
+            # Layout Dos Widgets Do Frame Resultado
+            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            # IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            # ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+            # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('l', [y, x, k, u, ycg]))
+            FibraButton.pack(fill=tk.X)
+
+            # Layout Dos Frames Da Direita
+            ValueFrame.pack(expand=True, padx=(0, 400))           
 
             # self.ClearMainSpace()
 
-
-
-        def Discard():
-            yEntry.delete(0, tk.END)
-            kEntry.delete(0, tk.END)
-            xEntry.delete(0, tk.END)
-            uEntry.delete(0, tk.END)
-
        
-        self.ClearMainSpace()
+        def lLayout():
+            self.ClearMainSpace()
 
-        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
-        DataFrame.pack(expand=True)
+            DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+            DataFrame.pack(expand=True)
 
-        yEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        yEntry['validatecommand'] = (self.Register, '%P', '%d')
-        yEntry.pack(side=tk.TOP, pady=(50, 25))
+            RightEntries = tk.Frame(DataFrame, bg='#dbdbdb')
+            RightEntries.pack(side=tk.RIGHT, fill=tk.Y, padx=(10, 0))
 
-        xEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-        xEntry['validatecommand'] = (self.Register, '%P', '%d')
-        xEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
+            yEntry = widgets.EntryField(DataFrame)
+            kEntry = widgets.EntryField(RightEntries)
+            xEntry = widgets.EntryField(RightEntries)
+            uEntry = widgets.EntryField(DataFrame)
 
-        kEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-        kEntry['validatecommand'] = (self.Register, '%P', '%d')
-        kEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)
+            entries = [yEntry, xEntry, kEntry, uEntry]
 
-        uEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-        uEntry['validatecommand'] = (self.Register, '%P', '%d')
-        uEntry.pack(side=tk.BOTTOM, pady=(25, 50))
+            yEntry.pack(side=tk.TOP, anchor='w', pady=(50, 25))
+            kEntry.pack(side=tk.TOP, pady=(400, 0))
+            xEntry.pack(side=tk.BOTTOM, pady=(0, 180))
+            uEntry.pack(side=tk.BOTTOM, pady=(25, 50))
 
-        LShapeLabel = tk.Label(DataFrame, image=self.LShapeImage, bd=0)
-        LShapeLabel.image = self.LShapeImage
-        LShapeLabel.pack()
+            LShapeLabel = tk.Label(DataFrame, image=self.LShapeImage, bd=0)
+            LShapeLabel.image = self.LShapeImage
+            LShapeLabel.pack()
 
-        MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
-        MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+            MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+            MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
 
-        ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
-        ButtonsFrame.pack()
+            ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+            ButtonsFrame.pack()
 
-        CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=Calculate)
-        DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=Discard)
+            CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action=lambda: Calculate(entry=entries))
+            DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action= lambda:self.EntryDiscard(entries))
 
-        CalculateButton.grid(row=0, column=0, padx=5)
-        DiscardButton.grid(row=0, column=1, padx=5)
+            CalculateButton.grid(row=0, column=0, padx=5)
+            DiscardButton.grid(row=0, column=1, padx=5)
 
-        """WarningLabel = tk.Label(DataFrame, text='EM BREVE', font=self.WarningFont, fg='#8c8c8c', bg='#dbdbdb')
-        WarningLabel.pack()"""
+            self.root.bind('<Return>', lambda event, ent=entries: Calculate(entry=ent))
+
+
+        lLayout()
 
 
     def uShape(self, event=None):
         def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
             x = float(entry[0].get())  
-            y = float(entry[1].get())
-            a = float(entry[2].get())
+            a = float(entry[1].get())
+            y = float(entry[2].get())
             h = float(entry[3].get())
-
+            print(f'esse aqui é o y: {y}')
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
@@ -535,7 +577,7 @@ class MainProgram:
             hEntry = widgets.EntryField(DataFrame)
             uShapeLabel = widgets.ShapeImage(DataFrame, img=self.uShapeImage)
 
-            entries = [a1Entry, xEntry, yEntry, hEntry, a2Entry]
+            entries = [xEntry, a1Entry, yEntry, hEntry, a2Entry]
 
             a1Entry.pack(side=tk.LEFT, padx=30)
             a2Entry.pack(side=tk.RIGHT, padx=30)        
