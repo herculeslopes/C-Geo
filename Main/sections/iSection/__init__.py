@@ -1,5 +1,17 @@
 # Fórmulas do I
 
+def get_area(w, h):
+    area = w * h
+    print(f'area = {area}')
+    return area
+
+
+def get_perim(w, h):
+    perim = 2 * w + 2 * h
+    print(f'perímetro = {perim}')
+    return perim
+
+    
 def get_ycg(h):
     ycg = h / 2
     print(f'h = {h}')

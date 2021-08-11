@@ -1,5 +1,17 @@
 # Fórmulas do T
 
+def get_area(x, b, y, z):
+    area = x * b + y *z
+    print(f'area = {area}')
+    return area
+
+
+def get_perim(x, b, y, z):
+    perimetro = z + 2 * y + 2 * b + x + x - z
+    print(f'perimetro = {perimetro}')
+    return perimetro
+
+
 def get_ycg(x, b, y, z):
     ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
     print(f'x = {x}')

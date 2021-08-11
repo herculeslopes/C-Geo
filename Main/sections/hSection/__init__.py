@@ -1,5 +1,17 @@
 # Fórmulas do H
 
+def get_area(x, y, a, d, h, r):
+    area = x * y + h * a + d * r
+    print(f'area = {area}')
+    return area
+
+
+def get_perim(x, y, a, d, h, r):
+    perim = 2 * d + 2 * y + r * x + 2 * h + (x - a) + (r * a)
+    print(f'perim = {perim}')
+    return perim
+
+    
 def get_ycg(x, y, a, d, h, r):
     ycg = ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2)))) / ((a * r) + (d * h) + (y * x))
     return ycg

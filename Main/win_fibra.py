@@ -64,7 +64,8 @@ class FibraWindow():
         self.lblFibra = widgets.FibraResult(frmMain)
         self.lblFibra.pack(pady=(40, 0))
 
-        frmLine = tk.Frame(frmMain, bg="#121212", height=3)
+        # frmLine = tk.Frame(frmMain, bg="#121212", height=3)
+        frmLine = widgets.EntryLine(frmMain)
         frmLine.pack(expand=True, fill=tk.X)
 
         frmMenu = tk.Frame(self.win_fibra, bg='#dbdbdb', bd=0)

@@ -195,8 +195,9 @@ class MainProgram:
             z = float(entry[3].get())
 
             self.ClearMainSpace()
-
-            # Calcular As Seções Geométricas
+            
+            area = tSection.get_area(x, b, y, z)
+            perim = tSection.get_perim(x, b, y, z)
             ycg = tSection.get_ycg(x, b, y ,z)
             iz = tSection.get_iz(x, b, y, z ,ycg)
             scg = tSection.get_scg(x, b, y, z, ycg)
@@ -223,20 +224,30 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
+            AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
+            AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+            pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
+            pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
+
             YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
             YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
             ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
+            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
             
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
             FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('t', [x, b, y, z, ycg]))
@@ -376,21 +387,31 @@ class MainProgram:
             ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
-            # Cria Os Widgets Para O ResultFrame 
+            # Cria Os Widgets Para O ResultFrame
+            AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
+            AreaValue = widgets.ResultValue(ResultFrame, '00 cm²')
+            pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
+            pValue = widgets.ResultValue(ResultFrame, '00 cm')
+
             YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultValue(ResultFrame, str(f'{ycg:.2f} cm'))
+            YcgLabelContent = widgets.ResultValue(ResultFrame, str(f'00 cm'))
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            # IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'00 cm⁴'))
             ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            # ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
+            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'00 cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
-            # IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            # ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
 
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
             FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('l', [y, x, k, u, ycg]))
@@ -456,6 +477,8 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
+            area = uSection.get_area(x, y, a ,h)
+            perim = uSection.get_perim(x, y, a, h)
             ycg = uSection.get_ycg(x, y, a, h)
             iz = uSection.get_iz(x, y, a, h ,ycg)
             scg = uSection.get_scg(x, y, a, h, ycg)
@@ -483,20 +506,30 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
+            AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
+            AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+            pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
+            pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
+
             YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultValue(ResultFrame, str(f'{ycg:.2f} cm'))
+            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
             IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
             ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
             ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
 
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
             FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('u', [x, y, a, h, ycg]))
@@ -627,6 +660,8 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
+            area = iSection.get_area(w, h)
+            perim = iSection.get_perim(w, h)
             ycg = iSection.get_ycg(h)
             iz = iSection.get_iz(h, w)
             scg = iSection.get_scg(w, ycg)
@@ -654,20 +689,30 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
+            AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
+            AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+            pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
+            pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
+
             YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
             YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
             ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
+            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
             
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
             FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('i', [w, h, ycg]))
@@ -759,6 +804,8 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
+            area = hSection.get_area(x, y, a, d, h, r)
+            perim = hSection.get_area(x, y, a, d, h, r)
             ycg = hSection.get_ycg(x, y, a, d, h, r)
             iz = hSection.get_iz(x, y, a, d, h, r, ycg)
             scg = hSection.get_scg(x, y, a, d, h, r, ycg)
@@ -786,20 +833,30 @@ class MainProgram:
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
             # Cria Os Widgets Para O ResultFrame 
+            AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
+            AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+            pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
+            pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
+
             YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
             YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultLabel(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
             ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{scg:.2f} cm³'))
-            
+            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
+
             # Layout Dos Widgets Do Frame Resultado
-            YcgLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=0, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=1, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+            pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
             
             # Cria Os Widgets Para O FibraFrame
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)

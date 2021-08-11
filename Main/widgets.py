@@ -93,6 +93,13 @@ class ResultValue(tk.Label):
         self['fg'] = '#303030'
 
 
+class DeviderLine(tk.Frame):
+    def __init__(self, master):
+        super().__init__(master)
+        self['bg'] = '#121212'
+        self['height'] = 2
+
+
 class ValueLabel(tk.Label):
     def __init__(self, master, txt):
         super().__init__(master)
@@ -119,6 +126,13 @@ class WinFibraEntry(tk.Entry):
         self['fg'] = '#303030'
         self['bd'] = 0
         self['justify'] = tk.CENTER
+
+
+class EntryLine(tk.Frame):
+    def __init__(self, master):
+        super().__init__(master)
+        self['bg'] = '#121212'
+        self['height'] = 3
 
 
 class FibraCombo(ttk.Combobox):

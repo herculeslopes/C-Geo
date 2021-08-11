@@ -1,5 +1,17 @@
 # Fórmulas do U
 
+def get_area(x, y, a, h):
+    area = 2 * a * y + x * h
+    print(f'area = {area}')
+    return area
+
+
+def get_perim(x, y, a, h):
+    perim = 2 * y + 2 * (2 * a + h) + 2 * (y - x)
+    print(f'perímetro = {perim}')
+    return perim
+    
+
 def get_ycg(x, y, a, h):
     ycg = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
     print(f'x = {x}')
