@@ -333,6 +333,8 @@ class MainProgram:
             tShapeLabel.pack()
             BottomEntry.pack(side=tk.BOTTOM, pady=(25, 50))
             
+            TopEntry.focus_set()
+
             MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
             MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
 
@@ -443,6 +445,8 @@ class MainProgram:
             kEntry.pack(side=tk.TOP, pady=(400, 0))
             xEntry.pack(side=tk.BOTTOM, pady=(0, 180))
             uEntry.pack(side=tk.BOTTOM, pady=(25, 50))
+
+            kEntry.focus_set()
 
             LShapeLabel = tk.Label(DataFrame, image=self.LShapeImage, bd=0)
             LShapeLabel.image = self.LShapeImage
@@ -619,6 +623,8 @@ class MainProgram:
             uShapeLabel.pack()
             hEntry.pack(pady=(30, 0))
 
+            a1Entry.focus_set()
+
             MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
             MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
 
@@ -774,6 +780,8 @@ class MainProgram:
             WidthEntry.pack(side=tk.TOP, pady=(50, 25))
             HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
             iShapeLabel.pack(padx=(360, 0))
+
+            WidthEntry.focus_set()
 
             ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
             ButtonsFrame.pack()
@@ -957,6 +965,8 @@ class MainProgram:
             hEntry.pack(side=tk.RIGHT, anchor='n', pady=325, padx=30)
             RomanIShapeLabel.pack()  
             rEntry.pack(pady=(20, 0))
+
+            xEntry.focus_set()
 
             MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
             MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
