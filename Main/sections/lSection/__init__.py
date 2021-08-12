@@ -1,5 +1,17 @@
 # Fórmulas do L
 
+def get_area(y, k, x, u):
+    area = x * u + k * y
+    print(f'area = {area}')
+    return area
+
+
+def get_perim(y, k, x, u):
+    perim = 2 * u + 2 * x + 2 * k
+    print(f'perímetro = {perim}')
+    return perim
+
+
 def get_ycg(y, k, x, u):
     ycg = ((x * u * (x / 2)) + (k * y * ((k / 2) + x))) / (x * u + k * y)
     print(f'y = {y}')

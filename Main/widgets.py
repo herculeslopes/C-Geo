@@ -24,6 +24,11 @@ def validate(value, action):
     else:
         return True
 
+"""TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
+TopEntry['validatecommand'] = (self.Register, '%P', '%d')
+TopEntry.pack(side=tk.TOP, pady=(50, 25))"""
+
+
 
 class SideButton(tk.Button):    
     def __init__(self, master, img, action):
@@ -33,7 +38,7 @@ class SideButton(tk.Button):
         self['activebackground'] = '#c9c9c9'
         self['bd'] = 0
         self['command'] = action
-    
+
 
 class EntryField(tk.Entry):
     def __init__(self, master):
@@ -43,6 +48,9 @@ class EntryField(tk.Entry):
         self['fg'] = '#303030'
         self['bd'] = 0
         self['justify'] = tk.CENTER
+        self['validate'] = 'key'
+        Register = master.register(validate)
+        self['validatecommand'] = (Register, '%P', '%d')
 
 
 class ShapeImage(tk.Label):
@@ -126,6 +134,9 @@ class WinFibraEntry(tk.Entry):
         self['fg'] = '#303030'
         self['bd'] = 0
         self['justify'] = tk.CENTER
+        self['validate'] = 'key'
+        Register = master.register(validate)
+        self['validatecommand'] = (Register, '%P', '%d')
 
 
 class EntryLine(tk.Frame):

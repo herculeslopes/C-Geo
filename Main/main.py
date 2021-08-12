@@ -307,18 +307,6 @@ class MainProgram:
             DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
             DataFrame.pack(expand=True)
 
-            """TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-            TopEntry['validatecommand'] = (self.Register, '%P', '%d')
-            TopEntry.pack(side=tk.TOP, pady=(50, 25))
-
-            RightEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.LEFT, validate='key')
-            RightEntry['validatecommand'] = (self.Register, '%P', '%d')
-            RightEntry.pack(side=tk.RIGHT, anchor='w', padx=30)
-
-            LeftEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.RIGHT, validate='key')
-            LeftEntry['validatecommand'] = (self.Register, '%P', '%d')
-            LeftEntry.pack(side=tk.LEFT, anchor='n', pady=75, padx=30)"""
-
             TopEntry = widgets.EntryField(DataFrame)
             RightEntry = widgets.EntryField(DataFrame)
             LeftEntry = widgets.EntryField(DataFrame)
@@ -364,6 +352,8 @@ class MainProgram:
             self.ClearMainSpace()
 
             # Calcular As Seções Geométricas
+            area = lSection.get_area(y, k, x, u)
+            perim = lSection.get_perim(y, k, x, u)
             ycg = lSection.get_ycg(y, k, x, u)
             ix = lSection.get_ix(y, k, x, u , ycg) 
             
@@ -391,12 +381,12 @@ class MainProgram:
 
             # Cria Os Widgets Para O ResultFrame
             AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
-            AreaValue = widgets.ResultValue(ResultFrame, '00 cm²')
+            AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
             pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
-            pValue = widgets.ResultValue(ResultFrame, '00 cm')
+            pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
 
             YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultValue(ResultFrame, str(f'00 cm'))
+            YcgLabelContent = widgets.ResultValue(ResultFrame, f'{ycg:.2f} cm')
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
             IzLabelContent = widgets.ResultValue(ResultFrame, str(f'00 cm⁴'))
             ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
