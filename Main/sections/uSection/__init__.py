@@ -51,7 +51,7 @@ def get_fibra(x, y, a, h, ycg, fibra, pos):
                     m = ycg - fibra
                     S = m * (h + a + a) * ((m / 2 ) + fibra)
 
-        elif (ycg < x):
+        elif ycg < x:
             if pos == 'ABAIXO':
                 if(ycg - fibra) < (x):
                     i = ycg - fibra
@@ -68,7 +68,7 @@ def get_fibra(x, y, a, h, ycg, fibra, pos):
                     S = (m * (a + h + a) * ((m / 2)+ fibra)) + (2 * (a * v * ((v / 2) + fibra + m)))
 
 
-        elif (ycg == x):
+        else:
             if pos=='ABAIXO':
                 if (ycg - fibra) <= x:
                     i = ycg - fibra
@@ -79,10 +79,8 @@ def get_fibra(x, y, a, h, ycg, fibra, pos):
                     v = (ycg + fibra)
                     S = (v * a * ((v / 2) + fibra)) * 2 
 
-        sLabel = str(S) + "cm³"
 
     else:
-        # sLabel['fg'] = '#eb4034'
-        sLabel = 'NÃO É POSSÍVEL CALCULAR'
+        S = -1
 
-    return sLabel
+    return S

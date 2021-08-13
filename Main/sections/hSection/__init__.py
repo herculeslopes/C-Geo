@@ -97,10 +97,7 @@ def get_fibra(x, y, a, d, h, r, ycg, fibra, pos):
                     m = (d) - (ycg + fibra)
                     S = (y * x * ((y / 2) + h + m + fibra)) + (h * a * ((h / 2) + m + fibra)) + (m * r * ((m / 2) + fibra)) 
         
-        sLabel = str(S) + "cm³"
-
     else:
-        # sLabel['fg'] = '#eb4034'
-        sLabel = 'NÃO É POSSÍVEL CALCULAR'
+        S = -1
     
-    return sLabel
+    return S

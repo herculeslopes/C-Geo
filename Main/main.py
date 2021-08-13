@@ -35,8 +35,6 @@ class MainProgram:
         print(f'Zoom Ration: {self.WindowsZoom}')
         print(f'Screen Resolution {self.ScreenResolution}\n')
 
-        self.Register = self.MainSpace.register(self.validate)
-
         self.root.bind('<Control-Key-1>', self.tShape)
         self.root.bind('<Control-Key-2>', self.LShape)
         self.root.bind('<Control-Key-3>', self.uShape)
@@ -159,22 +157,6 @@ class MainProgram:
     def ClearMainSpace(self):
         for widget in self.MainSpace.winfo_children():
             widget.destroy()
-
-
-    def validate(self, value, action):
-        if action == '1':
-            if value:
-                try:
-                    float(value)
-                    return True
-                    
-                except ValueError:
-                    return False
-            
-            else:
-                return False
-        else:
-            return True
 
 
     def OpenFibra(self, sec, meds):
@@ -410,7 +392,38 @@ class MainProgram:
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
-            ValueFrame.pack(expand=True, padx=(0, 400))           
+            ValueFrame.pack(expand=True)    
+
+            RightValueFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
+            RightValueFrame.pack(side=tk.RIGHT, fill=tk.Y)
+
+            # Cria Os Widgets Do ValueFrame
+            yLabel = widgets.ValueLabel(ValueFrame, f'y = {y} cm')
+
+            kLabel = widgets.ValueLabel(RightValueFrame, f'k = {k} cm')
+            xLabel = widgets.ValueLabel(RightValueFrame, f'x = {x} cm')
+
+            uLabel = widgets.ValueLabel(ValueFrame, f'u = {u} cm')
+
+
+            # Layout Dos Widgets Do ValueFrame  
+            yLabel.pack(side=tk.TOP, anchor='w', pady=(50, 25))
+            kLabel.pack(side=tk.TOP, anchor='ne', pady=(400, 0))
+            xLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 140))
+            uLabel.pack(side=tk.BOTTOM, pady=(25, 0))
+
+
+            # Cria O Canvas Da Imagem Principal
+            CanvasWidth = 486
+            CanvasHeight = 700
+            ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
+            ShapeCanvas.pack()
+            
+            # Cria As Imagens No Canvas
+            self.ImageList = []
+            justTImage = self.CreateImage('Images/Shapes/LShape.png')
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
+            self.ImageList.append(justTImage)    
 
             # self.ClearMainSpace()
 
@@ -434,7 +447,7 @@ class MainProgram:
             yEntry.pack(side=tk.TOP, anchor='w', pady=(50, 25))
             kEntry.pack(side=tk.TOP, pady=(400, 0))
             xEntry.pack(side=tk.BOTTOM, pady=(0, 180))
-            uEntry.pack(side=tk.BOTTOM, pady=(25, 50))
+            uEntry.pack(side=tk.BOTTOM, pady=(25, 0))
 
             kEntry.focus_set()
 

@@ -57,24 +57,19 @@ def get_fibra(x, b, y, z, ycg, fibra, pos):
                 if ycg - fibra < y:
                     h = ycg - fibra
                     S = h * z * ((h / 2) + fibra)
-                    print('1')
                 
                 elif ycg - fibra > y:
                     d = ycg - fibra - y
                     S = (d * x * ((d / 2) + fibra)) + (y * z * ((y / 2) + d + fibra))
-                    print('2')
 
                 elif ycg - fibra == y:
                     S = y * z * (y / 2) + fibra
-                    print('3')
 
             elif pos == 'ACIMA':
                 if ycg + fibra < ( y + b):
                     i = y + b  - (ycg + fibra)
                     S = i * x * ((i / 2) + fibra)
                         
-                print('4')
-
         elif ycg < y:
             if pos == 'ACIMA':
                 if (ycg + fibra) == y:
@@ -88,35 +83,23 @@ def get_fibra(x, b, y, z, ycg, fibra, pos):
                     a = (y + b) - (ycg + fibra)
                     S = a * x * ((a/2) + fibra)        
 
-                
             elif pos == 'ABAIXO':
                 if (ycg - fibra < y):
                     d = ycg - fibra
                     S = d * z * ((d / 2 ) + fibra)
-                    print('5')
             
-        elif ycg == y:
+        else:
             if pos == 'ACIMA':
                 if (ycg + fibra) > y:
                     a = b - fibra
                     S = a * x * ((a / 2) + fibra)
-            
-                print('6')
-            
+                        
             elif pos == 'ABAIXO':
                 if (ycg - fibra) < y:
                     a = ycg - fibra
                     S = a * z * ((a / 2) + fibra) 
 
-            print('7')
-
-        # sLabel['text'] = S
-        sLabel = str(S)
-
     else:
-        # sLabel['fg'] = '#eb4034'
-        # sLabel['text'] = 'NÃO É POSSÍVEL CALCULAR'
-        sLabel = 'NÃO É POSSÍVEL CALCULAR'
-        print('8')
+        S = -1
 
-    return sLabel
+    return S

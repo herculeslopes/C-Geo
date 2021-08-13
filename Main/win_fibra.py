@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter.constants import COMMAND
 from tkinter.font import Font
 from tkinter import ttk
 from PIL import ImageTk, Image
@@ -37,30 +38,66 @@ class FibraWindow():
 
         print(f'antes = {type(values[0])}')
 
+        self.pos = ''
+
         self.sectionValues = values
 
         self.main_layout()
 
+
+    def set_pos(self, pos):
+        self.pos = pos
+
+        print(pos)
+
+        if pos == 'ABAIXO':
+            self.abButton['relief'] = tk.SUNKEN
+            self.abButton['bg'] = '#B0B0B0'
+            self.acButton['relief'] = tk.FLAT
+            self.acButton['bg'] = '#8c8c8c'
+
+        elif pos == 'ACIMA':
+            self.abButton['relief'] = tk.FLAT
+            self.abButton['bg'] = '#8c8c8c'
+            self.acButton['relief'] = tk.SUNKEN
+            self.acButton['bg'] = '#b0b0b0'
+
+
     def clearValues(self):
         self.entryDist.delete(0, tk.END)
         self.lblFibra['text'] = ''
+        self.abButton['relief'] = tk.FLAT
+        self.acButton['relief'] = tk.FLAT
+        self.abButton['bg'] = '#8c8c8c'
+        self.acButton['bg'] = '#8c8c8c'
+        self.pos = ''
+
 
     def main_layout(self):
         frmMain = tk.Frame(self.win_fibra, bg="#dbdbdb")
         frmMain.pack(side=tk.TOP, fill=tk.X, padx=100)
 
         lblDist = widgets.WinFibraLabel(frmMain, "Distância da fibra")
-        lblDist.pack(anchor='w', pady=(30, 5))
+        lblDist.pack(pady=(30, 5))
 
         self.entryDist = widgets.WinFibraEntry(frmMain)
         self.entryDist.pack(fill=tk.X) # , padx=100
 
         lblPos = widgets.WinFibraLabel(frmMain, "Posição da fibra")
-        lblPos.pack(anchor='w', pady=(20, 5))
+        lblPos.pack(pady=(20, 5))
 
-        self.comboPos = widgets.FibraCombo(frmMain)
-        self.comboPos.pack(anchor='w')
-        
+        """self.comboPos = widgets.FibraCombo(frmMain)
+        self.comboPos.pack(anchor='w')"""
+
+        frmPos = tk.Frame(frmMain, bg='#dbdbdb')
+        frmPos.pack()
+
+        self.abButton = widgets.ButtonPos(frmPos, 'ABAIXO', lambda: self.set_pos('ABAIXO'))
+        self.abButton.pack(side=tk.LEFT, padx=(0, 10))
+
+        self.acButton = widgets.ButtonPos(frmPos, 'ACIMA', lambda: self.set_pos('ACIMA'))
+        self.acButton.pack(side=tk.RIGHT, padx=(10, 0))
+
         self.lblFibra = widgets.FibraResult(frmMain)
         self.lblFibra.pack(pady=(40, 0))
 
@@ -82,7 +119,7 @@ class FibraWindow():
 
     def show_result(self):
         distancia = float(self.entryDist.get())
-        posicao = self.comboPos.get()
+        posicao = self.pos
 
         if self.section == 't':
             result = tSection.get_fibra(*self.sectionValues, distancia, posicao)
@@ -102,4 +139,11 @@ class FibraWindow():
         elif self.section == 'h':
             result = hSection.get_fibra(*self.sectionValues, distancia, posicao)
         
-        self.lblFibra['text'] = result
+        print(f'Fibra: {result}')
+        print(f'Tipo: {type(result)}')
+
+        if result != -1:
+            self.lblFibra['text'] = f'{result} cm³'
+
+        else:
+            self.lblFibra['text'] = 'NÃO É POSSÍVEL CALCULAR'

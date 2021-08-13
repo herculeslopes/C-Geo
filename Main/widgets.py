@@ -2,8 +2,6 @@ import tkinter as tk
 from tkinter.font import Font
 from tkinter import ttk
 
-# combo_style = ttk.Style()
-
 fibra_options = (
     'ACIMA',
     'ABAIXO'
@@ -70,15 +68,16 @@ class MenuButton(tk.Button):
         self['bd'] = 0
         self['command'] = action
 
+
 class OpenFibraButton(tk.Button):
     def __init__(self, master, action):
         super().__init__(master)
         self['text'] = 'Abrir cálculo da fibra'
         self['font'] = Font(family='Arial', size=12, weight='bold')
         self['bg'] = '#8c8c8c'
-        self['activebackground'] = '#dbdbdb'
+        self['activebackground'] = '#b0b0b0'
         self['fg'] = '#dbdbdb'
-        self['activeforeground'] = '#242424'
+        self['activeforeground'] = '#363636'
         self['bd'] = 0
         self['command'] = action
 
@@ -142,7 +141,7 @@ class WinFibraEntry(tk.Entry):
 class EntryLine(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
-        self['bg'] = '#121212'
+        self['bg'] = '#8c8c8c'
         self['height'] = 3
 
 
@@ -155,6 +154,23 @@ class FibraCombo(ttk.Combobox):
         self['state'] = 'readonly'
         self['width'] = 10
         self.current(0)
+
+
+class ButtonPos(tk.Button):
+    def __init__(self, master, txt, action):
+        super().__init__(master)
+        self['bg'] = '#8c8c8c'
+        self['activebackground'] = '#b0b0b0'
+        self['fg'] = '#dbdbdb'
+        self['activeforeground'] = '#dbdbdb'
+        self['font'] = Font(family='Calibri', size=12, weight='bold')
+        self['text'] = txt
+        self['relief'] = tk.FLAT
+        self['width'] = 20
+        # self['bd'] = 0
+        # self['highlightbackground'] = 'red'
+        self['command'] = action
+
 
 """class FibraRadio(tk.Radiobutton):
     def __init__(self, master, txt):

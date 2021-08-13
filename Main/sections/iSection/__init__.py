@@ -35,11 +35,9 @@ def get_scg(w, ycg):
 def get_fibra(w, h, ycg, fibra):
     if fibra <= (h / 2):
         S = ((ycg - fibra) * w) * (((ycg - fibra) / 2) + fibra)
-        sLabel = S
 
     else:
-        S = 0
-        # sLabel['fg'] = '#eb4034'
-        sLabel = 'NÃO É POSSÍVEL CALCULAR'
+        S = -1
 
-    return sLabel
+    return S
+
