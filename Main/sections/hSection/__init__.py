@@ -12,9 +12,13 @@ def get_perim(x, y, a, d, h, r):
     return perim
 
     
-def get_ycg(x, y, a, d, h, r):
-    ycg = ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2)))) / ((a * r) + (d * h) + (y * x))
-    return ycg
+def get_cy(x, y, a, d, h, r):
+    cy = ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2)))) / ((a * r) + (d * h) + (y * x))
+    return cy
+
+
+def get_cx(x, y, a, d, h, r):
+    pass
 
 
 def get_iz(x, y, a, d, h, r, ycg):
@@ -22,20 +26,24 @@ def get_iz(x, y, a, d, h, r, ycg):
     return iz
 
 
-def get_scg(x, y, a, d, h, r, ycg):
-    if ycg == a:
+def get_scgz(x, y, a, d, h, r, cy):
+    if cy == a:
         print('Primeira Fórmula')
         scg = a * r * (a / 2)
 
-    elif ycg == (a + h):
+    elif cy == (a + h):
         print('Segunda Fórmula')
         scg = y * x * (y / 2)
 
-    elif ycg < (a + h) and ycg > a:
+    elif cy < (a + h) and cy > a:
         print('Terceira Fórmula')
-        scg = (a * r * (ycg - (a / 2))) + (d * (ycg - a) * ((ycg - a) / 2))
+        scg = (a * r * (cy - (a / 2))) + (d * (cy - a) * ((cy - a) / 2))
     
     return scg
+
+
+def get_scgy(x, y, a, d, h, r, cy):
+    pass
 
 
 def get_fibra(x, y, a, d, h, r, ycg, fibra, pos):

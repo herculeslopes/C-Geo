@@ -180,9 +180,11 @@ class MainProgram:
             
             area = tSection.get_area(x, b, y, z)
             perim = tSection.get_perim(x, b, y, z)
-            ycg = tSection.get_ycg(x, b, y ,z)
-            iz = tSection.get_iz(x, b, y, z ,ycg)
-            scg = tSection.get_scg(x, b, y, z, ycg)
+            cy = tSection.get_cy(x, b, y ,z)
+            cx = tSection.get_cx(x)
+            iz = tSection.get_iz(x, b, y, z , cy)
+            scgz = tSection.get_scgz(x, b, y, z, cy)
+            scgy = tSection.get_scgy(x, b, y, z)
 
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0) #dbdbdb
@@ -208,31 +210,49 @@ class MainProgram:
             # Cria Os Widgets Para O ResultFrame 
             AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
             AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+
             pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
             pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
 
-            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            cyLabel = widgets.ResultLabel(ResultFrame, 'cy =')
+            cyContent = widgets.ResultLabel(ResultFrame, f'{cy:.2f} cm')
+
+            cxLabel = widgets.ResultLabel(ResultFrame, 'cx =')
+            cxContent = widgets.ResultLabel(ResultFrame, f'{cx:.2f} cm')
+
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
-            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
+            IzContent = widgets.ResultValue(ResultFrame, f'{iz:.2f} cm⁴')
+
+            ScgzLabel = widgets.ResultLabel(ResultFrame, 'Scgz =')
+            ScgzContent = widgets.ResultValue(ResultFrame, f'{scgz:.2f} cm³')
+
+            ScgyLabel = widgets.ResultLabel(ResultFrame, 'Scgy =')
+            ScgyContent = widgets.ResultValue(ResultFrame, f'{scgy:.2f} cm³')
 
             # Layout Dos Widgets Do Frame Resultado
             AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
             AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+
             pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
             pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
 
-            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+            cyLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            cyContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+            cxLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            cxContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+
+            IzLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+
+            ScgzLabel.grid(row=5, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgzContent.grid(row=5, column=1, padx=10, pady=5, sticky='w')
+
+            ScgyLabel.grid(row=6, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgyContent.grid(row=6, column=1, padx=10, pady=5, sticky='w')
             
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('t', [x, b, y, z, ycg]))
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('t', [x, b, y, z, cy]))
             FibraButton.pack(fill=tk.X)
             
             # Layout Dos Frames Da Direita
@@ -263,13 +283,13 @@ class MainProgram:
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
-            if ycg < y:
+            if cy < y:
                 DotHeight = CanvasHeight - 650
                 
-            elif ycg > y:
+            elif cy > y:
                 DotHeight = CanvasHeight - 720
 
-            elif ycg == y:
+            elif cy == y:
                 DotHeight = CanvasHeight - 496
                 
             DotImage = self.CreateImage('Images/Shapes/dot.png')
@@ -336,8 +356,8 @@ class MainProgram:
             # Calcular As Seções Geométricas
             area = lSection.get_area(y, k, x, u)
             perim = lSection.get_perim(y, k, x, u)
-            ycg = lSection.get_ycg(y, k, x, u)
-            ix = lSection.get_ix(y, k, x, u , ycg) 
+            cy = lSection.get_ycg(y, k, x, u)
+            ix = lSection.get_ix(y, k, x, u , cy) 
             
              # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
@@ -361,34 +381,52 @@ class MainProgram:
             ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
             # FibraFrame.grid(row=1, column=0, padx=50, pady=50)
 
-            # Cria Os Widgets Para O ResultFrame
+            # Cria Os Widgets Para O ResultFrame 
             AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
             AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+
             pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
             pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
 
-            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultValue(ResultFrame, f'{ycg:.2f} cm')
+            cyLabel = widgets.ResultLabel(ResultFrame, 'cy =')
+            cyContent = widgets.ResultLabel(ResultFrame, f'{cy:.2f} cm')
+
+            cxLabel = widgets.ResultLabel(ResultFrame, 'cx =')
+            # cxContent = widgets.ResultLabel(ResultFrame, f'{cx:.2f} cm')
+
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'00 cm⁴'))
-            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'00 cm³'))
+            # IzContent = widgets.ResultValue(ResultFrame, f'{iz:.2f} cm⁴')
+
+            ScgzLabel = widgets.ResultLabel(ResultFrame, 'Scgz =')
+            # ScgzContent = widgets.ResultValue(ResultFrame, f'{scgz:.2f} cm³')
+
+            ScgyLabel = widgets.ResultLabel(ResultFrame, 'Scgy =')
+            # ScgyContent = widgets.ResultValue(ResultFrame, f'{scgy:.2f} cm³')
 
             # Layout Dos Widgets Do Frame Resultado
             AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
             AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+
             pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
             pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
 
-            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+            cyLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            cyContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+            cxLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            # cxContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+
+            IzLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            # IzContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+
+            ScgzLabel.grid(row=5, column=0, padx=(25, 5), pady=5, sticky='e')
+            # ScgzContent.grid(row=5, column=1, padx=10, pady=5, sticky='w')
+
+            ScgyLabel.grid(row=6, column=0, padx=(25, 5), pady=5, sticky='e')
+            # ScgyContent.grid(row=6, column=1, padx=10, pady=5, sticky='w')
 
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('l', [y, x, k, u, ycg]))
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('l', [y, x, k, u, cy]))
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
@@ -486,9 +524,11 @@ class MainProgram:
             # Calcular As Seções Geométricas
             area = uSection.get_area(x, y, a ,h)
             perim = uSection.get_perim(x, y, a, h)
-            ycg = uSection.get_ycg(x, y, a, h)
-            iz = uSection.get_iz(x, y, a, h ,ycg)
-            scg = uSection.get_scg(x, y, a, h, ycg)
+            cy = uSection.get_cy(x, y, a, h)
+            cx = uSection.get_cx(a, h)
+            iz = uSection.get_iz(x, y, a, h ,cy)
+            scgz = uSection.get_scgz(x, y, a, h, cy)
+            scgy = uSection.get_scgz(x, y, a, h, cx)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
@@ -515,31 +555,49 @@ class MainProgram:
             # Cria Os Widgets Para O ResultFrame 
             AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
             AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+
             pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
             pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
 
-            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            cyLabel = widgets.ResultLabel(ResultFrame, 'cy =')
+            cyContent = widgets.ResultLabel(ResultFrame, f'{cy:.2f} cm')
+
+            cxLabel = widgets.ResultLabel(ResultFrame, 'cx =')
+            cxContent = widgets.ResultLabel(ResultFrame, f'{cx:.2f} cm')
+
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
-            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
+            IzContent = widgets.ResultValue(ResultFrame, f'{iz:.2f} cm⁴')
+
+            ScgzLabel = widgets.ResultLabel(ResultFrame, 'Scgz =')
+            ScgzContent = widgets.ResultValue(ResultFrame, f'{scgz:.2f} cm³')
+
+            ScgyLabel = widgets.ResultLabel(ResultFrame, 'Scgy =')
+            ScgyContent = widgets.ResultValue(ResultFrame, f'{scgy:.2f} cm³')
 
             # Layout Dos Widgets Do Frame Resultado
             AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
             AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+
             pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
             pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
 
-            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+            cyLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            cyContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+            cxLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            cxContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+
+            IzLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+
+            ScgzLabel.grid(row=5, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgzContent.grid(row=5, column=1, padx=10, pady=5, sticky='w')
+
+            ScgyLabel.grid(row=6, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgyContent.grid(row=6, column=1, padx=10, pady=5, sticky='w')
 
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('u', [x, y, a, h, ycg]))
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('u', [x, y, a, h, cy]))
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
@@ -554,7 +612,7 @@ class MainProgram:
 
             RightLabelFrame = tk.Frame(ValueFrame, bg='#dbdbdb')
 
-            yLabel = tk.Label(RightLabelFrame, text=f'y = {y - x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
+            gLabel = tk.Label(RightLabelFrame, text=f'g = {y - x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
             xLabel = tk.Label(RightLabelFrame, text=f'x = {x} cm', font=self.ResultFont, bg='#dbdbdb', fg='#303030')
 
             # Layout Dos Widgets Do ValueFrame  
@@ -563,7 +621,7 @@ class MainProgram:
             a2Label.pack(side=tk.RIGHT, padx=(170, 0))
             YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=70)
             RightLabelFrame.pack(side=tk.RIGHT, anchor='w', fill=tk.Y)
-            yLabel.pack(anchor='w', pady=(350, 0))
+            gLabel.pack(anchor='w', pady=(350, 0))
             xLabel.pack(side=tk.BOTTOM, anchor='w', pady=(0, 150))
             hLabel.pack(side=tk.BOTTOM)
             
@@ -580,15 +638,15 @@ class MainProgram:
             self.ImageList.append(uValuesImage)
             DotImage = self.CreateImage('Images/Shapes/dot.png')
 
-            if ycg < x:
+            if cy < x:
                 DotHeight = CanvasHeight - 145
                 ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
-            elif ycg > x:
+            elif cy > x:
                 DotHeight = CanvasHeight - 350
                 ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
-            elif ycg == x:
+            elif cy == x:
                 DotHeight = CanvasHeight - 190
                 ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
 
@@ -600,8 +658,6 @@ class MainProgram:
 
 
         def uLayout():
-            pass
-
             self.ClearMainSpace()
 
             DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
@@ -671,9 +727,11 @@ class MainProgram:
             # Calcular As Seções Geométricas
             area = iSection.get_area(w, h)
             perim = iSection.get_perim(w, h)
-            ycg = iSection.get_ycg(h)
+            cy = iSection.get_cy(h)
+            cx = iSection.get_cx(w)
             iz = iSection.get_iz(h, w)
-            scg = iSection.get_scg(w, ycg)
+            scgz = iSection.get_scgz(w, cy)
+            scgy = iSection.get_scgy(h, w, cx)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
@@ -700,31 +758,49 @@ class MainProgram:
             # Cria Os Widgets Para O ResultFrame 
             AreaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
             AreaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+
             pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
             pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
 
-            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            cyLabel = widgets.ResultLabel(ResultFrame, 'cy =')
+            cyContent = widgets.ResultLabel(ResultFrame, f'{cy:.2f} cm')
+
+            cxLabel = widgets.ResultLabel(ResultFrame, 'cx =')
+            cxContent = widgets.ResultLabel(ResultFrame, f'{cx:.2f} cm')
+
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
-            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
+            IzContent = widgets.ResultValue(ResultFrame, f'{iz:.2f} cm⁴')
+
+            ScgzLabel = widgets.ResultLabel(ResultFrame, 'Scgz =')
+            ScgzContent = widgets.ResultValue(ResultFrame, f'{scgz:.2f} cm³')
+
+            ScgyLabel = widgets.ResultLabel(ResultFrame, 'Scgy =')
+            ScgyContent = widgets.ResultValue(ResultFrame, f'{scgy:.2f} cm³')
 
             # Layout Dos Widgets Do Frame Resultado
             AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
             AreaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+
             pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
             pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
 
-            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
-            IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+            cyLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            cyContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+            cxLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            cxContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+
+            IzLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            IzContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+
+            ScgzLabel.grid(row=5, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgzContent.grid(row=5, column=1, padx=10, pady=5, sticky='w')
+
+            ScgyLabel.grid(row=6, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgyContent.grid(row=6, column=1, padx=10, pady=5, sticky='w')
             
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('i', [w, h, ycg]))
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('i', [w, h, cy]))
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
@@ -817,9 +893,10 @@ class MainProgram:
             # Calcular As Seções Geométricas
             area = hSection.get_area(x, y, a, d, h, r)
             perim = hSection.get_area(x, y, a, d, h, r)
-            ycg = hSection.get_ycg(x, y, a, d, h, r)
-            iz = hSection.get_iz(x, y, a, d, h, r, ycg)
-            scg = hSection.get_scg(x, y, a, d, h, r, ycg)
+            cy = hSection.get_cy(x, y, a, d, h, r)
+            # cx = hSection.get_cx(x, y, a, d, h, r)
+            iz = hSection.get_iz(x, y, a, d, h, r, cy)
+            scgz = hSection.get_scgz(x, y, a, d, h, r, cy)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
@@ -849,12 +926,12 @@ class MainProgram:
             pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
             pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
 
-            YcgLabel = widgets.ResultLabel(ResultFrame, 'Ycg =')
-            YcgLabelContent = widgets.ResultLabel(ResultFrame, str(f'{ycg:.2f} cm'))
+            cyLabel = widgets.ResultLabel(ResultFrame, 'cy =')
+            cyContent = widgets.ResultLabel(ResultFrame, str(f'{cy:.2f} cm'))
             IzLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
-            IzLabelContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
-            ScgLabel = widgets.ResultLabel(ResultFrame, 'Scg =')
-            ScgLabelContent = widgets.ResultValue(ResultFrame, str(f'{scg:.2f} cm³'))
+            IzContent = widgets.ResultValue(ResultFrame, str(f'{iz:.2f} cm⁴'))
+            ScgzLabel = widgets.ResultLabel(ResultFrame, 'Scgz =')
+            ScgzContent = widgets.ResultValue(ResultFrame, str(f'{scgz:.2f} cm³'))
 
             # Layout Dos Widgets Do Frame Resultado
             AreaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
@@ -862,16 +939,16 @@ class MainProgram:
             pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
             pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
 
-            YcgLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
-            YcgLabelContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+            cyLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            cyContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
             IzLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
-            IzLabelContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
-            ScgLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
-            ScgLabelContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+            IzContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+            ScgzLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            ScgzContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
             
             # Cria Os Widgets Para O FibraFrame
             # FibraButton = widgets.OpenFibraButton(ButtonFrame, OpenFibra)
-            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('h', [x, y, a, d, h, r, ycg]))
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('h', [x, y, a, d, h, r, cy]))
             FibraButton.pack(fill=tk.X)
 
             # Layout Dos Frames Da Direita
@@ -909,28 +986,28 @@ class MainProgram:
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=RomanIValuesImage)
             self.ImageList.append(RomanIValuesImage)
 
-            if ycg > (h + d):
+            if cy > (h + d):
                 DotHeight = CanvasHeight - 708
                 
-            elif ycg == (h + d):
+            elif cy == (h + d):
                 DotHeight = CanvasHeight - 632
             
-            elif ((y + h + d) / 2) < ycg < (h + d):
+            elif ((y + h + d) / 2) < cy < (h + d):
                 DotHeight = CanvasHeight - 522
 
-            elif ycg == ((y + h + d) / 2):
+            elif cy == ((y + h + d) / 2):
                 DotHeight = CanvasHeight - 411
 
-            elif ycg == ((h + d) / 2):
+            elif cy == ((h + d) / 2):
                 DotHeight = CanvasHeight - 336
 
-            elif d < ycg < ((y + d + h) / 2):
+            elif d < cy < ((y + d + h) / 2):
                 DotHeight = CanvasHeight - 299
             
-            elif ycg == d:
+            elif cy == d:
                 DotHeight = CanvasHeight - 189
 
-            elif ycg < d:
+            elif cy < d:
                 DotHeight = CanvasHeight - 94
 
             DotImage = self.CreateImage('Images/Shapes/dot.png')

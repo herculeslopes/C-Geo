@@ -12,11 +12,17 @@ def get_perim(w, h):
     return perim
 
     
-def get_ycg(h):
-    ycg = h / 2
+def get_cy(h):
+    cy = h / 2
     print(f'h = {h}')
-    print(f'ycg = {ycg}')
-    return ycg
+    print(f'ycg = {cy}')
+    return cy
+
+
+def get_cx(w):
+    cx = w / 2
+    print(f'w = {w}')
+    return cx
 
 
 def get_iz(h, w):
@@ -26,10 +32,22 @@ def get_iz(h, w):
     return iz
 
 
-def get_scg(w, ycg):
-    scg = (w * ycg * (ycg / 2))
-    print(f'scg = {scg}')
-    return scg
+def get_iy(h, w):
+    iy = (h * (w ** 3)) / 12
+    print(f'iy = {iy}')
+    return iy
+    
+
+def get_scgz(w, ycg):
+    scgz = (w * ycg * (ycg / 2))
+    print(f'scg = {scgz}')
+    return scgz
+
+
+def get_scgy(h, w, cx):
+    scgy = h * w * cx
+    print(f'scgy = {scgy}') 
+    return scgy
 
 
 def get_fibra(w, h, ycg, fibra):

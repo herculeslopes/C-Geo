@@ -12,26 +12,38 @@ def get_perim(x, y, a, h):
     return perim
     
 
-def get_ycg(x, y, a, h):
-    ycg = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
+def get_cy(x, y, a, h):
+    cy = ((2 * (a * y * (y / 2))) + (h * x * (x / 2))) / ((2 * (a * y)) + (x * h))
     print(f'x = {x}')
     print(f'y = {y}')
     print(f'a = {a}')
     print(f'h = {h}')
-    print(f'ycg = {ycg}')
-    return ycg
+    print(f'ycg = {cy}')
+    return cy
 
 
-def get_iz(x, y, a, h, ycg):
-    iz = (2 * (((a * y ** 3) / (12)) + ((y * a * ((y / 2) - ycg) ** 2)))) + ((((h) * (x ** 3)) / (12)) + (x * h * ((ycg - (x / 2)) ** 2)))
+def get_cx(a, h):
+    cx = (h + 2 * a) / 2
+    print(f'cx = {cx}')
+    return cx
+
+
+def get_j(a, h, cx):
+    j = h + (2 * a) - cx
+    print(f'j = {j}')
+    return j
+
+
+def get_iz(x, y, a, h, cy):
+    iz = (2 * (((a * y ** 3) / (12)) + ((y * a * ((y / 2) - cy) ** 2)))) + ((((h) * (x ** 3)) / (12)) + (x * h * ((cy - (x / 2)) ** 2)))
     print(f'iz = {iz}')
     return iz
 
 
-def get_scg(x, y, a, h, ycg):
-    scg = (((y - ycg) * (a + h + a)) - ((y - ycg) * (h))) * ((y - ycg) / 2)
-    print(f'scg = {scg}')
-    return scg
+def get_scgz(x, y, a, h, cy):
+    scgz = (((y - cy) * (a + h + a)) - ((y - cy) * (h))) * ((y - cy) / 2)
+    print(f'scg = {scgz}')
+    return scgz
 
 
 def get_fibra(x, y, a, h, ycg, fibra, pos):

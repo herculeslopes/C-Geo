@@ -12,31 +12,49 @@ def get_perim(x, b, y, z):
     return perimetro
 
 
-def get_ycg(x, b, y, z):
-    ycg = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
+def get_cy(x, b, y, z):
+    cy = (z * y * (y / 2) + b * x * (y + (b / 2))) / (z * y + b * x)
     print(f'x = {x}')
     print(f'b = {b}')
     print(f'y = {y}')
     print(f'z = {z}')
-    print(f'ycg = {ycg}')
-    return ycg
+    print(f'ycg = {cy}')
+    return cy
 
 
-def get_iz(x, b, y, z, ycg):
-    iz = (((x * (b ** 3)) / (12) ) + (b * x * ((y + (b / 2) - ycg)) ** 2)) + (((z * (y ** 3)) / (12)) + (y * z * ((ycg - (y / 2)) ** 2)))
+def get_cx(x):
+    cx = x / 2
+    print(f'cx = {cx}')
+    return cx
+
+
+def get_iz(x, b, y, z, cy):
+    iz = (((x * (b ** 3)) / (12) ) + (b * x * ((y + (b / 2) - cy)) ** 2)) + (((z * (y ** 3)) / (12)) + (y * z * ((cy - (y / 2)) ** 2)))
     print(f'iz = {iz}')
     return iz
 
 
-def get_scg(x, b, y, z, ycg):
-    if ycg < y or ycg == y:
-        scg = (ycg * z * (ycg / 2))
+def get_iy(x, b, y, z):
+    iy = ((y * z ** 3) / 12) + ((b * x ** 3) / 12)
+    print(f'iy = {iy}')
+    return iy
+
+
+def get_scgz(x, b, y, z, cy):
+    if cy < y or cy == y:
+        scgz = (cy * z * (cy / 2))
             
     else:
-        scg = x * (y + b - ycg) * ((y + b - ycg) / 2)
+        scgz = x * (y + b - cy) * ((y + b - cy) / 2)
 
-    print(f'scg = {scg}')
-    return scg
+    print(f'scg = {scgz}')
+    return scgz
+
+
+def get_scgy(x, b, y, z):
+    scgy = (z / 2) * y * (z / 4) + (x / 2) * b * (x / 4)
+    print(f'scgy = {scgy}')
+    return scgy
 
 
 def get_fibra(x, b, y, z, ycg, fibra, pos):

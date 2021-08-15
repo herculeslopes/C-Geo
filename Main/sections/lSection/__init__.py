@@ -22,18 +22,19 @@ def get_ycg(y, k, x, u):
     return ycg
             
 
-def get_ix(y, k, x, u, ycg):
+def get_iz(y, k, x, u, ycg):
     t = x + (k / 2)
     h = (x / 2)
-    ix = (((y * k ** 3) / 12+y * k * (t - ycg) ** 2)+((u * x ** 3 / 12)+u * x * (ycg - h) ** 2))
+    iz = (((y * k ** 3) / 12+y * k * (t - ycg) ** 2)+((u * x ** 3 / 12)+u * x * (ycg - h) ** 2))
 
     print(f't = {t}')
     print(f'h = {h}')
-    print(f'ix = {ix}')
+    print(f'ix = {iz}')
 
 def get_iy(y, k, x, u, ycg):
     iy = ((y * k ** 3) / 3 + k * y * (ycg - y / 2) ** 2) + (x * u ** 3 / 12 + x * u * (u / 2 * ycg))
     return iy
+
 
 def get_scg():
     pass
