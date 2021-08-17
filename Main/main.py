@@ -31,6 +31,11 @@ class MainProgram:
 
         self.OptionSelected = tk.StringVar()
 
+        homeImage = self.CreateImage('Images/general/img-home.png')
+        homeLabel = tk.Label(self.MainSpace, bg='#dbdbdb', image=homeImage)
+        homeLabel.image = homeImage
+        homeLabel.pack()
+
         print(f'\nScreen Info: {self.ScreenInfo}')
         print(f'Zoom Ration: {self.WindowsZoom}')
         print(f'Screen Resolution {self.ScreenResolution}\n')
