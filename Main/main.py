@@ -31,11 +31,6 @@ class MainProgram:
 
         self.OptionSelected = tk.StringVar()
 
-        homeImage = self.CreateImage('Images/general/img-home.png')
-        homeLabel = tk.Label(self.MainSpace, bg='#dbdbdb', image=homeImage)
-        homeLabel.image = homeImage
-        homeLabel.pack()
-
         print(f'\nScreen Info: {self.ScreenInfo}')
         print(f'Zoom Ration: {self.WindowsZoom}')
         print(f'Screen Resolution {self.ScreenResolution}\n')
@@ -48,7 +43,8 @@ class MainProgram:
         self.root.bind('<Control-Key-6>', self.hShape)
 
         self.InitImages()
-        self.SideFramePacking()     
+        self.SideFramePacking()
+        self.HomePage()
 
 
     def CreateImage(self, path):
@@ -78,6 +74,7 @@ class MainProgram:
     
     def InitImages(self):
         # Side Button
+        self.homeButtonImage = self.CreateImage('Images/Buttons/home.png')
         self.tButtonImage = self.CreateImage('Images/Buttons/tButton.png')
         self.LButtonImage = self.CreateImage('Images/Buttons/LButton.png')
         self.uButtonImage = self.CreateImage('Images/Buttons/uButton.png')
@@ -85,6 +82,8 @@ class MainProgram:
         self.iButtonImage = self.CreateImage('Images/Buttons/iButton.png')
         self.RomanIButtonImage = self.CreateImage('Images/Buttons/RomanIButton.png')
 
+        # Home Image
+        self.homeImage = self.CreateImage('Images/general/img-home.png')
 
         # Shapes Labels
         self.tShapeImage = self.CreateImage('Images/Shapes/tShape.png')
@@ -143,6 +142,10 @@ class MainProgram:
 
     def SideFramePacking(self):
         # Botões Laterias
+        self.btnHome = widgets.SideButton(self.SideFrame, self.homeButtonImage, self.HomePage)
+
+        devider = widgets.DividingLine(self.SideFrame)
+
         self.tButton = widgets.SideButton(self.SideFrame, self.tButtonImage, self.tShape)
         self.LButton = widgets.SideButton(self.SideFrame, self.LButtonImage, self.LShape)
         self.uButton = widgets.SideButton(self.SideFrame, self.uButtonImage, self.uShape)
@@ -151,6 +154,8 @@ class MainProgram:
         self.RomanIButton = widgets.SideButton(self.SideFrame, self.RomanIButtonImage, self.hShape)
 
         # Layout
+        self.btnHome.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
+        devider.pack(fill=tk.X, padx=10)
         self.tButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.LButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.uButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
@@ -162,6 +167,14 @@ class MainProgram:
     def ClearMainSpace(self):
         for widget in self.MainSpace.winfo_children():
             widget.destroy()
+
+
+    def HomePage(self):
+        self.ClearMainSpace()
+
+        homeLabel = tk.Label(self.MainSpace, bg='#dbdbdb', image=self.homeImage)
+        homeLabel.image = self.homeImage
+        homeLabel.pack()
 
 
     def OpenFibra(self, sec, meds):

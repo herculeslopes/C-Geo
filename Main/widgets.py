@@ -100,11 +100,11 @@ class ResultValue(tk.Label):
         self['fg'] = '#303030'
 
 
-class DeviderLine(tk.Frame):
+class DividingLine(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
-        self['bg'] = '#121212'
-        self['height'] = 2
+        self['bg'] = '#8c8c8c'
+        self['height'] = 3
 
 
 class ValueLabel(tk.Label):
