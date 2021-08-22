@@ -1,10 +1,9 @@
 import tkinter as tk
-from tkinter.constants import Y
 from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
 import screeninfo
-from sections import tSection, lSection, uSection, iSection, hSection
+from sections import tSection, lSection, uSection, cSection, iSection, hSection
 from win_fibra import FibraWindow
 import widgets
 
@@ -198,8 +197,11 @@ class MainProgram:
             cy = tSection.get_cy(x, b, y ,z)
             cx = tSection.get_cx(x)
             iz = tSection.get_iz(x, b, y, z , cy)
+            iy = tSection.get_iy(x, b, y, z)
             scgz = tSection.get_scgz(x, b, y, z, cy)
             scgy = tSection.get_scgy(x, b, y, z)
+            # kz = tSection.get_kz(a, iz)
+            # ky = tSection.get_ky(a, iy)
 
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
             RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0) #dbdbdb
@@ -377,6 +379,8 @@ class MainProgram:
             iy = lSection.get_iy(y, k, x, u, cy)
             scgz = lSection.get_scgz(y, k, x, cy)
             scgy = lSection.get_scgy(x, u, cx)
+            kz = lSection.get_kz(k, x, iz)
+            ky = lSection.get_ky(k, x, iy)
             
              # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
@@ -547,9 +551,13 @@ class MainProgram:
             perim = uSection.get_perim(x, y, a, h)
             cy = uSection.get_cy(x, y, a, h)
             cx = uSection.get_cx(a, h)
+            j = uSection.get_j(a, h, cx)
             iz = uSection.get_iz(x, y, a, h ,cy)
+            iy = uSection.get_iy(x, y, a , cx)
             scgz = uSection.get_scgz(x, y, a, h, cy)
             scgy = uSection.get_scgz(x, y, a, h, cx)
+            kz = uSection.get_kz(a, iz)
+            ky = uSection.get_ky(a, iy)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
@@ -720,17 +728,177 @@ class MainProgram:
 
 
     def cShape(self, event=None):
-        self.ClearMainSpace()
+        def Calculate(event=None, entry=None):
+            # Converte Os Valores Das Caixas De Entrada
+            b = float(entry[0].get())
+            h = float(entry[1].get())
+            a = float(entry[2].get())
+            m = float(entry[3].get())
 
-        DataFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
-        DataFrame.pack(expand=True)
+            self.ClearMainSpace()
 
-        cShapeLabel = tk.Label(DataFrame, image=self.cShapeImage, bd=0)
-        cShapeLabel.image = self.cShapeImage
-        cShapeLabel.pack()
+            # Calcular As Seções Geométricas
+            area = cSection.get_area(b, h, a, m)
+            perim = cSection.get_perim(b, h, a, m)
+            cy = cSection.get_cy(b, h, a, m)
+            cx = cSection.get_cx(b, h, a, m)
+            iz = cSection.get_iz(b, h, a, m, cy)
+            iy = cSection.get_iy(b, h, a, m, cy)
+            scgz = cSection.get_scgz(b, h, a, m, cy)
+            # scgy = cSection.get_scgy()
+            kz = cSection.get_kz(a, iz)
+            ky = cSection.get_ky(a, iy)
 
-        WarningLabel = tk.Label(DataFrame, text='EM BREVE', font=self.WarningFont, fg='#8c8c8c', bg='#dbdbdb')
-        WarningLabel.pack()
+            # Cria Os Frames Principais
+            LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
+            RightFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0) #dbdbdb
+
+            # Layout Dos Frames Principais 
+            LeftFrame.pack(side=tk.LEFT, fill=tk.BOTH)
+            RightFrame.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+
+            # Cria Frames Para O Frame Esquerdo 
+            ResultFrame = tk.Frame(LeftFrame, bg='#d1d1d1', bd=0)
+            ButtonFrame = tk.Frame(LeftFrame, bg='#b0b0b0', bd=5)
+            
+            # Cria Frames Para O Frame Direito
+            ValueFrame = tk.Frame(RightFrame, bg='#dbdbdb')
+
+            # Layout Dos Frames Da Esquerda
+            ButtonFrame.pack(side=tk.TOP, fill=tk.X)
+            ResultFrame.pack(expand=True, fill=tk.BOTH, side=tk.BOTTOM)
+
+            # Cria Os Widgets Para O ResultFrame 
+            areaLabel = widgets.ResultLabel(ResultFrame, 'Área =') 
+            areaValue = widgets.ResultValue(ResultFrame, f'{area:.2f} cm²')
+
+            pLabel = widgets.ResultLabel(ResultFrame, 'Perímetro = ')
+            pValue = widgets.ResultValue(ResultFrame, f'{perim:.2f} cm')
+
+            cyLabel = widgets.ResultLabel(ResultFrame, 'cy =')
+            cyContent = widgets.ResultLabel(ResultFrame, f'{cy:.2f} cm')
+
+            cxLabel = widgets.ResultLabel(ResultFrame, 'cx =')
+            cxContent = widgets.ResultLabel(ResultFrame, f'{cx:.2f} cm')
+
+            izLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
+            izContent = widgets.ResultValue(ResultFrame, f'{iz:.2f} cm⁴')
+
+            scgzLabel = widgets.ResultLabel(ResultFrame, 'Scgz =')
+            scgzContent = widgets.ResultValue(ResultFrame, f'{scgz:.2f} cm³')
+
+            scgyLabel = widgets.ResultLabel(ResultFrame, 'Scgy =')
+            scgyContent = widgets.ResultValue(ResultFrame, f'00 cm³')
+
+            # Layout Dos Widgets Do Frame Resultado
+            areaLabel.grid(row=0, column=0, padx=(25, 5), pady=5, sticky='e')
+            areaValue.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+
+            pLabel.grid(row=1, column=0, padx=(25, 5), pady=5, sticky='e')
+            pValue.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+            cyLabel.grid(row=2, column=0, padx=(25, 5), pady=5, sticky='e')
+            cyContent.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+            cxLabel.grid(row=3, column=0, padx=(25, 5), pady=5, sticky='e')
+            cxContent.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+
+            izLabel.grid(row=4, column=0, padx=(25, 5), pady=5, sticky='e')
+            izContent.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+
+            scgzLabel.grid(row=5, column=0, padx=(25, 5), pady=5, sticky='e')
+            scgzContent.grid(row=5, column=1, padx=10, pady=5, sticky='w')
+
+            scgyLabel.grid(row=6, column=0, padx=(25, 5), pady=5, sticky='e')
+            scgyContent.grid(row=6, column=1, padx=10, pady=5, sticky='w')
+            
+            FibraButton = widgets.OpenFibraButton(ButtonFrame, lambda: self.OpenFibra('c', [b, h, a, m, cy]))
+            FibraButton.pack(fill=tk.X)
+
+            # Layout Dos Frames Da Direita
+            ValueFrame.pack(expand=True, padx=(0, 400))
+
+            # Cria Os Widgets Do ValueFrame
+            wLabel = widgets.ValueLabel(ValueFrame, f'x = {w} cm')
+            hLabel = widgets.ValueLabel(ValueFrame, f'y = {h} cm')
+            YcgL = widgets.ValueLabel(ValueFrame, 'Ycg')
+
+            # Layout Dos Widgets Do ValueFrame
+            wLabel.pack(side=tk.TOP)
+            hLabel.pack(side=tk.RIGHT)
+            YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=20)
+
+            # Cria O Canvas Da Imagem Principal
+            CanvasWidth = 265
+            CanvasHeight = 819
+            ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
+            ShapeCanvas.pack()            
+
+            # Cria As Imagens No Canvas
+            self.ImageList = []
+            iValuesImage = self.CreateImage('Images/Shapes/iValues.png')
+            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
+            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=DotImage)
+            self.ImageList.append(iValuesImage)
+            self.ImageList.append(DotImage)
+
+            # Cria A Linha Do Ycg
+            x1 = 18; y1 = CanvasHeight / 2; x2 = x1 + 9; y2 = 796
+            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+
+
+        def cLayout():
+            self.ClearMainSpace()
+
+            # Cria Os Widgets Do self.MainSpace
+            EntriesFrame = tk.Frame(self.MainSpace, bg='#dbdbdb')
+            rEntries = tk.Frame(EntriesFrame, bg='#dbdbdb', bd=0)
+            bEntries = tk.Frame(EntriesFrame, bg='#dbdbdb', bd=0)
+            MenuFrame = tk.Frame(self.MainSpace, bg='#dbdbdb', bd=0, height=100)
+
+            # Layout Dos Widgets Do self.MainSpace
+            EntriesFrame.pack(expand=True)
+            rEntries.pack(side=tk.RIGHT, fill=tk.Y)
+            bEntries.pack(side=tk.BOTTOM, fill=tk.X)
+            MenuFrame.pack(side=tk.BOTTOM, fill=tk.X, pady=25)
+
+            # Cria Os Widgets Do DataFrame
+            b1Entry = widgets.EntryField(rEntries)
+            hEntry = widgets.EntryField(rEntries)
+            b2Entry = widgets.EntryField(rEntries)
+            aEntry = widgets.EntryField(bEntries)
+            mEntry = widgets.EntryField(bEntries)
+            cShapeLabel = widgets.ShapeImage(EntriesFrame, img=self.cShapeImage)
+
+            entries = [b1Entry, hEntry, aEntry, mEntry]
+
+            # Layout Dos Widgets Do DataFrame
+            b1Entry.pack(side=tk.TOP, pady=(50, 0))
+            hEntry.pack(pady=200)
+            b2Entry.pack(side=tk.BOTTOM, pady=(0, 160))
+            # WidthEntry.pack(side=tk.TOP, pady=(50, 25))
+            # HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
+            cShapeLabel.pack()
+            aEntry.pack(side=tk.LEFT)
+            mEntry.pack(side=tk.RIGHT)
+
+            b1Entry.focus_set()
+
+            ButtonsFrame = tk.Frame(MenuFrame, bg='#dbdbdb', bd=0)
+            ButtonsFrame.pack()
+
+            # Widgets De ButtonsFrame
+            CalculateButton = widgets.MenuButton(ButtonsFrame, img=self.CalculateImage, action= lambda: Calculate(entry=entries))
+            DiscardButton = widgets.MenuButton(ButtonsFrame, img=self.DiscardImage, action=lambda: self.EntryDiscard(entries))
+
+            # Layout Dos Widgets
+            CalculateButton.grid(row=0, column=0, padx=5)
+            DiscardButton.grid(row=0, column=1, padx=5)
+
+            self.root.bind('<Return>', lambda event, ent=entries: Calculate(entry=ent))
+
+        cLayout()
 
 
     def iShape(self, event=None):
@@ -747,8 +915,11 @@ class MainProgram:
             cy = iSection.get_cy(h)
             cx = iSection.get_cx(w)
             iz = iSection.get_iz(h, w)
+            iy = iSection.get_iy(h, w)
             scgz = iSection.get_scgz(w, cy)
             scgy = iSection.get_scgy(h, w, cx)
+            kz = iSection.get_kz(area, iz)
+            ky = iSection.get_ky(area, iy)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb
@@ -911,6 +1082,8 @@ class MainProgram:
             iy = hSection.get_iy(x, y, a, d, h, r)
             scgz = hSection.get_scgz(x, y, a, d, h, r, cy)
             scgy = hSection.get_scgy(x, y, a, d, h, r)
+            kz = hSection.get_kz(a, iz)
+            ky = hSection.get_ky(a, iy)
 
             # Cria Os Frames Principais
             LeftFrame = tk.Frame(self.MainSpace, bg='#8c8c8c', bd=0) #dbdbdb

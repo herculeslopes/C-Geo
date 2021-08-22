@@ -2,3 +2,5 @@
 Main/run_fibra.py
 *.pyc
 Main/main copy.py
+Main/yml.py
+Main/config.yml

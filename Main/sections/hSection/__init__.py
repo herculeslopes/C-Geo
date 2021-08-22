@@ -1,3 +1,5 @@
+from math import sqrt
+
 # Fórmulas do H
 
 def get_area(x, y, a, d, h, r):
@@ -11,7 +13,12 @@ def get_perim(x, y, a, d, h, r):
 
     
 def get_cy(x, y, a, d, h, r):
-    cy = ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2)))) / ((a * r) + (d * h) + (y * x))
+    cy = (
+        ((a * r * (a / 2)) + (h * d * (a + (h / 2))) + (y * x * (a + h + (y / 2))))
+        /
+        ((a * r) + (d * h) + (y * x))
+    )
+    
     return cy
 
 
@@ -26,26 +33,33 @@ def get_cx(x, r):
 
 
 def get_iz(x, y, a, d, h, r, cy):
-    iz = (((r * (a ** 3)) / (12)) + ((a * r * (((cy - (a / 2)) ** 2))))) + (((d * (h ** 3)) / 12) + (h * d * ((((h / 2) + a) - cy) ** 2))) + (((x * (y ** 3)) / 12) + (y * x * (((a + h + (y / 2)) - cy) ** 2)))
+    iz = (
+        (((r * (a ** 3)) / (12)) + ((a * r * (((cy - (a / 2)) ** 2)))))
+        +
+        (((d * (h ** 3)) / 12) + (h * d * ((((h / 2) + a) - cy) ** 2)))
+        +
+        (((x * (y ** 3)) / 12) + (y * x * (((a + h + (y / 2)) - cy) ** 2)))
+    )
+
     return iz
 
 
 def get_iy(x, y, a, d, h, r):
     iy = (d * (r ** 3)) / 12 + ((h * (a ** 3)) / 12) + ((y * (x ** 3))/ 12)
-    return iy
+    return iy   
 
 
 def get_scgz(x, y, a, d, h, r, cy):
-    if cy == a:
-        scg = a * r * (a / 2)
-
-    elif cy == (a + h):
-        scg = y * x * (y / 2)
-
-    elif cy < (a + h) and cy > a:
-        scg = (a * r * (cy - (a / 2))) + (d * (cy - a) * ((cy - a) / 2))
+    if cy >= (y + h + d):
+        scgz = (y + h + d - cy) * x * ((y + h + d - cy) / 2)
     
-    return scg
+    elif cy < h + d:
+        scgz = d * r * ((d / 2) + (cy - d)) + (cy - d) * a * ((cy - d) / 2)
+
+    elif cy <= d:
+        scgz = cy * r * (cy / 2)
+
+    return scgz
 
 
 def get_scgy(x, y, a, d, h, r):
@@ -53,63 +67,73 @@ def get_scgy(x, y, a, d, h, r):
     return scgy
 
 
-def get_fibra(x, y, a, d, h, r, ycg, fibra, pos):
-    if ((pos == 'ACIMA') and (ycg + fibra <= y + d + h)) or ((pos == 'ABAIXO') and (ycg - fibra >= 0)):
-        if ycg >= (h + d):
+def get_kz(a, iz):
+    kz = sqrt(iz / a)
+    return kz
+
+
+def get_ky(a, iy):
+    ky = sqrt(iy / a)
+    return ky
+
+
+def get_fibra(x, y, a, d, h, r, cy, fibra, pos):
+    if ((pos == 'ACIMA') and (cy + fibra <= y + d + h)) or ((pos == 'ABAIXO') and (cy - fibra >= 0)):
+        if cy >= (h + d):
             if pos == 'ACIMA':
-                if (ycg + fibra) < (y + d + h):
-                    i = ((ycg + fibra) - (y + h + d))
+                if (cy + fibra) < (y + d + h):
+                    i = ((cy + fibra) - (y + h + d))
                     S = i * x * ((i/2) + fibra)
 
             elif pos == 'ABAIXO':
-                if (ycg - fibra) <= (d + h) and (ycg - fibra) > d:
-                    i = ( d + h) - (ycg - fibra)
+                if (cy - fibra) <= (d + h) and (cy - fibra) > d:
+                    i = ( d + h) - (cy - fibra)
                     S = ((i * a * ((i / 2) + fibra)) + (d * r * ((d / 2) + i + fibra)))
 
-                elif (ycg - fibra) <= d:
-                    u = ( ycg - fibra)  
+                elif (cy - fibra) <= d:
+                    u = ( cy - fibra)  
                     S = u * r * ((u / 2) + fibra)
 
-                elif (ycg - fibra) > (d + h):    
-                    u = (ycg - fibra) - (h + d)
+                elif (cy - fibra) > (d + h):    
+                    u = (cy - fibra) - (h + d)
                     S = (u * x * ((u / 2 ) + fibra)) + (h * a * ((h / 2) + u + fibra)) + d * r * ((d / 2) + h + u + fibra)
 
-        elif (ycg > d) and ycg <= (d + h):     
+        elif (cy > d) and cy <= (d + h):     
             if pos =='ACIMA':      
-                if (ycg + fibra) >= (d + h):
-                    i = ( d + h + y) - (ycg + fibra)
+                if (cy + fibra) >= (d + h):
+                    i = ( d + h + y) - (cy + fibra)
                     S = i * x * ((i / 2) + fibra)
                 
-                elif (ycg + fibra) <= ( d + h) and (ycg + fibra) >= d:
-                    i = (d + h) - (ycg + fibra)
+                elif (cy + fibra) <= ( d + h) and (cy + fibra) >= d:
+                    i = (d + h) - (cy + fibra)
                     S = (y * x * ((y / 2) + i + fibra)) + (i * a * ((i / 2) + fibra))
 
             elif pos == 'ABAIXO':
-                if (ycg - fibra) > d:
-                    v = (d + h) - ( ycg - fibra)    
+                if (cy - fibra) > d:
+                    v = (d + h) - ( cy - fibra)    
                     S = (v * a * ((v / 2) + fibra)) + (d * r * ((d / 2) + fibra))
 
-                elif (ycg - fibra) <= d: 
-                    v = (ycg - fibra)
+                elif (cy - fibra) <= d: 
+                    v = (cy - fibra)
                     S = v * r * ((v / 2) + fibra)
 
-        elif ( ycg <= d ):
+        elif ( cy <= d ):
             if pos == 'ABAIXO':
-                if ( ycg - fibra) <= d:
-                    g = (ycg - fibra)
+                if ( cy - fibra) <= d:
+                    g = (cy - fibra)
                     S = g * r * ((g / 2)+ fibra)
 
             elif pos == 'ACIMA':
-                if (ycg + fibra) >= (d + h):
-                    i = (d + h + fibra) - (ycg + fibra)
+                if (cy + fibra) >= (d + h):
+                    i = (d + h + fibra) - (cy + fibra)
                     S = (i * x * ((i / 2)+ fibra))
 
-                elif (ycg + fibra) >= d:
-                    m = (h + d) - (ycg + fibra)    
+                elif (cy + fibra) >= d:
+                    m = (h + d) - (cy + fibra)    
                     S = y * x * ((y / 2) + fibra)
 
-                elif (ycg + fibra) < d:   
-                    m = (d) - (ycg + fibra)
+                elif (cy + fibra) < d:   
+                    m = (d) - (cy + fibra)
                     S = (y * x * ((y / 2) + h + m + fibra)) + (h * a * ((h / 2) + m + fibra)) + (m * r * ((m / 2) + fibra)) 
         
     else:
