@@ -66,15 +66,13 @@ def get_scgy(y, k, x, u, cx):
     return scgy
 
 
-def get_kz(k, x, iz):
-    a = k + x
-    kz = sqrt(iz / a)
+def get_kz(area, iz):
+    kz = sqrt(iz / area)
     return kz
 
 
-def get_ky(k, x, iy):
-    a = k + x
-    ky = sqrt(iy / a)
+def get_ky(area, iy):
+    ky = sqrt(iy / area)
     return ky
 
 

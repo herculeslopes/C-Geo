@@ -65,18 +65,19 @@ def get_scgz(x, y, a, h, cy):
     return scgz
 
 
-def get_scgy(x, a, j, g):
+def get_scgy(x, y, a, j):
+    g = y - x
     scgy = (j * x * (j / 2)) + (g * a * (j * (a / 2)))
     return scgy
 
 
-def get_kz(a, iz):
-    kz = sqrt(iz / a)
+def get_kz(area, iz):
+    kz = sqrt(iz / area)
     return kz
 
 
-def get_ky(a, iy):
-    ky = sqrt(iy / a)
+def get_ky(area, iy):
+    ky = sqrt(iy / area)
     return ky
 
 
