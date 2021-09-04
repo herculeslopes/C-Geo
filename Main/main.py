@@ -183,12 +183,20 @@ class MainProgram:
 
     def tShape(self, event=None):
         def Calculate(event=None, entry=None):
-
             # Converte Os Valores Das Caixas De Entrada
-            x = float(entry[0].get())
-            b = float(entry[1].get())
-            y = float(entry[2].get())
-            z = float(entry[3].get())
+            try:
+                x = float(entry[0].get())
+                b = float(entry[1].get())
+                y = float(entry[2].get())
+                z = float(entry[3].get())
+            except ValueError:
+                return
+
+            medidas = [x, b, y, z]
+            if 0 in medidas:
+                return
+            else:
+                del medidas
 
             self.ClearMainSpace()
             
@@ -382,10 +390,19 @@ class MainProgram:
     def LShape(self, event=None):
         def Calculate(event=None, entry=None):
             #Converte Os Valores Das Caixas De Entrada
-            y = float(entry[0].get())
-            x = float(entry[1].get())
-            k = float(entry[2].get())
-            u = float(entry[3].get())
+            try:
+                y = float(entry[0].get())
+                x = float(entry[1].get())
+                k = float(entry[2].get())
+                u = float(entry[3].get())
+            except ValueError:
+                return
+
+            medidas = [y, x, k, u]
+            if 0 in medidas:
+                return
+            else:
+                del medidas
 
             self.ClearMainSpace()
 
@@ -570,10 +587,19 @@ class MainProgram:
     def uShape(self, event=None):
         def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
-            x = float(entry[0].get())  
-            a = float(entry[1].get())
-            y = float(entry[2].get())
-            h = float(entry[3].get())
+            try:
+                x = float(entry[0].get())  
+                a = float(entry[1].get())
+                y = float(entry[2].get())
+                h = float(entry[3].get())
+            except ValueError:
+                return
+
+            medidas = [x, a, y, h]
+            if 0 in medidas: 
+                return 
+            else: 
+                del medidas
 
             self.ClearMainSpace()
 
@@ -779,10 +805,18 @@ class MainProgram:
     def cShape(self, event=None):
         def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
-            b = float(entry[0].get())
-            h = float(entry[1].get())
-            a = float(entry[2].get())
-            m = float(entry[3].get())
+
+            try:
+                b = float(entry[0].get())
+                h = float(entry[1].get())
+                a = float(entry[2].get())
+                m = float(entry[3].get())
+
+            except ValueError:
+                return
+
+            if b == 0 or h == 0 or a == 0 or m == 0:
+                return
 
             self.ClearMainSpace()
 
@@ -971,8 +1005,17 @@ class MainProgram:
     def iShape(self, event=None):
         def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
-            w = float(entry[0].get())
-            h = float(entry[1].get())
+            try:
+                w = float(entry[0].get())
+                h = float(entry[1].get())
+            except ValueError:
+                return
+
+            medidas = [w, h]
+            if 0 in medidas:
+                return
+            else:
+                del medidas
 
             self.ClearMainSpace()
 
@@ -984,7 +1027,7 @@ class MainProgram:
             iz = iSection.get_iz(h, w)
             iy = iSection.get_iy(h, w)
             scgz = iSection.get_scgz(w, cy)
-            scgy = iSection.get_scgy(h, w, cx)
+            scgy = iSection.get_scgy(h, w)
             kz = iSection.get_kz(area, iz)
             ky = iSection.get_ky(area, iy)
 
@@ -1149,12 +1192,22 @@ class MainProgram:
     def hShape(self, event=None):
         def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
-            x = float(entry[0].get())
-            y = float(entry[1].get())
-            a = float(entry[2].get())
-            d = float(entry[3].get())
-            h = float(entry[4].get())
-            r = float(entry[5].get())
+
+            try:
+                x = float(entry[0].get())
+                y = float(entry[1].get())
+                a = float(entry[2].get())
+                d = float(entry[3].get())
+                h = float(entry[4].get())
+                r = float(entry[5].get())
+            except ValueError:
+                return
+
+            medidas = [x, y, a, d, h, r]
+            if 0 in medidas:
+                return
+            else:
+                del medidas
 
             self.ClearMainSpace()
 

@@ -37,8 +37,8 @@ def get_scgz(w, ycg):
     return scgz
 
 
-def get_scgy(h, w, cx):
-    scgy = h * w * cx
+def get_scgy(h, w):
+    scgy = h * ( w / 2 ) * ( w / 4 ) 
     return scgy
 
 
