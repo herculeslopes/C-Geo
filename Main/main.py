@@ -3,21 +3,23 @@ from tkinter.font import Font
 from PIL import ImageTk, Image
 import ctypes
 import screeninfo
-from sections import tSection, lSection, uSection, cSection, iSection, hSection
+from formulas import tSection, lSection, uSection, cSection, iSection, hSection
 from win_fibra import FibraWindow
+from win_credits import CreditsWindow
 import widgets
 
 class MainProgram:
     def __init__(self, master):
         self.root = master
+
         self.root.title('C-Geo')
-        self.root.iconbitmap('Images/c-geo.ico')
+        self.root.iconbitmap('img/c-geo.ico')
         self.root.state('zoomed')
 
-        self.SideFrame = tk.Frame(master, bg='#c9c9c9', width=90, bd=0)
+        self.SideFrame = tk.Frame(self.root, bg='#c9c9c9', width=90, bd=0)
         self.SideFrame.pack(side=tk.LEFT, fill=tk.Y)
         
-        self.MainSpace = tk.Frame(master, bg='#dbdbdb', bd=0)
+        self.MainSpace = tk.Frame(self.root, bg='#dbdbdb', bd=0)
         self.MainSpace.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
         self.EntryFont = Font(family='Calibri', size=20)
@@ -73,28 +75,29 @@ class MainProgram:
     
     def InitImages(self):
         # Side Button
-        self.homeButtonImage = self.CreateImage('Images/Buttons/home.png')
-        self.tButtonImage = self.CreateImage('Images/Buttons/tButton.png')
-        self.LButtonImage = self.CreateImage('Images/Buttons/LButton.png')
-        self.uButtonImage = self.CreateImage('Images/Buttons/uButton.png')
-        self.cButtonImage = self.CreateImage('Images/Buttons/cButton.png')
-        self.iButtonImage = self.CreateImage('Images/Buttons/iButton.png')
-        self.RomanIButtonImage = self.CreateImage('Images/Buttons/RomanIButton.png')
+        self.homeButtonImage = self.CreateImage('img/btn/home.png')
+        self.tButtonImage = self.CreateImage('img/btn/btn-t.png')
+        self.LButtonImage = self.CreateImage('img/btn/btn-l.png')
+        self.uButtonImage = self.CreateImage('img/btn/btn-u.png')
+        self.cButtonImage = self.CreateImage('img/btn/btn-c.png')
+        self.iButtonImage = self.CreateImage('img/btn/btn-i.png')
+        self.RomanIButtonImage = self.CreateImage('img/btn/btn-h.png')
+        self.infoButton = self.CreateImage('img/btn/info-btn.png')
 
         # Home Image
-        self.homeImage = self.CreateImage('Images/general/img-home.png')
+        self.homeImage = self.CreateImage('img/general/img-home.png')
 
         # Shapes Labels
-        self.tShapeImage = self.CreateImage('Images/Shapes/tShape.png')
-        self.LShapeImage = self.CreateImage('Images/Shapes/LShape.png')
-        self.uShapeImage = self.CreateImage('Images/Shapes/uShape.png')
-        self.cShapeImage = self.CreateImage('Images/Shapes/cShape.png')
-        self.iShapeImage = self.CreateImage('Images/Shapes/iShape.png')
-        self.RomanIShapeImage = self.CreateImage('Images/Shapes/RomanIShape.png')
+        self.tShapeImage = self.CreateImage('img/Shapes/section-t.png')
+        self.LShapeImage = self.CreateImage('img/Shapes/section-l.png')
+        self.uShapeImage = self.CreateImage('img/Shapes/section-u.png')
+        self.cShapeImage = self.CreateImage('img/Shapes/section-c.png')
+        self.iShapeImage = self.CreateImage('img/Shapes/section-i.png')
+        self.RomanIShapeImage = self.CreateImage('img/Shapes/section-h.png')
 
         #Menu Buttons
-        self.CalculateImage = self.CreateImage('Images/Buttons/calculate.png')
-        self.DiscardImage = self.CreateImage('Images/Buttons/discard.png')
+        self.CalculateImage = self.CreateImage('img/btn/calculate.png')
+        self.DiscardImage = self.CreateImage('img/btn/discard.png')
 
 
     def GetScreenInfo(self):
@@ -151,6 +154,7 @@ class MainProgram:
         self.cButton = widgets.SideButton(self.SideFrame, self.cButtonImage, self.cShape)
         self.iButton = widgets.SideButton(self.SideFrame, self.iButtonImage, self.iShape)
         self.RomanIButton = widgets.SideButton(self.SideFrame, self.RomanIButtonImage, self.hShape)
+        self.CreditsButton = widgets.SideButton(self.SideFrame, self.infoButton, self.show_credits)
 
         # Layout
         self.btnHome.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
@@ -161,6 +165,7 @@ class MainProgram:
         self.cButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.iButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.RomanIButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
+        self.CreditsButton.pack(side=tk.BOTTOM, pady=(0, 10))
 
 
     def ClearMainSpace(self):
@@ -181,6 +186,11 @@ class MainProgram:
         FibraWindow(win_fibra, sec, meds)
 
 
+    def show_credits(self):
+        win_credits = tk.Toplevel()
+        CreditsWindow(win_credits)
+
+
     def tShape(self, event=None):
         def Calculate(event=None, entry=None):
             # Converte Os Valores Das Caixas De Entrada
@@ -194,6 +204,8 @@ class MainProgram:
 
             medidas = [x, b, y, z]
             if 0 in medidas:
+                return
+            elif not x > z:
                 return
             else:
                 del medidas
@@ -323,7 +335,7 @@ class MainProgram:
             
             # Cria As Imagens No Canvas
             self.ImageList = []
-            justTImage = self.CreateImage('Images/Shapes/tValues.png')
+            justTImage = self.CreateImage('img/Shapes/tValues.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
@@ -336,7 +348,7 @@ class MainProgram:
             elif cy == y:
                 DotHeight = CanvasHeight - 496
                 
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            DotImage = self.CreateImage('img/Shapes/dot.png')
             ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 
@@ -532,7 +544,7 @@ class MainProgram:
             
             # Cria As Imagens No Canvas
             self.ImageList = []
-            justTImage = self.CreateImage('Images/Shapes/LShape.png')
+            justTImage = self.CreateImage('img/Shapes/section-l.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)    
 
@@ -733,10 +745,10 @@ class MainProgram:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            uValuesImage = self.CreateImage('Images/Shapes/uValues.png')
+            uValuesImage = self.CreateImage('img/Shapes/uValues.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=uValuesImage)
             self.ImageList.append(uValuesImage)
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            DotImage = self.CreateImage('img/Shapes/dot.png')
 
             if cy < x:
                 DotHeight = CanvasHeight - 145
@@ -920,12 +932,12 @@ class MainProgram:
             ValueFrame.pack(expand=True, padx=(0, 400))
 
             # Cria Os Widgets Do ValueFrame
-            wLabel = widgets.ValueLabel(ValueFrame, f'x = {w} cm')
+            # wLabel = widgets.ValueLabel(ValueFrame, f'x = {w} cm')
             hLabel = widgets.ValueLabel(ValueFrame, f'y = {h} cm')
             YcgL = widgets.ValueLabel(ValueFrame, 'Ycg')
 
             # Layout Dos Widgets Do ValueFrame
-            wLabel.pack(side=tk.TOP)
+            # wLabel.pack(side=tk.TOP)
             hLabel.pack(side=tk.RIGHT)
             YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=20)
 
@@ -937,8 +949,8 @@ class MainProgram:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            iValuesImage = self.CreateImage('Images/Shapes/iValues.png')
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            iValuesImage = self.CreateImage('img/Shapes/iValues.png')
+            DotImage = self.CreateImage('img/Shapes/dot.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(iValuesImage)
@@ -1136,8 +1148,8 @@ class MainProgram:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            iValuesImage = self.CreateImage('Images/Shapes/iValues.png')
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            iValuesImage = self.CreateImage('img/Shapes/iValues.png')
+            DotImage = self.CreateImage('img/Shapes/dot.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(iValuesImage)
@@ -1339,7 +1351,7 @@ class MainProgram:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            RomanIValuesImage = self.CreateImage('Images/Shapes/RomanIValues.png')
+            RomanIValuesImage = self.CreateImage('img/Shapes/RomanIValues.png')
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=RomanIValuesImage)
             self.ImageList.append(RomanIValuesImage)
 
@@ -1367,7 +1379,7 @@ class MainProgram:
             elif cy < d:
                 DotHeight = CanvasHeight - 94
 
-            DotImage = self.CreateImage('Images/Shapes/dot.png')
+            DotImage = self.CreateImage('img/Shapes/dot.png')
             ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 

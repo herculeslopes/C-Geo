@@ -1,25 +1,21 @@
 import tkinter as tk
-from tkinter.constants import COMMAND
 from tkinter.font import Font
-from tkinter import ttk
 from PIL import ImageTk, Image
-from sections import tSection, lSection, uSection, cSection, iSection, hSection
+from formulas import tSection, lSection, uSection, cSection, iSection, hSection
 import widgets
 
 class FibraWindow():
     def __init__(self, master, section, values):
         self.win_fibra = master
+
+        self.win_fibra.grab_set()
         self.win_fibra.geometry("700x400")
-        self.win_fibra.title("Calcular Fibra")
+        self.win_fibra.title(f"Calcular Fibra {section.upper()}")
         self.win_fibra['bg'] = '#dbdbdb'
         self.win_fibra.resizable(0, 0)
-        # self.win_fibra.attributes('-topmost', True)
-        # self.win_fibra.grab_set()
 
-        self.imgCalc = ImageTk.PhotoImage(Image.open('Images/Buttons/calculate.png'))
-        self.imgDisc = ImageTk.PhotoImage(Image.open('Images/Buttons/discard.png'))
-
-        print(f'Imagem: {self.imgCalc}')
+        self.imgCalc = ImageTk.PhotoImage(Image.open('img/btn/calculate.png'))
+        self.imgDisc = ImageTk.PhotoImage(Image.open('img/btn/discard.png'))
 
         self.section = section
 
@@ -30,13 +26,7 @@ class FibraWindow():
             "ABAIXO"
         )
 
-        # Coverte cada valor de values para float
-        print(f'antes = {type(values[0])}')
-        for index, valor in enumerate(values):
-            print(f'index = {index}, valor = {valor}')
-            values[index] = float(valor)
-
-        print(f'antes = {type(values[0])}')
+        values = [float(valor) for valor in values] # Converte as medidas para float
 
         self.pos = ''
 

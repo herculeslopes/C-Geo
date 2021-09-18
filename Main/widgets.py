@@ -26,8 +26,6 @@ def validate(value, action):
 TopEntry['validatecommand'] = (self.Register, '%P', '%d')
 TopEntry.pack(side=tk.TOP, pady=(50, 25))"""
 
-
-
 class SideButton(tk.Button):    
     def __init__(self, master, img, action):
         super().__init__(master)
@@ -49,7 +47,7 @@ class EntryField(tk.Entry):
         self['validate'] = 'key'
         Register = master.register(validate)
         self['validatecommand'] = (Register, '%P', '%d')
-
+    
 
 class ShapeImage(tk.Label):
     def __init__(self, master, img):
@@ -145,7 +143,7 @@ class EntryLine(tk.Frame):
         self['height'] = 3
 
 
-class FibraCombo(ttk.Combobox):
+""" class FibraCombo(ttk.Combobox):
     def __init__(self, master):
         super().__init__(master)
 
@@ -154,7 +152,7 @@ class FibraCombo(ttk.Combobox):
         self['state'] = 'readonly'
         self['width'] = 10
         self.current(0)
-
+    """
 
 class ButtonPos(tk.Button):
     def __init__(self, master, txt, action):
@@ -172,9 +170,10 @@ class ButtonPos(tk.Button):
         self['command'] = action
 
 
-"""class FibraRadio(tk.Radiobutton):
+""" class FibraRadio(tk.Radiobutton):
     def __init__(self, master, txt):
-        super().__init__(master)"""
+        super().__init__(master)
+    """
 
 
 
@@ -186,3 +185,36 @@ class FibraResult(tk.Label):
         self['fg'] = '#303030'
         self['width'] = 25
         self['bd'] = 2
+
+
+# Widgets para win_credits.py
+class ProfileLink(tk.Label):
+    def __init__(self, master, txt, action):
+        super().__init__(master)
+        self['font'] = Font(family='Arial', size=10, underline=True)
+        self['text'] = txt
+        self['bg'] = '#dbdbdb'
+        self['fg'] = 'blue'
+        # self['command'] = action
+        self.bind('<ButtonRelease-1>', action)
+        self.bind('<Enter>', self.onEnter)
+        self.bind('<Leave>', self.onLeave)
+
+    def onEnter(self, event):
+        self['fg'] = 'red'
+
+    def onLeave(self, event):
+        self['fg'] = 'blue'
+
+class ProfileDescription(tk.Text):
+    def __init__(self, master, txt):
+        super().__init__(master)
+        self.insert(tk.INSERT, txt.strip())
+        self['state'] = 'disabled',
+        self['font'] = 'Arial',
+        self['relief'] = tk.FLAT,
+        self['width'] = 40,
+        self['height'] = 20,
+        self['bg'] = '#dbdbdb', # should be #dbdbdb
+        self['fg'] = '#303030',
+        
