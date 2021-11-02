@@ -34,12 +34,16 @@ def get_iz(y, k, x, u, cy):
     return iz
 
 
-def get_iy(y, k, x, u, cy):
+def get_iy(y, k, x, u, cx):
     iy = (
-            ((y * k ** 3) / 3 + k * y * (cy - y / 2) ** 2)
-            +
-            (x * u ** 3 / 12 + x * u * (u / 2 * cy))
+        (
+            ((k * (y ** 3)) / 12) + (y * k * ((cx - (y / 2)) ** 2))
         )
+        +
+        (
+            ((x * (u ** 3)) / 12) + (u * x * ((cx - (u / 2)) ** 2))
+        )
+    )
         
     return iy
 
@@ -76,5 +80,5 @@ def get_ky(area, iy):
     return ky
 
 
-def get_fibra():
+def get_fibra(fibra, pos):
     pass

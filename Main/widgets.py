@@ -22,10 +22,8 @@ def validate(value, action):
     else:
         return True
 
-"""TopEntry = tk.Entry(DataFrame, font=self.EntryFont, bg='#bfbfbf', fg='#303030', bd=0, justify=tk.CENTER, validate='key')
-TopEntry['validatecommand'] = (self.Register, '%P', '%d')
-TopEntry.pack(side=tk.TOP, pady=(50, 25))"""
 
+# Widgets para main.py
 class SideButton(tk.Button):    
     def __init__(self, master, img, action):
         super().__init__(master)
@@ -114,6 +112,7 @@ class ValueLabel(tk.Label):
         self['fg'] = '#303030'
 
 
+# Widtets para win_info.py
 class WinFibraLabel(tk.Label):
     def __init__(self, master, txt):
         super().__init__(master)
@@ -143,17 +142,6 @@ class EntryLine(tk.Frame):
         self['height'] = 3
 
 
-""" class FibraCombo(ttk.Combobox):
-    def __init__(self, master):
-        super().__init__(master)
-
-        self['font'] = Font(family='Calibri', size=16)
-        self['values'] = fibra_options
-        self['state'] = 'readonly'
-        self['width'] = 10
-        self.current(0)
-    """
-
 class ButtonPos(tk.Button):
     def __init__(self, master, txt, action):
         super().__init__(master)
@@ -165,16 +153,7 @@ class ButtonPos(tk.Button):
         self['text'] = txt
         self['relief'] = tk.FLAT
         self['width'] = 20
-        # self['bd'] = 0
-        # self['highlightbackground'] = 'red'
         self['command'] = action
-
-
-""" class FibraRadio(tk.Radiobutton):
-    def __init__(self, master, txt):
-        super().__init__(master)
-    """
-
 
 
 class FibraResult(tk.Label):
@@ -188,6 +167,14 @@ class FibraResult(tk.Label):
 
 
 # Widgets para win_credits.py
+class ProfileTitle(tk.Label):
+    def __init__(self, master, txt):
+        super().__init__(master)
+        self['font'] = Font(family='Arial', size=16)
+        self['text'] = txt
+        self['bg'] = '#dbdbdb'
+
+
 class ProfileLink(tk.Label):
     def __init__(self, master, txt, action):
         super().__init__(master)
@@ -195,7 +182,7 @@ class ProfileLink(tk.Label):
         self['text'] = txt
         self['bg'] = '#dbdbdb'
         self['fg'] = 'blue'
-        # self['command'] = action
+
         self.bind('<ButtonRelease-1>', action)
         self.bind('<Enter>', self.onEnter)
         self.bind('<Leave>', self.onLeave)
@@ -206,6 +193,7 @@ class ProfileLink(tk.Label):
     def onLeave(self, event):
         self['fg'] = 'blue'
 
+
 class ProfileDescription(tk.Text):
     def __init__(self, master, txt):
         super().__init__(master)
@@ -214,7 +202,7 @@ class ProfileDescription(tk.Text):
         self['font'] = 'Arial',
         self['relief'] = tk.FLAT,
         self['width'] = 40,
-        self['height'] = 20,
+        self['height'] = 10,
         self['bg'] = '#dbdbdb', # should be #dbdbdb
         self['fg'] = '#303030',
         

@@ -5,11 +5,22 @@ import ctypes
 import screeninfo
 from formulas import tSection, lSection, uSection, cSection, iSection, hSection
 from win_fibra import FibraWindow
-from win_credits import CreditsWindow
+from win_info import InfoWindow
 import widgets
 
 class MainProgram:
+    """ Classe principal do programa
+
+    """
+
     def __init__(self, master):
+        """
+        Parâmetros
+        ----------
+        master: tkinter.Tk
+            Janela principal do programa
+        """
+
         self.root = master
 
         self.root.title('C-Geo')
@@ -30,10 +41,10 @@ class MainProgram:
         self.ScreenResolution = self.ScreenInfo[0]
         self.WindowsZoom = self.ScreenInfo[1]
 
-        self.OptionSelected = tk.StringVar()
+        # self.OptionSelected = tk.StringVar()
 
         print(f'\nScreen Info: {self.ScreenInfo}')
-        print(f'Zoom Ration: {self.WindowsZoom}')
+        print(f'Zoom Ratio: {self.WindowsZoom}')
         print(f'Screen Resolution {self.ScreenResolution}\n')
 
         self.root.bind('<Control-Key-1>', self.tShape)
@@ -48,59 +59,14 @@ class MainProgram:
         self.HomePage()
 
 
-    def CreateImage(self, path):
-        ImageFile = Image.open(path)
-        ImageWidth, ImageHeight = ImageFile.size
-        
-        if self.WindowsZoom == 100:
-            xSize = ImageWidth
-            ySize = ImageHeight
+    @staticmethod
+    def GetScreenInfo():
+        """ Define a resolução e taxa de zoom do display.
 
-        elif self.WindowsZoom == 125:
-            xSize = ImageWidth - (ImageWidth * 0.25)
-            ySize = ImageHeight - (ImageHeight * 0.25)
+        Quando o programa rodar em um monitor com resolução < fullhd
+        ou zoom > 100% as imagens serão criadas em um tamanho < original.
+        """
 
-        elif self.WindowsZoom == 150:
-            xSize = ImageWidth - (ImageWidth * 0.50)
-            ySize = ImageHeight - (ImageHeight * 0.50)
-
-        elif self.WindowsZoom == 175:
-            xSize = ImageWidth - (ImageWidth * 0.75)
-            ySize = ImageHeight - (ImageHeight * 0.75)
-
-        TkImage = ImageTk.PhotoImage(ImageFile.resize((int(xSize), int(ySize)), Image.ANTIALIAS))
-        
-        return TkImage
-    
-    
-    def InitImages(self):
-        # Side Button
-        self.homeButtonImage = self.CreateImage('img/btn/home.png')
-        self.tButtonImage = self.CreateImage('img/btn/btn-t.png')
-        self.LButtonImage = self.CreateImage('img/btn/btn-l.png')
-        self.uButtonImage = self.CreateImage('img/btn/btn-u.png')
-        self.cButtonImage = self.CreateImage('img/btn/btn-c.png')
-        self.iButtonImage = self.CreateImage('img/btn/btn-i.png')
-        self.RomanIButtonImage = self.CreateImage('img/btn/btn-h.png')
-        self.infoButton = self.CreateImage('img/btn/info-btn.png')
-
-        # Home Image
-        self.homeImage = self.CreateImage('img/general/img-home.png')
-
-        # Shapes Labels
-        self.tShapeImage = self.CreateImage('img/Shapes/section-t.png')
-        self.LShapeImage = self.CreateImage('img/Shapes/section-l.png')
-        self.uShapeImage = self.CreateImage('img/Shapes/section-u.png')
-        self.cShapeImage = self.CreateImage('img/Shapes/section-c.png')
-        self.iShapeImage = self.CreateImage('img/Shapes/section-i.png')
-        self.RomanIShapeImage = self.CreateImage('img/Shapes/section-h.png')
-
-        #Menu Buttons
-        self.CalculateImage = self.CreateImage('img/btn/calculate.png')
-        self.DiscardImage = self.CreateImage('img/btn/discard.png')
-
-
-    def GetScreenInfo(self):
         # Pega A Quantidade De Pixels Da Tela (Windows)
         user32 = ctypes.windll.user32
         ScreenRelativeResolution = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)
@@ -137,9 +103,90 @@ class MainProgram:
         return ScreenResolution, ZoomRatio
 
 
-    def EntryDiscard(self, entries):
+    @staticmethod
+    def OpenFibra(sec, meds):
+        win_fibra = tk.Toplevel()
+        FibraWindow(win_fibra, sec, meds)
+
+
+    @staticmethod
+    def show_info():
+        win_credits = tk.Toplevel()
+        InfoWindow(win_credits)
+
+    @staticmethod
+    def EntryDiscard(entries):
         for e in entries:
             e.delete(0, tk.END)
+
+
+    def CreateImage(self, path):
+        """Cria um objeto de imagem ImageTk proporcial a resolução da tela.
+        
+        No primeiro parâmetro do método ImageFile.resize é passado uma tupla
+        contendo as medidas x e y para a criação da imagem. Essas medidas são
+        armazenadas nas variáveis xSize e ySize.
+
+        Parâmetros
+        ----------
+        path: string
+            Caminho das imagens
+        """
+        
+        ImageFile = Image.open(path)
+        ImageWidth, ImageHeight = ImageFile.size
+        
+        if self.WindowsZoom == 100:
+            xSize = ImageWidth
+            ySize = ImageHeight
+
+        elif self.WindowsZoom == 125:
+            xSize = ImageWidth - (ImageWidth * 0.25)
+            ySize = ImageHeight - (ImageHeight * 0.25)
+
+        elif self.WindowsZoom == 150:
+            xSize = ImageWidth - (ImageWidth * 0.50)
+            ySize = ImageHeight - (ImageHeight * 0.50)
+
+        elif self.WindowsZoom == 175:
+            xSize = ImageWidth - (ImageWidth * 0.75)
+            ySize = ImageHeight - (ImageHeight * 0.75)
+
+        TkImage = ImageTk.PhotoImage(ImageFile.resize((int(xSize), int(ySize)), Image.ANTIALIAS))
+        
+        return TkImage
+    
+
+    def InitImages(self):
+        """Inicializa as variáveis de imagem utilizadas ao longo do programa.
+        
+        O caminho relativo das imagens é passada para a função self.CreateImage.
+        """
+
+        # Side Button
+        self.homeButtonImage = self.CreateImage('img/btn/home.png')
+        self.tButtonImage = self.CreateImage('img/btn/btn-t.png')
+        self.LButtonImage = self.CreateImage('img/btn/btn-l.png')
+        self.uButtonImage = self.CreateImage('img/btn/btn-u.png')
+        self.cButtonImage = self.CreateImage('img/btn/btn-c.png')
+        self.iButtonImage = self.CreateImage('img/btn/btn-i.png')
+        self.hButtonImage = self.CreateImage('img/btn/btn-h.png')
+        self.infoButtonImage = self.CreateImage('img/btn/info-btn.png')
+
+        # Home Image
+        self.homeImage = self.CreateImage('img/general/img-home.png')
+
+        # Shapes Labels
+        self.tShapeImage = self.CreateImage('img/Shapes/section-t.png')
+        self.LShapeImage = self.CreateImage('img/Shapes/section-l.png')
+        self.uShapeImage = self.CreateImage('img/Shapes/section-u.png')
+        self.cShapeImage = self.CreateImage('img/Shapes/section-c.png')
+        self.iShapeImage = self.CreateImage('img/Shapes/section-i.png')
+        self.RomanIShapeImage = self.CreateImage('img/Shapes/section-h.png')
+
+        #Menu Buttons
+        self.CalculateImage = self.CreateImage('img/btn/calculate.png')
+        self.DiscardImage = self.CreateImage('img/btn/discard.png')
 
 
     def SideFramePacking(self):
@@ -153,8 +200,8 @@ class MainProgram:
         self.uButton = widgets.SideButton(self.SideFrame, self.uButtonImage, self.uShape)
         self.cButton = widgets.SideButton(self.SideFrame, self.cButtonImage, self.cShape)
         self.iButton = widgets.SideButton(self.SideFrame, self.iButtonImage, self.iShape)
-        self.RomanIButton = widgets.SideButton(self.SideFrame, self.RomanIButtonImage, self.hShape)
-        self.CreditsButton = widgets.SideButton(self.SideFrame, self.infoButton, self.show_credits)
+        self.hButton = widgets.SideButton(self.SideFrame, self.hButtonImage, self.hShape)
+        self.infoButton = widgets.SideButton(self.SideFrame, self.infoButtonImage, self.show_info)
 
         # Layout
         self.btnHome.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
@@ -164,8 +211,8 @@ class MainProgram:
         self.uButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.cButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         self.iButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-        self.RomanIButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-        self.CreditsButton.pack(side=tk.BOTTOM, pady=(0, 10))
+        self.hButton.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
+        self.infoButton.pack(side=tk.BOTTOM, pady=(0, 10))
 
 
     def ClearMainSpace(self):
@@ -179,16 +226,6 @@ class MainProgram:
         homeLabel = tk.Label(self.MainSpace, bg='#dbdbdb', image=self.homeImage)
         homeLabel.image = self.homeImage
         homeLabel.pack()
-
-
-    def OpenFibra(self, sec, meds):
-        win_fibra = tk.Toplevel()
-        FibraWindow(win_fibra, sec, meds)
-
-
-    def show_credits(self):
-        win_credits = tk.Toplevel()
-        CreditsWindow(win_credits)
 
 
     def tShape(self, event=None):
@@ -328,31 +365,32 @@ class MainProgram:
 
 
             # Cria O Canvas Da Imagem Principal
-            CanvasWidth = 694
-            CanvasHeight = 844
-            ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
+            CANVAS_WIDTH = 694
+            CANVAS_HEIGHT = 844
+            
+            ShapeCanvas = tk.Canvas(ValueFrame, width=CANVAS_WIDTH, height=CANVAS_HEIGHT, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()
             
             # Cria As Imagens No Canvas
             self.ImageList = []
             justTImage = self.CreateImage('img/Shapes/tValues.png')
-            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
+            ShapeCanvas.create_image(CANVAS_WIDTH/2, CANVAS_HEIGHT/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
             if cy < y:
-                DotHeight = CanvasHeight - 650
+                DotHeight = CANVAS_HEIGHT - 650
                 
             elif cy > y:
-                DotHeight = CanvasHeight - 720
+                DotHeight = CANVAS_HEIGHT - 720
 
             elif cy == y:
-                DotHeight = CanvasHeight - 496
+                DotHeight = CANVAS_HEIGHT - 496
                 
             DotImage = self.CreateImage('img/Shapes/dot.png')
-            ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
+            ShapeCanvas.create_image(CANVAS_WIDTH/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 
-            x1 = 158; y1 = DotHeight; x2 = x1 + 9; y2 = CanvasHeight - 50
+            x1 = 158; y1 = DotHeight; x2 = x1 + 9; y2 = CANVAS_HEIGHT - 50
 
             # Cria A Linha Do Ycg
             ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
@@ -424,7 +462,7 @@ class MainProgram:
             cy = lSection.get_cy(y, k, x, u)
             cx = lSection.get_cx(y, k, x, u)
             iz = lSection.get_iz(y, k, x, u , cy) 
-            iy = lSection.get_iy(y, k, x, u, cy)
+            iy = lSection.get_iy(y, k, x, u, cx)
             scgz = lSection.get_scgz(y, k, x, u, cy)
             scgy = lSection.get_scgy(y, k, x, u, cx)
             kz = lSection.get_kz(area, iz)
@@ -465,7 +503,7 @@ class MainProgram:
             izLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
             izContent = widgets.ResultValue(ResultFrame, f'{iz:.2f} cm⁴')
 
-            iyLabel = widgets.ResultLabel(ResultFrame, 'Iz =')
+            iyLabel = widgets.ResultLabel(ResultFrame, 'Iy =')
             iyContent = widgets.ResultValue(ResultFrame, f'{iy:.2f} cm⁴')
 
             scgzLabel = widgets.ResultLabel(ResultFrame, 'Scgz =')
