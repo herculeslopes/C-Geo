@@ -393,8 +393,8 @@ class MainProgram:
             x1 = 158; y1 = DotHeight; x2 = x1 + 9; y2 = CANVAS_HEIGHT - 50
 
             # Cria A Linha Do Ycg
-            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
-            ShapeCanvas.create_text(153, 844 - 50, text='Ycg', font=self.ResultFont, fill='#303030', anchor='se')
+            # ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+            # ShapeCanvas.create_text(153, 844 - 50, text='Ycg', font=self.ResultFont, fill='#303030', anchor='se')
 
 
         def tLayout():
@@ -583,8 +583,8 @@ class MainProgram:
             # Cria As Imagens No Canvas
             self.ImageList = []
             justTImage = self.CreateImage('img/Shapes/section-l.png')
-            ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
-            self.ImageList.append(justTImage)    
+            #ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justTImage)
+            #self.ImageList.append(justTImage)    
 
             # self.ClearMainSpace()
 
@@ -804,7 +804,7 @@ class MainProgram:
 
             # Cria A Linha Do Ycg
             x1 = 15; y1 = DotHeight; x2 = x1 + 9; y2 = 799
-            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+            #ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
 
 
         def uLayout():
@@ -996,7 +996,7 @@ class MainProgram:
 
             # Cria A Linha Do Ycg
             x1 = 18; y1 = CanvasHeight / 2; x2 = x1 + 9; y2 = 796
-            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+            # ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
 
 
         def cLayout():
@@ -1195,7 +1195,7 @@ class MainProgram:
 
             # Cria A Linha Do Ycg
             x1 = 18; y1 = CanvasHeight / 2; x2 = x1 + 9; y2 = 796
-            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+            # ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
 
 
         def iLayout():
@@ -1424,8 +1424,8 @@ class MainProgram:
             x1 = 283; y1 = DotHeight; x2 = x1 + 9; y2 = CanvasHeight - 37
 
             # Cria A Linha Do Ycg
-            ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
-            ShapeCanvas.create_text(x2 + 10, y2, text='Ycg', font=self.ResultFont, fill='#303030', anchor='sw')
+            # ShapeCanvas.create_rectangle(x1, y1, x2, y2, fill='#121212', width=0)
+            # ShapeCanvas.create_text(x2 + 10, y2, text='Ycg', font=self.ResultFont, fill='#303030', anchor='sw')
 
 
         def hLayout():
