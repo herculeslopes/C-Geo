@@ -6,7 +6,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{A64F31C4-5E2A-4147-9FAE-843C953150D8}
 AppName=C-Geo
-AppVersion=0.1
+AppVersion=0.1.2
 ;AppVerName=C-Geo 0.1
 AppPublisher=Hércules Lopes
 AppPublisherURL=https://github.com/herculeslopes/C-Geo
@@ -18,7 +18,7 @@ DefaultGroupName=C-Geo
 ;PrivilegesRequired=lowest
 OutputDir=Setups
 OutputBaseFilename=cgeo-setup
-SetupIconFile=img\Images\c-geo.ico
+SetupIconFile=Main\img\c-geo.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -30,8 +30,8 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "main.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "img\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "Main\dist\main.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Main\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

@@ -607,7 +607,7 @@ class MainProgram:
 
             yEntry.pack(side=tk.TOP, anchor='w', pady=(50, 25))
             kEntry.pack(side=tk.TOP, pady=(400, 0))
-            xEntry.pack(side=tk.BOTTOM, pady=(0, 50))
+            xEntry.pack(side=tk.BOTTOM, pady=(0, 140))
             uEntry.pack(side=tk.BOTTOM, pady=(25, 0))
 
             kEntry.focus_set()

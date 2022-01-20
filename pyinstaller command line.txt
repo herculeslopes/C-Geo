@@ -1,1 +1,1 @@
-pyinstaller.exe --onefile --windowed --icon="Images/c-geo.ico" main.py
+pyinstaller.exe --onefile --windowed --icon="img/c-geo.ico" main.py
