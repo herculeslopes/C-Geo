@@ -862,6 +862,11 @@ class MainProgram:
                 a = float(entry[2].get())
                 m = float(entry[3].get())
 
+                print(f'b: {b}')
+                print(f'h: {h}')
+                print(f'a: {a}')
+                print(f'm: {m}')
+
             except ValueError:
                 return
 
