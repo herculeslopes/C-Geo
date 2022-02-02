@@ -1,11 +1,12 @@
-from doctest import master
 import tkinter as tk
-from PIL import ImageTk, Image
+from os import path
 from .. import widgets
 from .. import utilities
 from webbrowser import open_new as webbrowser_open_new
 
 class InfoWindow():
+    LOGO_PATH = path.join('rsc', 'img', 'c-geo.ico')
+
     def __init__(self, app, toplevel):
         self.app = app
         self.win_info = toplevel
@@ -13,6 +14,7 @@ class InfoWindow():
         self.win_info.grab_set()
         self.win_info.resizable(0, 0)
         self.win_info.title('Credits')
+        self.win_info.iconbitmap(InfoWindow.LOGO_PATH)
         self.win_info.geometry('800x500')
 
         self.win_info.configure(

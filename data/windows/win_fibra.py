@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter.font import Font
+from os import path
 from .. import widgets
 from .. import utilities
 
 class FibraWindow():
+    LOGO_PATH = path.join('rsc', 'img', 'c-geo.ico')
+
     def __init__(self, app, toplevel, section, values):
         self.app = app
         self.win_fibra = toplevel
@@ -13,6 +16,7 @@ class FibraWindow():
         self.win_fibra.grab_set()
         self.win_fibra.geometry("700x400")
         self.win_fibra.title(f"Calcular Fibra {section.letter}")
+        self.win_fibra.iconbitmap(FibraWindow.LOGO_PATH)
         self.win_fibra['bg'] = '#dbdbdb'
         self.win_fibra.resizable(0, 0)
 

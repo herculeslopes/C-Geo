@@ -4,14 +4,14 @@ from . import utilities
 from .windows import win_info, win_fibra
 from . import widgets
 from .sections import *
-import os
+from os import path
 
 class App:
     """ Classe principal do programa
 
     """
     TITLE = 'C-Geo'
-    LOGO_PATH = os.path.join('rsc', 'img', 'c-geo.ico')
+    LOGO_PATH = path.join('rsc', 'img', 'c-geo.ico')
 
     def __init__(self, master):
         """
@@ -93,12 +93,12 @@ class App:
         self.homeImage = utilities.create_image(self, ['general', 'img-home.png'])
 
         # Shapes Labels
-        self.tShapeImage = utilities.create_image(self, ['Shapes', 'section-t.png'])
-        self.LShapeImage = utilities.create_image(self, ['Shapes', 'section-l.png'])
-        self.uShapeImage = utilities.create_image(self, ['Shapes', 'section-u.png'])
-        self.cShapeImage = utilities.create_image(self, ['Shapes', 'section-c.png'])
-        self.iShapeImage = utilities.create_image(self, ['Shapes', 'section-i.png'])
-        self.RomanIShapeImage = utilities.create_image(self, ['Shapes', 'section-h.png'])
+        self.tShapeImage = utilities.create_image(self, ['sections', 'section-t.png'])
+        self.LShapeImage = utilities.create_image(self, ['sections', 'section-l.png'])
+        self.uShapeImage = utilities.create_image(self, ['sections', 'section-u.png'])
+        self.cShapeImage = utilities.create_image(self, ['sections', 'section-c.png'])
+        self.iShapeImage = utilities.create_image(self, ['sections', 'section-i.png'])
+        self.RomanIShapeImage = utilities.create_image(self, ['sections', 'section-h.png'])
 
         #Menu Buttons
         self.CalculateImage = utilities.create_image(self, ['btn', 'calculate.png'])
@@ -302,7 +302,7 @@ class App:
             
             # Cria As Imagens No Canvas
             self.ImageList = []
-            justTImage = utilities.create_image(self, ['Shapes', 'tValues.png'])
+            justTImage = utilities.create_image(self, ['sections', 'tValues.png'])
             ShapeCanvas.create_image(CANVAS_WIDTH/2, CANVAS_HEIGHT/2, anchor=tk.CENTER, image=justTImage)
             self.ImageList.append(justTImage)
 
@@ -315,7 +315,7 @@ class App:
             elif cy == y:
                 DotHeight = CANVAS_HEIGHT - 496
                 
-            DotImage = utilities.create_image(self, ['Shapes', 'dot.png'])
+            DotImage = utilities.create_image(self, ['sections', 'dot.png'])
             ShapeCanvas.create_image(CANVAS_WIDTH/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 
@@ -513,7 +513,7 @@ class App:
             
             # Cria As Imagens No Canvas
             self.ImageList = []
-            justLImage = utilities.create_image(self, ['Shapes', 'section-l.png'])
+            justLImage = utilities.create_image(self, ['sections', 'section-l.png'])
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=justLImage)
             self.ImageList.append(justLImage)    
 
@@ -716,7 +716,7 @@ class App:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            uValuesImage = utilities.create_image(self, ['Shapes', 'uValues.png'])
+            uValuesImage = utilities.create_image(self, ['sections', 'uValues.png'])
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=uValuesImage)
             self.ImageList.append(uValuesImage)
             DotImage = utilities.create_image(self, 'img/Shapes/dot.png')
@@ -927,8 +927,8 @@ class App:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            iValuesImage = utilities.create_image(self, ['Shapes', 'section-c.png'])
-            DotImage = utilities.create_image(self, ['Shapes', 'dot.png'])
+            iValuesImage = utilities.create_image(self, ['sections', 'section-c.png'])
+            DotImage = utilities.create_image(self, ['sections', 'dot.png'])
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(iValuesImage)
@@ -1128,8 +1128,8 @@ class App:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            iValuesImage = utilities.create_image(self, ['Shapes', 'iValues.png'])
-            DotImage = utilities.create_image(self, ['Shapes', 'dot.png'])
+            iValuesImage = utilities.create_image(self, ['sections', 'iValues.png'])
+            DotImage = utilities.create_image(self, ['sections', 'dot.png'])
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=iValuesImage)
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(iValuesImage)
@@ -1333,7 +1333,7 @@ class App:
 
             # Cria As Imagens No Canvas
             self.ImageList = []
-            RomanIValuesImage = utilities.create_image(self, ['Shapes', 'RomanIValues.png'])
+            RomanIValuesImage = utilities.create_image(self, ['sections', 'RomanIValues.png'])
             ShapeCanvas.create_image(CanvasWidth/2, CanvasHeight/2, anchor=tk.CENTER, image=RomanIValuesImage)
             self.ImageList.append(RomanIValuesImage)
 
@@ -1361,7 +1361,7 @@ class App:
             elif cy < d:
                 DotHeight = CanvasHeight - 94
 
-            DotImage = utilities.create_image(self, ['Shapes', 'dot.png'])
+            DotImage = utilities.create_image(self, ['sections', 'dot.png'])
             ShapeCanvas.create_image(CanvasWidth/2, DotHeight, anchor=tk.CENTER, image=DotImage)
             self.ImageList.append(DotImage)
 
