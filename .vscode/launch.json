@@ -1,13 +1,14 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${main.py}",
+            "program": "cgeo.py",
             "console": "integratedTerminal",
-            "cwd": "Main/main.py"
+            // "cwd": "cgeo.py"
         }
     ]
 }
