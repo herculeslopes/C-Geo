@@ -1,21 +1,23 @@
 import tkinter as tk
+from webbrowser import open_new as webbrowser_open_new
 from os import path
 from .. import widgets
 from .. import utilities
-from webbrowser import open_new as webbrowser_open_new
 
 class InfoWindow():
+    TITLE = 'Info'
     LOGO_PATH = path.join('rsc', 'img', 'c-geo.ico')
+    SIZE = (800, 500)
 
     def __init__(self, app, toplevel):
         self.app = app
         self.win_info = toplevel
-
+    
         self.win_info.grab_set()
         self.win_info.resizable(0, 0)
-        self.win_info.title('Credits')
+        self.win_info.title(InfoWindow.TITLE)
         self.win_info.iconbitmap(InfoWindow.LOGO_PATH)
-        self.win_info.geometry('800x500')
+        self.win_info.geometry(f'{InfoWindow.SIZE[0]}x{InfoWindow.SIZE[1]}')
 
         self.win_info.configure(
             bg='#dbdbdb'

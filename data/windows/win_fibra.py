@@ -31,25 +31,24 @@ class FibraWindow():
             "ABAIXO"
         )
 
-         # Converte as medidas para float
 
-        self.pos = ''
+        self.position = ''
 
         self.main_layout()
 
 
-    def set_pos(self, pos):
-        self.pos = pos
+    def set_position(self, position):
+        self.position = position
 
-        print(pos)
+        print(position)
 
-        if pos == 'ABAIXO':
+        if position == 'up':
             self.abButton['relief'] = tk.SUNKEN
             self.abButton['bg'] = '#B0B0B0'
             self.acButton['relief'] = tk.FLAT
             self.acButton['bg'] = '#8c8c8c'
 
-        elif pos == 'ACIMA':
+        elif position == 'down':
             self.abButton['relief'] = tk.FLAT
             self.abButton['bg'] = '#8c8c8c'
             self.acButton['relief'] = tk.SUNKEN
@@ -85,10 +84,10 @@ class FibraWindow():
         frmPos = tk.Frame(frmMain, bg='#dbdbdb')
         frmPos.pack()
 
-        self.abButton = widgets.ButtonPos(frmPos, 'ABAIXO', lambda: self.set_pos('ABAIXO'))
+        self.abButton = widgets.ButtonPos(frmPos, 'ABAIXO', lambda: self.set_position('down'))
         self.abButton.pack(side=tk.LEFT, padx=(0, 10))
 
-        self.acButton = widgets.ButtonPos(frmPos, 'ACIMA', lambda: self.set_pos('ACIMA'))
+        self.acButton = widgets.ButtonPos(frmPos, 'ACIMA', lambda: self.set_position('up'))
         self.acButton.pack(side=tk.RIGHT, padx=(10, 0))
 
         self.lblFibra = widgets.FibraResult(frmMain)
@@ -114,25 +113,6 @@ class FibraWindow():
         length = float(self.entryDist.get())
         position = self.pos
 
-        '''
-        if self.section.letter == 'T':
-            result = tSection.get_fibra(*self.values, length, position)
-
-        elif self.section.letter == 'L':
-            result = lSection.get_fibra(*self.values, length, position)
-
-        elif self.section.letter == 'U':
-            result = uSection.get_fibra(*self.values, length, position)
-        
-        elif self.section.letter == 'C':
-            result = cSection.get_fibra(*self.values, length, position)
-
-        elif self.section.letter == 'I':
-            result = iSection.get_fibra(*self.values, length)
-        
-        elif self.section.letter == 'H':
-            result = hSection.get_fibra(*self.values, length, position)
-        '''
         result = self.section.get_fibra(length, position)
 
         print(f'Fibra: {result}')

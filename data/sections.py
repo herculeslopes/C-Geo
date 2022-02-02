@@ -87,9 +87,9 @@ class TSection:
     def get_fibra(self, length, position):
         x, b, y, z = self.x, self.b, self.y, self.z
         cy = self.cy
-        if ((position == 'ACIMA') and (cy + length <= y + b)) or ((position == 'ABAIXO') and (cy - length >= 0)):
+        if ((position == 'up') and (cy + length <= y + b)) or ((position == 'down') and (cy - length >= 0)):
             if cy > y:
-                if position == 'ABAIXO':
+                if position == 'down':
                     if cy - length < y:
                         h = cy - length
                         S = h * z * ((h / 2) + length)
@@ -101,13 +101,13 @@ class TSection:
                     elif cy - length == y:
                         S = y * z * (y / 2) + length
 
-                elif position == 'ACIMA':
+                elif position == 'up':
                     if cy + length < ( y + b):
                         i = y + b  - (cy + length)
                         S = i * x * ((i / 2) + length)
                             
             elif cy < y:
-                if position == 'ACIMA':
+                if position == 'up':
                     if (cy + length) == y:
                         S = b * x * ((b / 2) + length)
 
@@ -119,18 +119,18 @@ class TSection:
                         a = (y + b) - (cy + length)
                         S = a * x * ((a/2) + length)        
 
-                elif position == 'ABAIXO':
+                elif position == 'down':
                     if (cy - length < y):
                         d = cy - length
                         S = d * z * ((d / 2 ) + length)
                 
             else:
-                if position == 'ACIMA':
+                if position == 'up':
                     if (cy + length) > y:
                         a = b - length
                         S = a * x * ((a / 2) + length)
                             
-                elif position == 'ABAIXO':
+                elif position == 'down':
                     if (cy - length) < y:
                         a = cy - length
                         S = a * z * ((a / 2) + length) 
@@ -348,14 +348,14 @@ class USection:
     def get_fibra(self, length, position):
         a, y, x, h = self.a, self.y, self.x, self.h
         cy = self.cy
-        if ((position == 'ACIMA') and (cy + length <= y)) or ((position == 'ABAIXO') and (cy - length >= 0)):
+        if ((position == 'up') and (cy + length <= y)) or ((position == 'down') and (cy - length >= 0)):
             if cy > x:
-                if position == 'ACIMA':
+                if position == 'up':
                     if (cy + length) < y:
                         m = y - (cy + length)
                         S = m * (a + h + a) * ((m / 2) + length)
 
-                elif position == 'ABAIXO':
+                elif position == 'down':
                     if (cy - length) > x: 
                         i =(cy - x) - length 
                         S = (x * (h + a + a) * ((x / 2) + i + length)) + ( 2 * (i * a * ((i / 2) + length)))
@@ -365,12 +365,12 @@ class USection:
                         S = m * (h + a + a) * ((m / 2 ) + length)
 
             elif cy < x:
-                if position == 'ABAIXO':
+                if position == 'down':
                     if(cy - length) < x:
                         i = cy - length
                         S = i * (a + a + h) * ((i / 2) + length)
 
-                elif position == 'ACIMA':
+                elif position == 'up':
                     if (cy + length) >= x:
                         m = y - (cy + length) 
                         S = 2 * ( m * a * ((m / 2) + length))       
@@ -381,12 +381,12 @@ class USection:
                         S = (m * (a + h + a) * ((m / 2)+ length)) + (2 * (a * v * ((v / 2) + length + m)))
 
             else:
-                if position=='ABAIXO':
+                if position=='down':
                     if (cy - length) <= x:
                         i = cy - length
                         S = (h + a + a) * i * ((i / 2) + length)
 
-                elif position == 'ACIMA':
+                elif position == 'up':
                     if (cy + length) >= x:
                         v = (cy + length)
                         S = (v * a * ((v / 2) + length)) * 2 
@@ -667,14 +667,14 @@ class HSection:
     def get_fibra(self, length, position):
         x, y, h, a, d, r = self.x, self.y, self.h, self.a, self.d, self.r
         cy = self.cy
-        if ((position == 'ACIMA') and (cy + length <= y + d + h)) or ((position == 'ABAIXO') and (cy - length >= 0)):
+        if ((position == 'up') and (cy + length <= y + d + h)) or ((position == 'down') and (cy - length >= 0)):
             if cy >= (h + d):
-                if position == 'ACIMA':
+                if position == 'up':
                     if (cy + length) < (y + d + h):
                         i = ((cy + length) - (y + h + d))
                         S = i * x * ((i/2) + length)
 
-                elif position == 'ABAIXO':
+                elif position == 'down':
                     if (cy - length) <= (d + h) and (cy - length) > d:
                         i = ( d + h) - (cy - length)
                         S = ((i * a * ((i / 2) + length)) + (d * r * ((d / 2) + i + length)))
@@ -688,7 +688,7 @@ class HSection:
                         S = (u * x * ((u / 2 ) + length)) + (h * a * ((h / 2) + u + length)) + d * r * ((d / 2) + h + u + length)
 
             elif (cy > d) and cy <= (d + h):     
-                if position =='ACIMA':      
+                if position =='up':      
                     if (cy + length) >= (d + h):
                         i = ( d + h + y) - (cy + length)
                         S = i * x * ((i / 2) + length)
@@ -697,7 +697,7 @@ class HSection:
                         i = (d + h) - (cy + length)
                         S = (y * x * ((y / 2) + i + length)) + (i * a * ((i / 2) + length))
 
-                elif position == 'ABAIXO':
+                elif position == 'down':
                     if (cy - length) > d:
                         v = (d + h) - ( cy - length)    
                         S = (v * a * ((v / 2) + length)) + (d * r * ((d / 2) + length))
@@ -707,12 +707,12 @@ class HSection:
                         S = v * r * ((v / 2) + length)
 
             elif ( cy <= d ):
-                if position == 'ABAIXO':
+                if position == 'down':
                     if ( cy - length) <= d:
                         g = (cy - length)
                         S = g * r * ((g / 2)+ length)
 
-                elif position == 'ACIMA':
+                elif position == 'up':
                     if (cy + length) >= (d + h):
                         i = (d + h + length) - (cy + length)
                         S = (i * x * ((i / 2)+ length))

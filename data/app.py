@@ -80,17 +80,17 @@ class App:
         """
 
         # Side Button
-        self.homeButtonImage = utilities.create_image(self, ['btn', 'home.png'])
+        self.homeButtonImage = utilities.create_image(self, ['btn', 'btn-home.png'])
         self.tButtonImage = utilities.create_image(self, ['btn', 'btn-t.png'])
         self.LButtonImage = utilities.create_image(self, ['btn', 'btn-l.png'])
         self.uButtonImage = utilities.create_image(self, ['btn', 'btn-u.png'])
         self.cButtonImage = utilities.create_image(self, ['btn', 'btn-c.png'])
         self.iButtonImage = utilities.create_image(self, ['btn', 'btn-i.png'])
         self.hButtonImage = utilities.create_image(self, ['btn', 'btn-h.png'])
-        self.infoButtonImage = utilities.create_image(self, ['btn', 'info-btn.png'])
+        self.infoButtonImage = utilities.create_image(self, ['btn', 'btn-info.png'])
 
         # Home Image
-        self.homeImage = utilities.create_image(self, ['general', 'img-home.png'])
+        self.homeImage = utilities.create_image(self, ['banners', 'img-home.png'])
 
         # Shapes Labels
         self.tShapeImage = utilities.create_image(self, ['sections', 'section-t.png'])
@@ -101,8 +101,8 @@ class App:
         self.RomanIShapeImage = utilities.create_image(self, ['sections', 'section-h.png'])
 
         #Menu Buttons
-        self.CalculateImage = utilities.create_image(self, ['btn', 'calculate.png'])
-        self.DiscardImage = utilities.create_image(self, ['btn', 'discard.png'])
+        self.CalculateImage = utilities.create_image(self, ['btn', 'btn-calculate.png'])
+        self.DiscardImage = utilities.create_image(self, ['btn', 'btn-discard.png'])
 
 
     def SideFramePacking(self):
@@ -920,8 +920,8 @@ class App:
             YcgL.pack(side=tk.LEFT, anchor='se', padx=(70, 0), pady=20)
 
             # Cria O Canvas Da Imagem Principal
-            CanvasWidth = 265
-            CanvasHeight = 819
+            CanvasWidth = 569
+            CanvasHeight = 700
             ShapeCanvas = tk.Canvas(ValueFrame, width=CanvasWidth, height=CanvasHeight, bg='#dbdbdb', bd=0, highlightthickness=0)
             ShapeCanvas.pack()            
 
@@ -971,8 +971,8 @@ class App:
             # WidthEntry.pack(side=tk.TOP, pady=(50, 25))
             # HeightEntry.pack(side=tk.RIGHT, anchor='n', pady=300, padx=30)
             cShapeLabel.pack()
-            aEntry.pack(side=tk.LEFT)
-            mEntry.pack(side=tk.RIGHT)
+            aEntry.pack(side=tk.LEFT, padx=10)
+            mEntry.pack(side=tk.RIGHT, padx=10)
 
             b1Entry.focus_set()
 
