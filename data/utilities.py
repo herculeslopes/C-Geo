@@ -1,6 +1,8 @@
 import screeninfo, ctypes, os
 from PIL import ImageTk, Image
 
+# ctypes.windll.shcore.SetProcessDpiAwareness(2)
+
 def get_screen_info():
     """ Define a resolução e taxa de zoom do display.
 
@@ -16,22 +18,22 @@ def get_screen_info():
     screen_resolution = screeninfo.get_monitors()[0].width, screeninfo.get_monitors()[0].height
 
     if screen_resolution == (1920, 1080):
-        if relative_resolution == screen_resolution: zoom_ration = 100
+        if relative_resolution == screen_resolution: zoom_ratio = 100
 
-        elif relative_resolution == (1536, 864): zoom_ration = 125
+        elif relative_resolution == (1536, 864): zoom_ratio = 125
 
-        elif relative_resolution == (1280, 720): zoom_ration = 150
+        elif relative_resolution == (1280, 720): zoom_ratio = 150
 
-        else: zoom_ration = 0
+        else: zoom_ratio = 0
 
     elif screen_resolution == (1280, 720):
-        if relative_resolution == relative_resolution: zoom_ration = 150
+        if relative_resolution == relative_resolution: zoom_ratio = 150
 
-        else: zoom_ration = 100
+        else: zoom_ratio = 100
 
-    else: zoom_ration = 100
+    else: zoom_ratio = 100
 
-    return screen_resolution, zoom_ration
+    return screen_resolution, zoom_ratio
 
 
 def create_image(self, path_elements, resize=None):

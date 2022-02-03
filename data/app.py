@@ -5,6 +5,7 @@ from .windows import win_info, win_fibra
 from . import widgets
 from .sections import *
 from os import path
+import ctypes
 
 class App:
     """ Classe principal do programa
@@ -26,7 +27,7 @@ class App:
         self.root.title(App.TITLE)
         self.root.iconbitmap(App.LOGO_PATH)
         self.root.state('zoomed')
-
+        
         self.SideFrame = tk.Frame(self.root, bg='#c9c9c9', width=90, bd=0)
         self.SideFrame.pack(side=tk.LEFT, fill=tk.Y)
         
