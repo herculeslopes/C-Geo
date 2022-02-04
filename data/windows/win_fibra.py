@@ -20,8 +20,8 @@ class FibraWindow():
         self.win_fibra['bg'] = '#dbdbdb'
         self.win_fibra.resizable(0, 0)
 
-        self.imgCalc = utilities.create_image(self.app, ['btn', 'calculate.png'])
-        self.imgDisc = utilities.create_image(self.app, ['btn', 'discard.png'])
+        self.imgCalc = utilities.create_image(self.app, ['btn', 'btn-calculate.png'])
+        self.imgDisc = utilities.create_image(self.app, ['btn', 'btn-discard.png'])
 
 
         self.label_fibra = Font(family='Calibri', size=16)
@@ -42,13 +42,13 @@ class FibraWindow():
 
         print(position)
 
-        if position == 'up':
+        if position == 'down':
             self.abButton['relief'] = tk.SUNKEN
             self.abButton['bg'] = '#B0B0B0'
             self.acButton['relief'] = tk.FLAT
             self.acButton['bg'] = '#8c8c8c'
 
-        elif position == 'down':
+        elif position == 'up':
             self.abButton['relief'] = tk.FLAT
             self.abButton['bg'] = '#8c8c8c'
             self.acButton['relief'] = tk.SUNKEN
@@ -111,7 +111,7 @@ class FibraWindow():
 
     def show_result(self):
         length = float(self.entryDist.get())
-        position = self.pos
+        position = self.position
 
         result = self.section.get_fibra(length, position)
 

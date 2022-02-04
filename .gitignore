@@ -1,7 +1,11 @@
-
-Main/run_fibra.py
-*.pyc
-Main/main copy.py
-Main/yml.py
-Main/config.yml
+.vscode/
 setups/
+build/
+dist/
+
+*.pyc
+PipFile
+Pipfile.lock
+inno-setup_c-geo
+inno-setup-c-geo-script.iss
+pyinstaller-command-line.txt

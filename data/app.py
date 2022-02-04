@@ -5,7 +5,6 @@ from .windows import win_info, win_fibra
 from . import widgets
 from .sections import *
 from os import path
-import ctypes
 
 class App:
     """ Classe principal do programa
